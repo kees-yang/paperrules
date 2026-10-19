@@ -1,0 +1,33 @@
+\begin{abstract}
+% Infrared and visible image fusion (IVIF) aims to synthesise complementary information from the two source modalities while preserving natural textures and salient thermal signatures simultaneously. 
+Infrared and visible image fusion(IVIF) combines complementary modalities while preserving natural textures and salient thermal signatures.
+Existing solutions predominantly rely on extensive sets of rigidly aligned image pairs for training. 
+However, acquiring such data is often impractical due to the costly and labour-intensive alignment process. 
+Besides, maintaining a rigid pairing setting during training restricts the volume of cross-modal relationships, thereby limiting generalisation performance.
+To this end, this work challenges the necessity of Strictly Paired Training Paradigm (SPTP) by systematically investigating UnPaired and Arbitrarily Paired Training Paradigms (UPTP and APTP) for high-performance IVIF. 
+We establish a theoretical objective of APTP, reflecting the complementary nature between UPTP and SPTP.
+More importantly, we develop a practical framework capable of significantly enriching cross-modal relationships even with severely limited and unaligned training data.  
+To validate our propositions, three end-to-end lightweight baselines, alongside a set of innovative loss functions, are designed to cover three classic frameworks (CNN, Transformer, GAN).
+Comprehensive experiments demonstrate that the proposed APTP and UPTP are feasible and capable of training models on a severely limited and content-inconsistent infrared and visible dataset, achieving performance comparable to that of a dataset 100$\times$ larger in SPTP. 
+This finding fundamentally alleviates the cost and difficulty of data collection while enhancing model robustness from the data perspective, delivering a feasible solution for IVIF studies. 
+The code is available at \href{https://github.com/yanglinDeng/IVIF_unpair}{\textcolor{blue}{https://github.com/yanglinDeng/IVIF\_unpair}}.
+
+\vspace{-5mm}
+% Infrared and visible image fusion (IVIF) aims to synthesise complementary information from the two inputs to preserve natural textures and salient thermal signatures simultaneously. 
+% While existing solutions predominantly rely on rigidly aligned image pairs for training, the acquisition of such data imposes significant practical constraints due to the cost of data collection and of the  laborious  alignment process. 
+% Motivated by this observation, this work challenges the necessity of strict pairing by investigating the merits of arbitrarily-paired image training for IVIF. 
+% In essence, we demonstrate that modality-specific and modality-agnostic content in unpaired fusion images can effectively be disentangled, and the result can provide valid supervision for any arbitrary pair. 
+% The experimental results provide supporting evidence for the validity of our scientific hypothesis and the proposed approach, with its scalable data utilisation. 
+% To facilitate practical implementation, we develop a lightweight end-to-end baselines built upon three baseline architectures, trained using classical loss functions for multi-modal feature preservation and gradient consistency. 
+% Extensive benchmarking evaluation demonstrates that our design outperforms state-of-the-art fusion approaches. 
+% This study redefines the data requirements for IVIF and provides a versatile foundation for real-world multi-modal fusion systems.
+
+ 
+
+
+% In essence, we demonstrate that modality-specific and modality-agnostic content in unpaired fusion images can effectively be disentangled, and the result can provide valid supervision for any arbitrary pair. 
+% The experimental evidence supports the merits of our arbitrarily-paired image training strategy in terms of reduced annotation costs and scalable data utilisation. 
+% To facilitate practical implementation, we develop lightweight end-to-end baselines built upon three baseline architectures, trained using classical loss functions for multi-modal feature preservation and gradient consistency. 
+% Extensive benchmarking evaluation validates that our design outperforms state-of-the-art fusion approaches. 
+% This study redefines data requirements for IVIF and provides a versatile foundation for real-world multi-modal fusion systems.
+\end{abstract}

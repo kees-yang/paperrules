@@ -1,0 +1,343 @@
+\section{Approach}
+In this section, UPTP and APTP are systematically analysed through theoretical definitions, working mechanisms, and essential properties, respectively. 
+Given the lack of prior research, we construct three baselines for comparative verification, which are based on three popular architectures, \textit{i.e.}, CNN, Transformer, and GAN.
+The detailed network structures are displayed in the supplementary material.
+\subsection{Loss Functions}
+Leveraging the pixel-level complementarity of source modalities, we devise loss functions that jointly enforce pixel fidelity, gradient texture, and structural perception. 
+Beyond loss items, it is crucial to guide the model in learning to choose suitable source clues and the combination ratio across modalities. 
+To enable the model to handle diverse inputs, we design a universal linear weighting function: 
+\begin{equation}
+    \scalebox{0.8}{$W(a;a,b) = \frac{a}{a+b},
+    \label{eq:weighting}$}
+\end{equation}
+where $a, b$ are the separate inputs to be measured. 
+Eqn.~\eqref{eq:weighting} allows the model to automatically decide, at every pixel and in every information scope (intensity, gradient, structure), which source image deserves more attention.  
+It preserves the relative magnitudes of source pixels for distortion-free results, thereby stabilising training by preventing gradient explosion and vanishing. 
+To leverage this, we design a set of adaptively weighted loss functions. 
+\vspace{-1mm}
+\begin{gather}
+    \left\{
+    \scalebox{0.8}{
+        $\begin{aligned}
+            P_{\mathrm{ir}}   &= W(I_{\mathrm{ir}}; I_{\mathrm{ir}}, I_{\mathrm{vis}}), \\
+            P_{\mathrm{vis}}  &= W(I_{\mathrm{vis}}; I_{\mathrm{ir}}, I_{\mathrm{vis}}),
+        \end{aligned}$
+    }
+    \right.
+    % \quad
+    \left\{
+     \scalebox{0.8}{$\begin{aligned}
+            G_{\mathrm{ir}}   &= W(\nabla I_{\mathrm{ir}}; \nabla I_{\mathrm{ir}}, \nabla I_{\mathrm{vis}}), \\
+            G_{\mathrm{vis}}  &= W(\nabla I_{\mathrm{vis}}; \nabla I_{\mathrm{ir}}, \nabla I_{\mathrm{vis}}),
+        \end{aligned}$}
+    \right.
+    \\
+    \left\{
+        \scalebox{0.8}{
+        $\begin{aligned}
+            S_{\mathrm{ir}}   &= W\bigl(\mathit{SSIM}(I_{\mathrm{ir}}, O); \mathit{SSIM}(I_{\mathrm{ir}}, O), \mathit{SSIM}(I_{\mathrm{vis}}, O)\bigr), \\
+            S_{\mathrm{vis}}  &= W\bigl(\mathit{SSIM}(I_{\mathrm{vis}}, O); \mathit{SSIM}(I_{\mathrm{ir}}, O), \mathit{SSIM}(I_{\mathrm{vis}}, O)\bigr).
+        \end{aligned}
+        $}
+    \right.
+    \\
+    \scalebox{0.8}{$
+      \begin{aligned}
+        &\mathcal{L}_{\mathrm{int}} = \frac{1}{HW} \bigl\| O - (P_{\mathrm{ir}} * I_{\mathrm{ir}} + P_{\mathrm{vis}} * I_{\mathrm{vis}}) \bigr\|_1 \\
+        &\mathcal{L}_{\mathrm{grad}} = \frac{1}{HW} \bigl\| \nabla O - (G_{\mathrm{ir}} * \nabla I_{\mathrm{ir}} + G_{\mathrm{vis}} * \nabla I_{\mathrm{vis}}) \bigr\|_1 \\
+        &\mathcal{L}_{\mathrm{ssim}} = \bigl\| 1 - \bigl(S_{\mathrm{ir}} * \mathit{SSIM}(I_{\mathrm{ir}}, O) + S_{\mathrm{vis}} * \mathit{SSIM}(I_{\mathrm{vis}}, O)\bigr) \bigr\|_1
+        \label{eqn:single_loss}
+    \end{aligned}$}
+\end{gather}
+
+
+
+
+They collectively form the total loss of the CNN ($\mathcal{L}_{C}$) and Transformer ($\mathcal{L}_{T}$) baselines:
+\begin{equation}
+\scalebox{0.8}{
+$\begin{split}
+   \mathcal{L}_{C} =   \mathcal{L}_{T} =  \mathcal{L}_{int}+ \alpha \mathcal{L}_{grad} + \beta \mathcal{L}_{ssim}.
+\end{split}$
+}
+  \label{eq:cnn loss}
+\end{equation}
+For the GAN baseline, a generator is used to generate the final fused image, which is trained by the adversarial loss ($\mathcal{L}_{adv}$) and the total loss ($\mathcal{L}_{G}$): 
+\begin{equation}
+   \scalebox{0.8}{$\mathcal{L}_{G} =  \mathcal{L}_{T} =  \mathcal{L}_{int}+ \alpha \mathcal{L}_{grad} + \beta \mathcal{L}_{ssim}- \lambda\mathcal{L}_{adv},$}
+\end{equation}
+where $\mathcal{L}_{adv}$ is detailed in the supplementary material.
+
+\subsection{Overview of strictly-paired IVIF}
+Given the strictly aligned source pairs, infrared image set $X^{ir} \subseteq R^{H \times W \times C}$ and visible image set $X^{vis}\subseteq R^{H \times W \times C}$, where $H$, $W$, $C$ represent the height, width, and the number of channels, the fusion model ($\mathcal{F}$) is expected to deliver an informative fusion output set $O\subseteq R^{H \times W \times C}$. 
+
+% \rr{As the individual probability models are statistically independent, their joint probability is proportional to the optimisation objective of the IVIF task (take the CNN baseline as an example): }
+By introducing the statistically independent probability of each loss function in Eqn.~\eqref{eqn:single_loss}, we can obtain their joint probability, which is proportional to the optimisation objective of the IVIF task (take the CNN baseline as an example):
+\vspace{-2mm}
+\begin{equation}
+\scalebox{0.85}{
+$\begin{split}
+     &\underset{\theta}{\arg \max}(\log p_{int}(O|\cdot) +\log p_{grad}(O|\cdot)+\log p_{ssim}(O|\cdot))
+     \\
+      &\propto \underset{\theta}{\arg \max}\log p(O|\cdot) (\cdot = X^{ir},X^{vis};\theta)  
+\end{split}$
+}
+  \label{eq:loss_pro_ob}
+\end{equation}
+Therefore, the process of maximising the joint probability is equivalent to minimising the total loss value: 
+\vspace{-2mm}
+\begin{equation}
+\scalebox{0.8}{$\underset{\theta}{arg\ max}\log p(O|\cdot) \Leftrightarrow\underset{\theta}{arg\ min} (\alpha  \mathcal{L}_{int}+\beta \mathcal{L}_{grad} +\mathcal{L}_{ssim}).
+  \label{eq:loss_eq_ob}$}
+\end{equation}
+By introducing the Bayes' theorem, the optimisation objective in Eqn.~\eqref{eq:loss_eq_ob} can be transformed into the combination of a likelihood item and a prior item: 
+\begin{equation}
+\scalebox{0.8}{$\underset{\theta}{arg\ max}\log p(X^{ir},X^{vis}|O;\theta)+\log p(O;\theta),$}
+\end{equation}
+where the likelihood measure the probability that the fused images retain from the source, and the prior depicts the image naturalness.
+Its element-wise form is as follows: 
+\begin{equation}
+\scalebox{0.8}{$\underset{\theta  }{arg\ max}\sum_{i=j=1}^{N}(\log p(x_{i}^{ir},x_{j}^{vis}|o_{ij};\theta  ) +\log p(o_{ij};\theta )),
+  \label{eq:pair_ob}$}
+\end{equation}
+where $x_{i}^{ir}\in X^{ir}$, $x_{i}^{vis}\in X^{vis} $, $o_{ij}\in O$.
+% $x_{i}^{ir}$ and $x_{i}^{vis}$ are captured simultaneously by visible and thermal cameras. 
+
+
+\subsection{Formulation of Arbitrarily-Paired IVIF}
+
+\label{sec:assumption}
+For the conventional SPTP, the model learns to fuse not only the modality characteristics, but also the specifically consistent scene and details. 
+In this case, a pair of source inputs should be synchronously captured with the same device setting. 
+If there is any misalignment, spatially or temporally, registration is required before or during fusion.
+
+% thermal radiation information and colorful texture details in the same scene. 
+% Hence, $x^{ir}_i$ and $x^{vis}_i$ are not independent of each other: 
+% complementary content and consistent scene information two modalities.
+
+Numerous studies demonstrate that training with strictly paired data is effective, but it is highly costly in labour and time.  
+To reduce data collection costs and improve data-use efficiency, we propose
+\textbf{ training the fusion model directly on a set of arbitrarily-paired infrared and visible images. }
+It can be achieved by directing the fusion model to focus on cross-modal characteristics rather than on rigid content. 
+This implies that what the model requires is merely cross-modal data, not necessarily being paired and aligned.  
+
+% During the training process, the fused image may appear counterintuitive. 
+% However, it does not mean the model fails to learn how to fuse infrared thermal radiation with the texture and color information present in the visible image. 
+% 
+% As long as the model is capable of fusing multi-modal characteristics, during the testing stage, it will present a normal fused image as the testing image pair is strictly paired.
+
+% Although the training data is not about the same target, the testing data is the same target. 
+% This arbitrarily-paired training will not influence the fusion of normally paired data as long as the model is capable of fusing multi-modality characteristics.   
+\begin{figure}[h]
+  \centering
+   \includegraphics[width=1\linewidth]{figs/loss2.png}
+
+   \caption{Training convergence and performance comparison between SPTP and UPTP on three baselines. }
+   \label{fig:loss}
+\vspace{-4mm}
+\end{figure}
+\begin{figure}[h]
+  \centering
+   \includegraphics[width=0.95\linewidth]{figs/visual_change.png}
+\vspace{-4mm}
+   \caption{Evolution of fusion results during CNN baseline training (SPTP \textit{v.s.} UPTP)  }
+   \label{fig:visual_change}
+\vspace{-5mm}
+\end{figure}
+\begin{figure}[h]
+  \centering
+   \includegraphics[width=0.9\linewidth]{figs/visual_example.png}
+\vspace{-4mm}
+   \caption{Fused images from baselines trained on SPTP and APTP }
+   \label{fig:visual_example}
+\vspace{-4mm}
+\end{figure}
+Drawing on this, $x^{ir}_i$ and $x^{vis}_i$ are independent of each other because they can be collected at different locations, at different times, and under different settings.
+Mathematically, the pairing relationship in a dataset is random.
+Therefore, the joint probability distribution can be decoupled into the product of two individual probability distributions:
+\begin{equation}
+\scalebox{0.8}{$p(x_{i}^{ir},x_{j}^{vis}) = p(x^{ir}_i)\cdot p(x^{vis}_j).
+  \label{eq:independent_form}$}
+\end{equation}
+Eqn.~\eqref{eq:pair_ob} can be formulated accordingly:
+\begin{equation}
+\scalebox{0.9}{$\begin{split}
+&\underset{\theta \prime }{arg\ max}\sum_{\forall i,j}^{N}(\log p(x_{i}^{ir}|o_{ij}^{\prime};\theta \prime ) +\log p(x_{j}^{vis}|o_{ij}^{\prime};\theta \prime ))
+\\
+& +\log p(o_{ij}^{\prime};\theta \prime)\propto \underset{\theta \prime}{arg\ max}\sum_{\forall i,j}^{N}\log p(o_{ij}^{\prime}|x_{i}^{ir},x_{j}^{vis};\theta \prime) ,
+\label{eq:unpair_ob}
+\end{split}$}
+\end{equation}
+% which is proportional to: 
+% \begin{equation}
+% \underset{\theta \prime}{arg\ max}\sum_{\forall i,j}^{N}\log p(o_{ij}^{\prime}|x_{i}^{ir},x_{j}^{vis};\theta \prime)  . 
+%   \label{eq:unpair_ob}
+% \end{equation}
+% When all data in the training set are completely unpaired($i \neq j$), we obtain the unpaired training paradigm(UPTP).  
+Given Eqn.~\eqref{eq:unpair_ob}, it is worth noting two theoretical observations, \textit{i.e.}, 1. The optimal model parameter set exists when the source inputs $\{x_i^{ir}\}_{i=1}^N$ and $\{x_j^{vis}\}_{j=1}^N$  are independent. 2. The traditional SPTP ($i=j$) and novel UPTP ($i \neq j$) are complementary subsets of the proposed APTP ($\forall i,j$). 
+We arrange the data relationship as follows, 
+\begin{equation}
+\scalebox{0.8}{
+$\mathcal{D}_{\text{APTP}}=
+\mathcal{D}_{\text{SPTP}}\cup\mathcal{D}_{\text{UPTP}}
+\text{with}
+\begin{cases}
+\mathcal{D}_{\text{SPTP}}=\{(x_i,x_j)\mid i=j\},\\[4pt]
+\mathcal{D}_{\text{UPTP}}=\{(x_i,x_j)\mid i\neq j\}.
+\end{cases}$
+}
+  \label{eq:unpair_data}
+\end{equation}
+It is clear that the proposal of arbitrarily paired training does not aim to overturn all previous image fusion work.
+Indeed, it introduces an extended fusion paradigm built upon the SPTP.
+Suppose the fusion model and training strategy are not tailored to any specific subset paradigm. 
+In that case, they remain applicable to all paradigms, which means that any procedure that suits APTP automatically suits SPTP and UPTP, but the converse does not necessarily hold. 
+\begin{figure}[t]
+  \centering
+   \includegraphics[width=1\linewidth]{figs/relation.png}
+
+   \caption{Explanation of relationship diversity.}
+   \label{fig:relation}
+\vspace{-4mm}
+\end{figure}
+\begin{figure*}[t]
+  \centering
+   \includegraphics[width=\linewidth]{figs/visual_1.png}
+\vspace{-8mm}
+   \caption{Qualitative comparison of three baselines (from top to bottom: CNN, Transformer, and GAN, respectively) under different training data settings on the LLVIP, M3FD, and MSRS test sets.}
+   \label{fig:visual1}
+\vspace{-4mm}
+\end{figure*}
+\begin{table*}
+  \caption{Qualitative generalisation results on the  LLVIP (250 pairs), MSRS (361 pairs) and M$^3$FD (420 pairs) test sets for three baseline models trained on MSRS with different training settings. Bold fonts indicate higher than their corresponding SPTP baseline groups.}
+  \centering
+  \label{tab:feasibility}
+  \setlength{\tabcolsep}{2pt}
+  \footnotesize
+  \begin{tabular}{c|c|ccc|ccccc|ccccc|ccccc} 
+  \hline 
+  \multirow{2}{*}{Datasets} &\multirow{2}{*}{Mode} & \multicolumn{3}{c|}{Quantity} & \multicolumn{5}{c|}{CNN} & \multicolumn{5}{c|}{Transformer} & \multicolumn{5}{c}{GAN} \\ 
+  \cline{3-20}
+   & & Paired Base & w/o Expanded & Trainable & EN & MI & VIF & Qabf & SSIM & EN & MI & VIF & Qabf & SSIM & EN & MI & VIF & Qabf & SSIM \\ 
+  \hline 
+
+
+  \multirow{7}{*}{MSRS} & SPTP & 150 & $\times$ & 150 & 6.54& 2.57 & 0.88 & 0.60 & 0.96 &6.53 & 2.44 & 0.86 & 0.59 & 0.98 & 6.52 & 2.17 & 0.75 & 0.51 & 0.90 \\ 
+    & UPTP & 150 & $\times$ & 150 & \br{6.59} & \br{2.62} & \br{0.90} & \br{0.61} & \br{0.97} &  \br{6.55} & \br{2.49} & \br{0.88} & \br{0.60} & 0.98  & \br{6.60} & 2.09 & 0.75 & 0.51 & \br{0.91} \\
+    
+  & UPTP & 150 & $\checkmark$&7500 & \br{6.56} & \br{2.69} & \br{0.92} & \br{0.65} & \br{0.98} & \br{6.56}& \br{2.69} &\br{0.92} & \br{0.65} & 0.98& \br{6.58}& \br{2.52} & \br{0.90} & \br{0.62} & \br{0.99} \\ 
+  
+  & UPTP & 150 &$\checkmark$ &15000 & \br{6.57} & \br{2.70} & \br{0.93} & \br{0.65} & \br{0.99} & \br{6.55} & \br{2.70} & \br{0.92} & \br{0.65} & 0.98 & \br{6.58} & \br{2.62} & \br{0.92} & \br{0.63} & \br{0.98} \\ 
+  \cline{2-20}
+  & SPTP & 15000 & $\times$&15000 & 6.59 & 2.70 & 0.93 & 0.65 & 0.98 & 6.55 & 2.78 & 0.93 & 0.66 & 0.97 & 6.57 & 2.60 & 0.92 & 0.64 & 0.99 \\ 
+  & APTP & 150 & $\checkmark$&15000 & 6.58& 2.69 & 0.93 & 0.65 & 0.98 & 6.54& 2.72 & 0.92 & 0.65 & \br{0.98} & 6.57 & 2.60 & 0.92 & 0.63 & \br{1.00} \\ 
+  
+\hline
+
+  \multirow{7}{*}{LLVIP} & SPTP & 150 & $\times$ & 150 & 7.37 & 2.27 & 0.78 & 0.57 & 0.81 & 7.29 & 2.16 & 0.77 & 0.58 & 0.83 & 7.08 & 1.84 & 0.65 & 0.44&0.72 \\ 
+  & UPTP & 150 & $\times$&150 & 7.33 & \br{2.29} & 0.78 & \br{0.59} & \br{0.81} & \br{7.38} & \br{2.18} & \br{0.78} & \br{0.59} & 0.82 & \br{7.33} & \br{1.87} & \br{0.69} & \br{0.46} & \br{0.76} \\
+  & UPTP & 150 & $\checkmark$&7500 & 7.31 & \br{2.48} & \br{0.84} & \br{0.63} & \br{0.90} & \br{7.31} & \br{2.41} & \br{0.82} & \br{0.63} & \br{0.89} & \br{7.26} & \br{2.29} &\br{0.76} & \br{0.60}&\br{0.83} \\ 
+  & UPTP & 150 & $\checkmark$&15000 & 7.30 & \br{2.54} & \br{0.85}& \br{0.63} & \br{0.91} & \br{7.31} & \br{2.46} & \br{0.85} & \br{0.63} & \br{0.91} & \br{7.29} & \br{2.49} & \br{0.80} & \br{0.60} & \br{0.86} \\ 
+  \cline{2-20}
+  & SPTP & 15000 & $\times$&15000 & 7.30 & 2.54 & 0.84 & 0.60 & 0.90 & 7.31 & 2.57 & 0.85 & 0.60 & 0.90 & 7.29 & 2.44 & 0.79 & 0.59 & 0.85 \\ 
+  & APTP & 150 & $\checkmark$&15000 & 7.30 & 2.54 & 0.84 & \br{0.62}&0.90 & \br{7.32} & 2.50 & 0.85 & \br{0.63} & 0.90 & 7.28 & \br{2.46} & 0.79 & \br{0.60} & 0.84 \\ 
+  
+  \hline
+
+    \multirow{7}{*}{M$^3$FD} 
+ & SPTP & 150 & $\times$&150 & 6.95 & 2.18 & 0.71 & 0.56 & 0.91 & 6.90 & 1.97 & 0.67 & 0.57 & 0.89 & 6.79 & 1.76 & 0.56 & 0.48 & 0.80 \\ 
+  & UPTP & 150 & $\times$&150 & 6.93&\br{2.20}&0.71&\br{0.57}&\br{0.93}& 6.90 & \br{2.14} & \br{0.68} & 0.56 & \br{0.90} & \br{6.93} & \br{1.77} & \br{0.59} & 0.48 & \br{0.82} \\
+  & UPTP & 150 &$\checkmark$& 7500 & 6.86& \br{2.40} & \br{0.73} & \br{0.58} & \br{0.98} & 6.83 & \br{2.34} & \br{0.72} & \br{0.58} & \br{0.96} & \br{6.87} & \br{2.21} & \br{0.70} &\br{0.57}&\br{0.94} \\ 
+  & UPTP & 150 &$\checkmark$& 15000 & 6.83 & \br{2.47} &\br{0.74} & \br{0.58} & \br{0.99} & \br{6.80} & \br{2.43} & \br{0.73} & \br{0.58} & 0.97 & \br{6.90} & \br{2.37} & \br{0.72} & \br{0.57} & \br{0.96}\\ 
+  \cline{2-20}
+  & SPTP & 15000 & $\times$&15000 & 6.89 & 2.49 & 0.75 & 0.57 & 0.98 & 6.82 & 2.50 & 0.75 & 0.56 & 0.97 & 6.92 & 2.36 & 0.71 & 0.56&0.95 \\ 
+  & APTP & 150 & $\checkmark$&15000 & 6.86 & 2.43 & 0.73 & 0.57 & 0.98& 6.81& 2.41 & 0.73 & \br{0.58} & 0.96 & 6.91 & \br{2.37} & \br{0.72} & \br{0.57} & \br{0.96} \\ 
+
+  \hline
+  \end{tabular}
+  \vspace{-3mm}
+\end{table*}
+\subsection{Arbitrarily-Paired Training Paradigm}
+\label{sec:essence}
+ 
+\subsubsection{Working mechanism of APTP}
+In the image fusion field, parameters of a fusion model are continuously updated according to the designed supervision.  
+% After several iterations, the learned parameters are almost satisfied with the ability explicitly pre-required by loss functions. 
+In accordance with the conventional SPTP framework, the loss value is derived from the pixel intensities of images acquired under strictly consistent spatiotemporal conditions.
+In contrast, the proposed APTP approach eliminates the need for consistent spatio-temporal imaging settings, thereby enabling supervision from arbitrary cross-modal images via pixel-level supervision. 
+% \rr{Conversely, under APTP, the paired pixels used to update the model parameters are drawn at random, so they may not depict the same target, or may even depict entirely different ones. }
+However, it does not impede the model from acquiring the required capability, provided that neither the loss functions nor the training strategy are explicitly tailored to enforce cross-modal content consistency (SPTP) or inconsistency (UPTP). 
+This is because, in this case, what we use to compute the loss function value is just a desired combination of pixel values, and this combination exhibits different data relationships for different forms of loss functions. 
+Therefore, \textbf{even if the trainable images are captured arbitrarily, it does not prevent them from providing trainable pixel relationships to supervise the training of the model.}
+% Let’s observe it from the perspective of data distributions. \textbf{To the model, the images it processes are merely sets of pixel values within a certain range; 
+% pixels from different modalities follow distinct distributions, and the model simply learns to fuse these distinct yet complementary distributions under the guidance of the loss.} 
+% For example, the calculation of $\mathcal{L}_{int}$ requires the fused image to approximate a pseudo pixel combination.
+% , and in essence, it is a pixel-level adaptive compromise between two images. 
+As the pixels highlighted by the red circle ~\cref{fig:relation}, different pixel combinations from SPTP and UPTP can provide distinct computational bases for each loss function, whether derived from spatio-temporally aligned or unaligned images. 
+% \rr{Assuming that the infrared and visible images each contain only two pixels, and the training dataset includes only two pairs of images, with the model's loss function using only $\mathcal{L}_{int}$. 
+% Whether the image pair is paired or unpaired, for this function, the input is nothing more than pixel pairs with varying relationships.}
+
+The working mechanism can be observed through the loss convergence curves and the progressive changes in visualisation results. 
+As the data relationship expressed by Eqn.~\eqref{eq:unpair_data} implies, any method or strategy suited to both SPTP and UPTP is necessarily valid for APTP, therefore, we restrict our comparative analysis to SPTP and UPTP.
+
+% \cref{fig:explaination} illustrates the loss convergence and performance change of three baselines under SPTP and UPTP with modality-specific visualisations. 
+In terms of the model convergence, \cref{fig:loss} (a), (c), (e) display the total training loss convergence of three baseline models. 
+It is clear that with the same setting, the three baselines exhibit similar convergence behaviour in terms of both speed and final value under both SPTP and UPTP training. 
+% \rr{The starting point of convergence is even very close, the only difference lies in the specific values of the loss, which largely depend on the pairing relationship. }
+% \rr{What about the learning of the required ability. 
+% We take the $\mathcal{L}_{ssim}$ as an example, which constrains the model to learn the preservation of structural similarity between source modalities by maximising the $SSIM$ value between the fused image and the source images. }
+Theoretically, the fusion performance is expected to improve progressively throughout training. 
+To quantitatively assess the integration of luminance, contrast, and structural information, we employ the Structural Similarity (SSIM) index as an evaluation metric. 
+As illustrated in \cref{fig:loss} (b), (d), and (f), the SSIM values under both training paradigms exhibit a consistent upward trend on the test set before eventually converging. 
+Notably, although UPTP employs unpaired images during training, leading to visually chaotic intermediate fusion results, this does not impede the model's ability to learn meaningful fusion representations. 
+When evaluated on paired test images, the outputs are both visually coherent and achieve SSIM scores comparable to those under standard training conditions. 
+This observation substantiates our claim that effective fusion models can be learned even in the absence of strictly aligned data.
+% Ideally, the mean SSIM value between the fused image and the source image pair should progressively increase within a certain range. 
+% \cref{fig:loss} (b), (d), (f)  give the actual answer. 
+% Throughout iterative training, the model’s ability to fuse illumination, contrast, and structure from the source modalities gradually improves until it saturates under both training paradigms. 
+
+% It is worth noting that the saturation value of the arbitrarily-paired training is commonly lower than the traditional strictly-paired training. 
+% Because the fused image of the two irrelevant images is a chaos state,  
+\cref{fig:visual_change} (b)~(d) present the visualisation of thermal and texture information in the fused images during training, further illustrating the progressive improvement achieved under the UPTP paradigm. 
+In the initial training phase, both paradigms struggle to effectively integrate key thermal and texture information. 
+Models trained with UPTP, in particular, exhibit visually chaotic outputs due to the lack of explicit pairing. 
+As training proceeds with effective supervision, the fusion quality gradually improves, yielding clearer and more distinct thermal targets—such as utility poles, trucks, and trash bins—as well as enhanced texture details like road markings and overpass structures. 
+Notably, even at early and intermediate stages (\textit{e.g.}, iterations 20 and 80), the model trained with arbitrarily paired data surpasses the strictly-paired model in certain aspects, displaying more recognisable thermal signatures of objects and sharper texture edges in elements such as roads and utility poles.
+
+To showcase the capabilities of the final trained model, \cref{fig:visual_example}(b)~(d) compare normal as well as abnormal fused images produced by SPTP and UPTP, respectively.
+The red boxes show that both of the models trained by SPTP and UPTP can successfully retain the thermal radiation information ({\em e.g.,} people, shining light) contained in the infrared modality. 
+The yellow and green boxes demonstrate that they can retain both the texture details and infrared clues ({\em e.g.,} walking people, the person riding a bike, and the bus) contained in the two modalities. 
+
+\subsubsection{Essential advantages}
+
+
+% Considering the task intuition, the fusion model requires inputs from both modalities to produce a fused output. 
+The inherent randomness of APTP introduces the potential for reconfiguring cross-modal pairing relationships. 
+Then, the Eqn.~\eqref{eq:unpair_ob} can be reformulated as follows: 
+\begin{footnotesize}
+\begin{equation}
+\underset{\theta \prime\prime}{arg\ max}\sum_{i=1}^{N}\sum_{j=1}^{N}\log p(o_{ij}^{\prime\prime}|x_{i}^{ir},x_{j}^{vis};\theta \prime\prime) . 
+\label{eq:data_scale}
+\end{equation}
+\end{footnotesize}
+Eqn.~\eqref{eq:data_scale} theoretically demonstrates that the base paired datasets $\{x_i^{ir}\}_{i=1}^N$ and $\{x_j^{vis}\}_{j=1}^N$ (with $i=j$) can be expanded to its squared form by pairing all possible image pairs  $\{x_i^{ir}\}_{i=1}^N$ and $\{x_j^{vis}\}_{j=1}^N$ (with $\forall i,j$), yielding a ratio of paired to unpaired data of $1:(N-1)$.  
+In principle, the proposed method offers three key advantages: (1) It enables effective scaling of base datasets even when initial data volumes are limited; (2) It enriches intra-dataset relationships to a certain degree, thereby improving model robustness;
+% \textcolor{Fuchsia}{(3) Fusion models can be trained with readily available datasets, even when modalities originate from different scenarios}; 
+(3) Data acquisition costs are significantly reduced, particularly for rare data collected under challenging conditions.
+
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[width=1\linewidth]{figs/cross.png}
+\vspace{-4mm}
+   \caption{Visualisation of fused images: cross-dataset unpaired training \textit{v.s.} single-dataset strictly-paired training models. 
+   }
+   \label{fig:cross}
+\vspace{-4mm}
+\end{figure}
+
+As outlined in \cref{sec:intro}, under the traditional strictly-paired training paradigm (SPTP), the representational capacity of a model is constrained by the limited cross-modal relationships present in the dataset. 
+In contrast, as shown in \cref{fig:relation}, the arbitrarily-paired training paradigm (APTP) enables the model to capture a quadratically growing set of relationships due to its flexible cross-modal matching mechanism.
+Consequently, models trained with APTP exhibit stronger generalisation capabilities. 
+While real strictly-paired datasets may contain more images, the learnable relationships remain constrained by their fixed pairing structure.
+Through APTP, the model can derive novel relational patterns beyond those available in the original data, thereby enhancing its ability to generalise.

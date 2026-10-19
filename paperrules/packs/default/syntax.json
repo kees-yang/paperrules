@@ -1,0 +1,7 @@
+{
+ "note": "Settings of the spaCy structure rules W10 (passive), W11 (late condition) and W14–W16. Sentences of these kinds are not checked.",
+ "skip_kinds": [
+  "figure",
+  "table"
+ ]
+}

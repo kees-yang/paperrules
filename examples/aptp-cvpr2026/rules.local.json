@@ -1,0 +1,44 @@
+{
+ "note": "Local rules of this example. Everything here is merged onto the default pack; the keys ending in _add extend a list or dict of the pack.",
+
+ "enable": ["J1", "T5", "A6"],
+ "disable": [],
+ "severity": {"W6": "warn", "T2": "warn"},
+
+ "document": {"J1": {"min": 150, "max": 250}},
+
+ "heads": {
+  "names_add": ["ivif", "sptp", "uptp", "aptp", "cnn", "gan", "msrs", "llvip", "tno", "mxfd", "m3fd", "roadscene", "mi", "en", "vif", "qabf", "sd", "scd"],
+  "general_nouns_add": {
+   "robustness": "model robustness", "efficiency": "data or computation efficiency", "capability": "what a model can do", "ability": "what a model can do",
+   "volume": "amount of data", "amount": "amount of data", "size": "size of a dataset", "diversity": "diversity of training data", "quality": "image quality",
+   "evidence": "supporting evidence", "supervision": "a supervision signal", "mechanism": "a working mechanism", "combination": "a combination of inputs",
+   "setting": "an experimental setting", "condition": "a condition", "collection": "data collection", "registration": "image registration",
+   "solution": "a proposed solution", "content": "image content", "contrast": "thermal contrast", "difference": "a difference", "nature": "a property",
+   "probability": "a probability", "distribution": "a probability distribution", "signal": "a training signal", "clue": "a source clue",
+   "perspective": "a point of view", "absence": "a missing item", "lack": "a missing item", "fact": "a fact", "conclusion": "a conclusion",
+   "observation": "an observation", "degree": "a degree", "scope": "a scope", "parameter": "a model parameter", "architecture": "a network architecture",
+   "block": "a network block", "pixel": "an image pixel", "convergence": "training convergence", "target": "a target in an image", "element": "an element",
+   "characteristic": "a characteristic", "subset": "a subset of data", "consistency": "consistency", "merit": "a merit", "generation": "image generation"
+  }
+ },
+
+ "rules_add": [
+  {
+   "id": "U1", "stage": "S4", "node": "wording", "scope": "sentence", "method": "auto", "severity": "warn",
+   "statement": {"en": "Write “vs.” (not “v.s.”).", "zh": "写“vs.”，不写“v.s.”。"},
+   "why": {"en": "One spelling of the abbreviation across the paper.", "zh": "全文同一种缩写写法。"},
+   "check": {"type": "pattern", "pattern": ["\\bv\\.s\\.?"], "message": "write vs.:"},
+   "tests": {"flag": ["The network is compared v.s. the baseline."], "pass": ["The network is compared vs. the baseline."]}
+  },
+  {
+   "id": "U2", "stage": "S4", "node": "tone", "scope": "sentence", "method": "auto", "severity": "warn",
+   "statement": {"en": "Do not open a sentence with “Besides,” — use “In addition,” or restructure.", "zh": "不以“Besides,”开头——用“In addition,”或重组句子。"},
+   "why": {"en": "“Besides” reads as an afterthought; the next idea should follow from the one before.", "zh": "“Besides”像事后补充；下一个观点应由前一个观点引出。"},
+   "check": {"type": "pattern", "pattern": ["^Besides,"], "flags": "", "message": "sentence opens with:", "skip_kinds": ["figure", "table"]},
+   "tests": {"flag": ["Besides, the data are costly."], "pass": ["In addition, the data are costly.", "Nobody sits besides the road."]}
+  }
+ ],
+
+ "tone": {"W8": {"patterns_add": []}}
+}

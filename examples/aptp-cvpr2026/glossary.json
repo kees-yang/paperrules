@@ -1,0 +1,110 @@
+{
+ "note": "Illustrative glossary written for this example to show how rules A3, A6 and A7 use it. It is not the authors' terminology.",
+ "terms": [
+  {
+   "id": "C01",
+   "en": "infrared and visible image fusion",
+   "zh": "红外与可见光图像融合",
+   "aliases_en": [
+    "IVIF",
+    "image fusion",
+    "fusion task"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C02",
+   "en": "fused image",
+   "zh": "融合图像",
+   "aliases_en": [
+    "fusion output"
+   ],
+   "allowed": [],
+   "avoid_en": [
+    "fusion result",
+    "fusion results"
+   ]
+  },
+  {
+   "id": "C03",
+   "en": "source image",
+   "zh": "源图像",
+   "aliases_en": [
+    "infrared image",
+    "visible image",
+    "infrared source",
+    "visible source"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C04",
+   "en": "training paradigm",
+   "zh": "训练范式",
+   "aliases_en": [
+    "SPTP",
+    "UPTP",
+    "APTP",
+    "strictly paired training paradigm",
+    "unpaired training paradigm",
+    "arbitrarily paired training paradigm"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C05",
+   "en": "image pair",
+   "zh": "图像对",
+   "aliases_en": [
+    "training pair",
+    "pairing"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C06",
+   "en": "baseline",
+   "zh": "基线",
+   "aliases_en": [
+    "baseline model"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C07",
+   "en": "modality",
+   "zh": "模态",
+   "aliases_en": [
+    "cross-modal relationship"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C08",
+   "en": "loss function",
+   "zh": "损失函数",
+   "aliases_en": [
+    "loss item"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  },
+  {
+   "id": "C09",
+   "en": "dataset",
+   "zh": "数据集",
+   "aliases_en": [
+    "test set",
+    "training set"
+   ],
+   "allowed": [],
+   "avoid_en": []
+  }
+ ]
+}

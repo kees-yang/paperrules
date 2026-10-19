@@ -1,0 +1,15 @@
+paperrules
+Copyright (c) 2026 paperrules contributors. Code under the MIT License (see LICENSE).
+
+Third-party material
+--------------------
+examples/aptp-cvpr2026/paper/ contains the LaTeX sources (main.tex, preamble.tex, sec/*.tex, main.bib) of
+
+  Yanglin Deng, Tianyang Xu, Chunyang Cheng, Hui Li, Xiao-jun Wu, Josef Kittler.
+  "Beyond Strict Pairing: Arbitrarily Paired Training for High-Performance Infrared and Visible Image Fusion."
+  CVPR 2026. arXiv:2603.21820 (https://arxiv.org/abs/2603.21820).
+
+The paper is licensed under the Creative Commons Attribution 4.0 International license
+(https://creativecommons.org/licenses/by/4.0/), as stated on its arXiv page. The sources are included unchanged;
+figures and the CVPR style files (cvpr.sty, ieeenat_fullname.bst) are omitted. The authors of the paper do not endorse
+this repository. The sentences of the paper also appear in examples/aptp-cvpr2026/expected/ (the reference output).

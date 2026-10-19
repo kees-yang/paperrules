@@ -1,0 +1,11 @@
+{
+ "exceptions": [
+  {
+   "rule": "A3",
+   "status": "accepted",
+   "reason": "Here “fusion results” means the reported scores of the two training paradigms, not the fused image itself.",
+   "decided": "2026-10-19",
+   "sentence_en": "As reported in Table 1 (rows 1–2 in each group), the fusion results under SPTP and UPTP are nearly identical across five evaluation metrics on all three datasets."
+  }
+ ]
+}

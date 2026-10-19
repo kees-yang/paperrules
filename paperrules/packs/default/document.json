@@ -1,0 +1,52 @@
+{
+ "note": "Settings of the document rules. Venue-dependent rules (J1, J3, E6, B4, T5) are switched off in the register; enable them with \"enable\" and set the numbers here or in rules.local.json.",
+ "J1": {
+  "min": 150,
+  "max": 250
+ },
+ "J3": {
+  "min": 1,
+  "max": 7
+ },
+ "E6": {
+  "max_numbers": 3
+ },
+ "B7": {
+  "required": {
+   "article": [
+    "author",
+    "title",
+    "journal",
+    "year"
+   ],
+   "inproceedings": [
+    "author",
+    "title",
+    "booktitle",
+    "year"
+   ],
+   "conference": [
+    "author",
+    "title",
+    "booktitle",
+    "year"
+   ],
+   "book": [
+    "author|editor",
+    "title",
+    "publisher",
+    "year"
+   ],
+   "misc": [
+    "title",
+    "year"
+   ],
+   "default": [
+    "title",
+    "year"
+   ]
+  },
+  "complete_authors": true,
+  "initials": false
+ }
+}

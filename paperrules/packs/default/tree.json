@@ -1,0 +1,205 @@
+{
+ "note": "The rule tree: stages are read top-down. A change enters at the highest stage whose inputs it touches; every stage below it is checked again. A failing stage makes every stage below it provisional: revise the highest failing stage first.",
+ "principles": [
+  {
+   "en": "Read the tree top-down: sources → thread → paragraphs → sentences → format → the rule system itself.",
+   "zh": "自上而下读规则树：源头 → 主线 → 段落 → 句子 → 格式 → 规则系统本身。"
+  },
+  {
+   "en": "Revise at the highest failing stage; rewriting a sentence is wasted when its paragraph or claim will change.",
+   "zh": "在最高的未通过层修改；段落或主张将改动时，不要先改句子。"
+  },
+  {
+   "en": "Every rule sits in the tree exactly once (rule R0); every testable rule must catch its own test sentences (rule R1).",
+   "zh": "每条规则在树中只出现一次（规则R0）；每条可测试的规则须抓住自己的测试句（规则R1）。"
+  }
+ ],
+ "stages": [
+  {
+   "id": "S1",
+   "name": {
+    "en": "Sources: references and glossary",
+    "zh": "源头：参考文献与术语表"
+   },
+   "role": {
+    "en": "foundation",
+    "zh": "地基"
+   },
+   "when": {
+    "en": "when a reference entry or a term changes",
+    "zh": "改参考文献条目或术语时"
+   },
+   "nodes": [
+    {
+     "id": "refs",
+     "name": {
+      "en": "Bibliography entries and citations",
+      "zh": "参考文献条目与引用"
+     }
+    },
+    {
+     "id": "glossary",
+     "name": {
+      "en": "Glossary and its use",
+      "zh": "术语表及其应用"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S2",
+   "name": {
+    "en": "Thread: abstract and claims",
+    "zh": "主线：摘要与主张"
+   },
+   "role": {
+    "en": "skeleton",
+    "zh": "骨架"
+   },
+   "when": {
+    "en": "when the abstract, the introduction, the conclusion or a claim changes",
+    "zh": "改摘要、引言、结论或主张时"
+   },
+   "nodes": [
+    {
+     "id": "abstract",
+     "name": {
+      "en": "Abstract",
+      "zh": "摘要"
+     }
+    },
+    {
+     "id": "claims",
+     "name": {
+      "en": "Claims and evidence",
+      "zh": "主张与证据"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S3",
+   "name": {
+    "en": "Paragraphs",
+    "zh": "段落"
+   },
+   "role": {
+    "en": "between skeleton and sentences",
+    "zh": "骨架与句子之间"
+   },
+   "when": {
+    "en": "when paragraphs are added, moved or rewritten",
+    "zh": "增删、移动或改写段落时"
+   },
+   "nodes": [
+    {
+     "id": "paragraph",
+     "name": {
+      "en": "Paragraph content and repetition",
+      "zh": "段落内容与重复"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S4",
+   "name": {
+    "en": "Sentences: structure, voice, tone, wording",
+    "zh": "句子：结构、语态、语气、用词"
+   },
+   "role": {
+    "en": "flesh",
+    "zh": "血肉"
+   },
+   "when": {
+    "en": "when a sentence is added or rewritten",
+    "zh": "增改句子时"
+   },
+   "nodes": [
+    {
+     "id": "structure",
+     "name": {
+      "en": "Sentence structure",
+      "zh": "句子结构"
+     }
+    },
+    {
+     "id": "voice",
+     "name": {
+      "en": "Voice and person",
+      "zh": "语态与人称"
+     }
+    },
+    {
+     "id": "tone",
+     "name": {
+      "en": "Tone and filler",
+      "zh": "语气与空话"
+     }
+    },
+    {
+     "id": "wording",
+     "name": {
+      "en": "Wording and head nouns",
+      "zh": "用词与中心名词"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S5",
+   "name": {
+    "en": "Format: abstract limits, floats, cross-references",
+    "zh": "格式：摘要限制、图表、交叉引用"
+   },
+   "role": {
+    "en": "delivery",
+    "zh": "交付"
+   },
+   "when": {
+    "en": "when figures, tables, labels or venue limits change",
+    "zh": "改图表、标签或期刊限制时"
+   },
+   "nodes": [
+    {
+     "id": "venue",
+     "name": {
+      "en": "Venue limits",
+      "zh": "期刊限制"
+     }
+    },
+    {
+     "id": "floats",
+     "name": {
+      "en": "Figures, tables and references",
+      "zh": "图表与交叉引用"
+     }
+    }
+   ]
+  },
+  {
+   "id": "S6",
+   "name": {
+    "en": "The rule system itself",
+    "zh": "规则系统本身"
+   },
+   "role": {
+    "en": "records",
+    "zh": "记录"
+   },
+   "when": {
+    "en": "when a rule is added, changed or removed",
+    "zh": "增删改规则时"
+   },
+   "nodes": [
+    {
+     "id": "register",
+     "name": {
+      "en": "Register and tests",
+      "zh": "规则登记与测试"
+     }
+    }
+   ]
+  }
+ ]
+}

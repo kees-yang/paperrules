@@ -1,0 +1,10 @@
+{
+ "main_tex": "paper/main.tex",
+ "bib": "paper/main.bib",
+ "packs": ["default"],
+ "glossary": "glossary.json",
+ "limitation_sections": ["limitation", "discussion", "conclusion"],
+ "local_rules": "rules.local.json",
+ "exceptions": "exceptions.json",
+ "output": "out"
+}

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paperrules"
+version = "0.1.0"
+description = "Rule-based writing checks for LaTeX papers: a customizable rule tree, sentence/paragraph/document rules, and offline reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["spacy>=3.7,<4"]
+
+[project.scripts]
+paperrules = "paperrules.cli:main"
+
+[tool.setuptools]
+packages = ["paperrules"]
+
+[tool.setuptools.package-data]
+paperrules = ["packs/*/*.json"]

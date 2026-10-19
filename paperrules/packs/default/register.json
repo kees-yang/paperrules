@@ -1,0 +1,915 @@
+{
+ "schema": "paperrules-register/1",
+ "note": "The single register of rules: id, stage and node of the rule tree, scope (sentence, paragraph, document), method (auto, partial, manual), default severity (error or warn), bilingual statement and reason, how it is checked, and test sentences. Add your own rules in rules.local.json (rules_add); see docs/customizing-rules.md.",
+ "rules": [
+  {
+   "id": "B1",
+   "stage": "S1",
+   "node": "refs",
+   "scope": "document",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "Every cited key exists in the bibliography.",
+    "zh": "每个被引用的键都在参考文献库中。"
+   },
+   "why": {
+    "en": "A missing key prints as [?] in the PDF.",
+    "zh": "缺失的键会在PDF中显示为[?]。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "bib_citations"
+   }
+  },
+  {
+   "id": "B8",
+   "stage": "S1",
+   "node": "refs",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Every bibliography entry is cited.",
+    "zh": "参考文献库中的每个条目都被引用。"
+   },
+   "why": {
+    "en": "An uncited entry is dead weight, or a citation was lost during editing.",
+    "zh": "未被引用的条目要么多余，要么是修改中丢失了引用。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "bib_citations"
+   }
+  },
+  {
+   "id": "B9",
+   "stage": "S1",
+   "node": "refs",
+   "scope": "document",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "No duplicate keys in the bibliography.",
+    "zh": "参考文献库中没有重复的键。"
+   },
+   "why": {
+    "en": "BibTeX keeps one entry silently and the other is lost.",
+    "zh": "BibTeX会悄悄保留一条，另一条丢失。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "bib_entries"
+   }
+  },
+  {
+   "id": "B7",
+   "stage": "S1",
+   "node": "refs",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Bibliography entries are complete: required fields present, full author lists; optional: given names as initials.",
+    "zh": "参考文献条目完整：必备字段齐全、作者列表完整；可选：名用首字母。"
+   },
+   "why": {
+    "en": "Incomplete entries cannot be verified and print inconsistently. Required fields per entry type are set in document.json.",
+    "zh": "条目不完整就无法核对，排版也不一致。各条目类型的必备字段在document.json中设置。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "bib_entries"
+   }
+  },
+  {
+   "id": "B4",
+   "stage": "S1",
+   "node": "refs",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Bibliography entries carry no DOI or URL (venue style).",
+    "zh": "参考文献条目不含DOI与URL（视期刊格式）。"
+   },
+   "why": {
+    "en": "Some venues print references without DOI or URL.",
+    "zh": "部分期刊的参考文献不印DOI与URL。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "bib_entries"
+   },
+   "enabled": false
+  },
+  {
+   "id": "A3",
+   "stage": "S1",
+   "node": "glossary",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The text uses the glossary term, not the old name or alias (glossary field avoid_en).",
+    "zh": "全文使用术语表中的主术语，不用旧名与别名（术语表字段avoid_en）。"
+   },
+   "why": {
+    "en": "One concept, one name: the reader should never wonder whether two names mean two things.",
+    "zh": "一个概念一个名称：读者不应疑惑两个名称是否指两件事。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "glossary_terms"
+   },
+   "tests": {
+    "flag": [],
+    "pass": [
+     "The table lists each baseline."
+    ]
+   }
+  },
+  {
+   "id": "W1",
+   "stage": "S2",
+   "node": "abstract",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "The abstract states, in order: the state of the field, the gap, the motivation, the method, the results.",
+    "zh": "摘要按顺序写：研究现状、不足、动机、方法、结果。"
+   },
+   "why": {
+    "en": "A reader who stops after the abstract should still know why the work exists and what it found.",
+    "zh": "只读摘要的读者也应知道这项工作为什么存在、发现了什么。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "E6",
+   "stage": "S2",
+   "node": "abstract",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The abstract carries at most a few numbers (document.json: E6.max_numbers).",
+    "zh": "摘要只写少数几个数字（document.json：E6.max_numbers）。"
+   },
+   "why": {
+    "en": "Three numbers are remembered; ten are not.",
+    "zh": "三个数字能记住，十个记不住。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "abstract"
+   },
+   "enabled": false
+  },
+  {
+   "id": "W4",
+   "stage": "S2",
+   "node": "claims",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "The conclusion echoes the abstract and adds no new claim.",
+    "zh": "结论回扣摘要，不引入新的主张。"
+   },
+   "why": {
+    "en": "The paper should end where it said it would go.",
+    "zh": "论文应在摘要所说的地方结束。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "W6",
+   "stage": "S2",
+   "node": "claims",
+   "scope": "sentence",
+   "method": "partial",
+   "severity": "warn",
+   "statement": {
+    "en": "A comparative or superiority claim is traced to a table, a figure or a citation (the checker flags; the author decides).",
+    "zh": "比较性或优势性表述须有依据：表、图或引用（自动标出，作者判断）。"
+   },
+   "why": {
+    "en": "Unsupported superlatives are the first thing a reviewer attacks.",
+    "zh": "没有依据的最高级表述最先被审稿人质疑。"
+   },
+   "check": {
+    "type": "pattern",
+    "pattern": [
+     "\\b(state-of-the-art|SOTA|outperform(s|ed|ing)?|superior(ity)?|surpass(es|ed|ing)?|significantly|substantially|remarkabl[ey]|dominates?|beats?)\\b"
+    ],
+    "message": "claim to support:",
+    "skip_sections": [
+     "related work",
+     "background",
+     "introduction"
+    ],
+    "skip_kinds": [
+     "figure",
+     "table"
+    ]
+   },
+   "tests": {
+    "flag": [
+     "The method significantly outperforms all baselines."
+    ],
+    "pass": [
+     "The table lists each baseline."
+    ]
+   }
+  },
+  {
+   "id": "W2",
+   "stage": "S3",
+   "node": "paragraph",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "In the introduction the problem and the motivation each have their own paragraph, both before the method.",
+    "zh": "引言中“问题”与“动机”各成一段，均在“方法”段之前。"
+   },
+   "why": {
+    "en": "The reader should accept the problem before meeting the solution.",
+    "zh": "读者应先接受问题，再见到方法。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "F2",
+   "stage": "S3",
+   "node": "paragraph",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "No sentence is printed twice.",
+    "zh": "同一句话不出现两次。"
+   },
+   "why": {
+    "en": "A repeated sentence usually means a paragraph was copied and not rewritten.",
+    "zh": "重复句通常说明段落被复制而没有改写。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "repeated"
+   },
+   "tests": {
+    "flag": [],
+    "pass": [
+     "The table lists each baseline."
+    ]
+   }
+  },
+  {
+   "id": "O2",
+   "stage": "S3",
+   "node": "paragraph",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "The discussion answers the research question and does not list limitations item by item.",
+    "zh": "讨论回答研究问题，不逐条罗列局限。"
+   },
+   "why": {
+    "en": "An itemized limitation list invites the reviewer to take each item as a reason to reject.",
+    "zh": "逐条罗列局限会让审稿人把每一条都当作拒稿理由。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "W14",
+   "stage": "S4",
+   "node": "structure",
+   "scope": "sentence",
+   "method": "partial",
+   "severity": "warn",
+   "statement": {
+    "en": "One main action per sentence: at most two finite clauses (a main clause plus one complete supporting clause), no clause nested in a subordinate clause, no “which” that refers to a whole clause. Flagged sentences are rewritten or kept with a written reason.",
+    "zh": "一句一个主要动作：至多两个限定小句（主句加一个完整从句），不嵌套从句，不用指代整句的which；标出的句子改写，或写明理由后保留。"
+   },
+   "why": {
+    "en": "A sentence that carries two actions makes the reader decide which one matters.",
+    "zh": "一句话承担两个动作，读者要自己判断哪个重要。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The loss combines a pixel term and a gradient term, which lets the network keep both intensity and texture.",
+     "A reviewer reads the abstract first, which makes the opening sentences decide whether the paper is read further."
+    ],
+    "pass": [
+     "Because the dataset is small, the model overfits quickly.",
+     "While the first dataset is large, the second dataset is small."
+    ]
+   }
+  },
+  {
+   "id": "W15",
+   "stage": "S4",
+   "node": "structure",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Complete clauses: no participle phrase set off by a comma (“…, thereby joining …”) and no verbless adjective clause (“…, possible because …”).",
+    "zh": "完整从句：不用逗号后的分词短语（“…, thereby joining …”）或无动词的形容词从句（“…, possible because …”）。"
+   },
+   "why": {
+    "en": "A dangling participle hides who acts and what follows from what.",
+    "zh": "悬垂的分词短语看不出谁是施事、什么由什么推出。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The network fuses both inputs in one pass, thereby avoiding a separate alignment step."
+    ],
+    "pass": [
+     "Therefore, adding a second loss term raises the score.",
+     "The network fuses both inputs in one pass and thereby avoids a separate alignment step."
+    ]
+   }
+  },
+  {
+   "id": "W16",
+   "stage": "S4",
+   "node": "structure",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Qualifiers first: no prepositional qualifier appended after the last comma of a sentence.",
+    "zh": "限定成分在前：不在句末逗号后追加介词短语。"
+   },
+   "why": {
+    "en": "Put the qualification before the claim, so the claim is read with it.",
+    "zh": "把限定放在主张之前，主张就带着限定被读到。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The fine detail instead passes through skip connections, outside the main branch.",
+     "Images differ across datasets, from indoor scenes to street views."
+    ],
+    "pass": [
+     "Outside the main branch, skip connections carry the fine detail.",
+     "The study uses examples such as cats, cars, and trees."
+    ]
+   }
+  },
+  {
+   "id": "W11",
+   "stage": "S4",
+   "node": "structure",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "A real condition or time clause (if, unless, only when, when, before, after, until, once) comes before the action.",
+    "zh": "真实的条件与时间从句（if、unless、only when、when、before、after、until、once）放在动作之前。"
+   },
+   "why": {
+    "en": "The reader should know under which condition a statement holds before reading the statement.",
+    "zh": "读者应先知道陈述成立的条件，再读陈述。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The optimizer stops early if the loss does not change.",
+     "The model resizes the image before the encoder processes it."
+    ],
+    "pass": [
+     "If the loss does not change, the optimizer stops early."
+    ]
+   }
+  },
+  {
+   "id": "W10",
+   "stage": "S4",
+   "node": "voice",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Active voice: body sentences have no passive (captions excepted); an adjectival use is an exception with a written reason.",
+    "zh": "主动语态：正文句不用被动（图注除外）；形容词用法逐句写明理由后作为例外。"
+   },
+   "why": {
+    "en": "The item itself acts; the reader sees what does what.",
+    "zh": "让事物本身作主语；读者看得出谁对谁做了什么。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The images are cropped to 256 pixels before training.",
+     "The second dataset is not used for training, so it tests generalization."
+    ],
+    "pass": [
+     "Training uses only the first dataset, so the second tests generalization."
+    ]
+   }
+  },
+  {
+   "id": "W12",
+   "stage": "S4",
+   "node": "voice",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "“We” only where the authors are the actor (proposing the method, stating contributions); otherwise the item is the subject.",
+    "zh": "少用“we”：作者是施事时（提出方法、贡献）才用，其余以事物作主语。"
+   },
+   "why": {
+    "en": "Most sentences are about the method or the data, not about the authors.",
+    "zh": "多数句子讲方法或数据，不是讲作者。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "We evaluate all methods on four datasets."
+    ],
+    "pass": [
+     "The evaluation covers four datasets.",
+     "We propose a method that fuses both images."
+    ]
+   }
+  },
+  {
+   "id": "W7",
+   "stage": "S4",
+   "node": "tone",
+   "scope": "sentence",
+   "method": "partial",
+   "severity": "warn",
+   "statement": {
+    "en": "No filler: no sentence without information (signposts, restatements, display or processing disclaimers). Restatement needs a reading.",
+    "zh": "不写空话：无信息的路标句、重述句、显示或处理说明（重述靠通读）。"
+   },
+   "why": {
+    "en": "Every sentence should change what the reader knows.",
+    "zh": "每句话都应改变读者所知。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The examples below illustrate the fused images."
+    ],
+    "pass": [
+     "The method leads the score on all four datasets."
+    ]
+   }
+  },
+  {
+   "id": "W8",
+   "stage": "S4",
+   "node": "tone",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "No self-criticism outside the discussion or limitation sections (project setting limitation_sections).",
+    "zh": "讨论与局限章节以外不写自我限定或自我批评（项目设置limitation_sections）。"
+   },
+   "why": {
+    "en": "Strengths first; limitations belong where the paper weighs them.",
+    "zh": "先写优势；局限属于论文权衡它们的地方。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "The method does not lead the score on the second dataset."
+    ],
+    "pass": [
+     "The method leads the score on all four datasets."
+    ]
+   }
+  },
+  {
+   "id": "W9",
+   "stage": "S4",
+   "node": "tone",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "No sentence implies that an experiment that could have been run is missing.",
+    "zh": "不写暗示缺少本可做的实验的句子。"
+   },
+   "why": {
+    "en": "“Not yet evaluated” invites the reviewer to ask for it.",
+    "zh": "“尚未评估”会邀请审稿人去要求它。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "voice"
+   },
+   "tests": {
+    "flag": [
+     "Memory use was not measured."
+    ],
+    "pass": [
+     "The method leads the score on all four datasets."
+    ]
+   }
+  },
+  {
+   "id": "W13",
+   "stage": "S4",
+   "node": "tone",
+   "scope": "paragraph",
+   "method": "partial",
+   "severity": "warn",
+   "statement": {
+    "en": "Consequence connectives (therefore, thus, so, thereby) mark only a real consequence: at most one per sentence, no repeat in a paragraph, not in two consecutive sentences, not before “we propose”. The premise is checked by hand.",
+    "zh": "结果连接词（therefore、thus、so、thereby）只标真实的结果：每句至多一个、同段不重复、不连续两句、不用于“we propose”之前；前提逐句人工核对。"
+   },
+   "why": {
+    "en": "A connective that is not a consequence is a false promise of logic.",
+    "zh": "不表示结果的连接词是对逻辑的虚假承诺。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "connectives"
+   },
+   "tests": {
+    "flag": [
+     [
+      "However, these models need aligned pairs, so their data costs are high.",
+      "Therefore, the labeling effort grows with the data."
+     ]
+    ],
+    "pass": [
+     [
+      "However, these models need aligned pairs, so their data costs are high.",
+      "Labeling effort grows with the data."
+     ]
+    ]
+   }
+  },
+  {
+   "id": "A6",
+   "stage": "S4",
+   "node": "wording",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The head noun of every subject and object comes from the glossary or from the closed noun lists; otherwise use a pronoun.",
+    "zh": "主语、宾语的中心名词取自术语表或闭合名词清单，否则用代词。"
+   },
+   "why": {
+    "en": "A fixed set of head nouns keeps one thing under one name across the paper.",
+    "zh": "固定的中心名词集合让同一事物在全文保持同一名称。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "heads"
+   },
+   "enabled": false,
+   "tests": {
+    "flag": [
+     "This dependence matters for the baseline."
+    ],
+    "pass": [
+     "The table lists each baseline."
+    ]
+   }
+  },
+  {
+   "id": "A7",
+   "stage": "S4",
+   "node": "wording",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "One thing keeps one head noun: concept rules list phrases that name a glossary concept with another noun.",
+    "zh": "同一事物同一中心名词：概念规则列出用别的名词指称术语表概念的短语。"
+   },
+   "why": {
+    "en": "Two nouns for one thing make the reader suspect two things.",
+    "zh": "同一事物两个名词，读者会怀疑是两件事。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "heads"
+   }
+  },
+  {
+   "id": "M1",
+   "stage": "S4",
+   "node": "wording",
+   "scope": "sentence",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Plain words and direct verbs; no decoration with elevated words; necessary terms stay.",
+    "zh": "用常见词和直接动词，不用高级词装饰；必要术语保留。"
+   },
+   "why": {
+    "en": "Plain words are read faster and mistranslated less.",
+    "zh": "常见词读得快，也更不易被误译。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "M2",
+   "stage": "S4",
+   "node": "wording",
+   "scope": "sentence",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "While, whereas, instead, unlike mark a real parallel, contrast or replacement, never a cause.",
+    "zh": "while、whereas、instead、unlike只用于真实的并行、对照或替代关系，不代替因果。"
+   },
+   "why": {
+    "en": "A contrast word on a cause misleads the logic.",
+    "zh": "把对照词用在因果上会误导逻辑。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "J1",
+   "stage": "S5",
+   "node": "venue",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The abstract length is within the venue limit (document.json: J1.min, J1.max).",
+    "zh": "摘要字数在期刊限制内（document.json：J1.min、J1.max）。"
+   },
+   "why": {
+    "en": "Venue limit.",
+    "zh": "期刊限制。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "abstract"
+   },
+   "enabled": false
+  },
+  {
+   "id": "J2",
+   "stage": "S5",
+   "node": "venue",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The abstract contains no citation.",
+    "zh": "摘要不含引用。"
+   },
+   "why": {
+    "en": "An abstract is read apart from the reference list.",
+    "zh": "摘要脱离参考文献单独被阅读。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "abstract"
+   }
+  },
+  {
+   "id": "J3",
+   "stage": "S5",
+   "node": "venue",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The number of keywords is within the venue limit (document.json: J3).",
+    "zh": "关键词数量在期刊限制内（document.json：J3）。"
+   },
+   "why": {
+    "en": "Venue limit.",
+    "zh": "期刊限制。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "keywords"
+   },
+   "enabled": false
+  },
+  {
+   "id": "T5",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "sentence",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Running text refers to figures as “Fig. N” (not “Figure N” inside a sentence).",
+    "zh": "正文用“Fig. N”引用图（句中不写“Figure N”）。"
+   },
+   "why": {
+    "en": "Venue style.",
+    "zh": "期刊格式。"
+   },
+   "check": {
+    "type": "pattern",
+    "pattern": [
+     "(?<=\\S\\s)Figures?\\s+\\d"
+    ],
+    "flags": "",
+    "message": "write “Fig.”:",
+    "skip_kinds": [
+     "figure",
+     "table"
+    ]
+   },
+   "enabled": false,
+   "tests": {
+    "flag": [
+     "The result is shown in Figure 3."
+    ],
+    "pass": [
+     "Figure 3 shows the result.",
+     "The result is shown in Fig. 3."
+    ]
+   }
+  },
+  {
+   "id": "T1",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Figures and tables are numbered in the order of their first citation (checked on the source).",
+    "zh": "图、表各自按首次引用的顺序编号（按源文件核查）。"
+   },
+   "why": {
+    "en": "The reader meets Fig. 3 after Fig. 2.",
+    "zh": "读者先遇到图2，再遇到图3。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "floats"
+   }
+  },
+  {
+   "id": "T2",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "A text citation comes before the figure or table it cites, and every figure and table is cited.",
+    "zh": "正文引用先于对应的图表出现，且每个图表都被引用。"
+   },
+   "why": {
+    "en": "A float that appears before it is cited asks the reader a question the text has not yet raised.",
+    "zh": "先于引用出现的图表向读者提出了正文还没提出的问题。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "floats"
+   }
+  },
+  {
+   "id": "B2",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "Every \\ref, \\eqref, \\autoref and \\cref points to an existing \\label.",
+    "zh": "每个\\ref、\\eqref、\\autoref、\\cref都指向存在的\\label。"
+   },
+   "why": {
+    "en": "An unknown label prints as ?? in the PDF.",
+    "zh": "未知标签在PDF中显示为??。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "floats"
+   }
+  },
+  {
+   "id": "T9",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Captions are short: only what is needed to read the figure; the mechanism belongs in the text.",
+    "zh": "图注、表题简短：只写看图所需，机制放正文。"
+   },
+   "why": {
+    "en": "Readers skim captions.",
+    "zh": "读者会浏览图注。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "M5",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Text inside figures is readable at the final column width (about 8 pt or more in print).",
+    "zh": "图内文字在最终栏宽下可读（印刷字号约8 pt以上）。"
+   },
+   "why": {
+    "en": "Unreadable figure text is lost information.",
+    "zh": "读不清的图内文字等于丢失信息。"
+   },
+   "check": {
+    "type": "manual"
+   }
+  },
+  {
+   "id": "R0",
+   "stage": "S6",
+   "node": "register",
+   "scope": "document",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "Every rule is in the register exactly once and sits in the rule tree.",
+    "zh": "每条规则都在规则登记中且只出现一次，并位于规则树中。"
+   },
+   "why": {
+    "en": "A rule outside the tree is never run in the right order.",
+    "zh": "不在树中的规则不会按正确顺序运行。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "register"
+   }
+  },
+  {
+   "id": "R1",
+   "stage": "S6",
+   "node": "register",
+   "scope": "document",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "Every testable rule flags its “flag” sentences and passes its “pass” sentences.",
+    "zh": "每条可测试的规则都标出它的“flag”测试句、放过它的“pass”测试句。"
+   },
+   "why": {
+    "en": "A rule edit that breaks its own tests is caught before it touches the paper.",
+    "zh": "改坏了测试的规则改动在碰到论文之前就会被发现。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "register"
+   }
+  }
+ ]
+}

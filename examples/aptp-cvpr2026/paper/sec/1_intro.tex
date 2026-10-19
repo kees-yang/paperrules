@@ -1,0 +1,95 @@
+\newcommand{\rr}[1]{\textcolor{red}{{}#1}}
+
+\section{Introduction}
+\label{sec:intro}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/motivation5.png}
+  \vspace{-6mm}
+  \caption{
+Motivation of proposed two training paradigms. (a) Compared with the strictly-paired paradigm, the two proposed paradigms lift the requirement for spatiotemporally aligned pairs, expanding the trainable pairs to $N\times(N-1)$ and $N^2$, respectively, reducing data-collection costs and improving generalisation.
+(b) Performance improvement pattern: greater enhancement from $N^2$ for Smaller $N$.
+  }
+  \label{fig:motivation}
+  \vspace{-5mm}
+\end{figure}
+
+
+Infrared and visible image fusion (IVIF) aims to generate a comprehensive fused image $O$ that contains both consistent and complementary information from infrared source $I_{ir}$ and visible source $I_{vis}$ \cite{review_1},
+\begin{equation}
+  O = \mathcal{F}(I_{ir},I_{vis}),
+  \label{eq:fusion task}
+\end{equation}
+where $\mathcal{F}$ represents the fusion model.
+Specifically, visible modality excels at capturing colourful visual information aligned with human perception. 
+However, it is sensitive to abnormal lighting conditions, occlusion, and poor weather \cite{vis_feature}.
+In contrast, infrared modality is robust to illumination variations and environmental challenges ({\em e.g.,} darkness, smoke, haze).
+Nevertheless, it lacks colour and fine-grained textural details inherent in the visible modality \cite{ir_fature}.  
+Thanks to the complementarity of the two, IVIF has been studied in recent decades with practical applications demands, such as semantic segmentation \cite{seg_1, seg_2, seg_3}, object detection \cite{obj_detect_1, obj_detect_2, obj_detect_3}, and crowd counting~\cite{crowd_count1, crowd_count2}.
+
+In general, an IVIF model is trained to extract the complementary content and consistent scene information across the modalities \cite{densefuse, u2fusion, lrrnet, tgfuse, mufusion, cddfuse, xie2024, song2025, fusionbooster}. 
+In principle, fusion performance is determined by four factors, \textit{i.e.}, paired training data, model architecture, supervision loss, and training strategies \cite{review_2}. 
+Despite the encouraging performance, existing solutions require a large quantity of strictly aligned infrared and visible image pairs, which poses significant challenges for data collection~\cite{review_1}.
+For instance, when collecting strictly paired data in diverse weather, managing spatial and temporal synchronisation and device settings is not trivial.
+% , researchers have to carefully pay attention to physical positions between hardware devices for spatial synchronization.
+Besides, considering sensor calibration errors, target motion, and thermal deformations, image registration requires additional effort ~\cite{joint_regisfusion_1,step_regisfusion_1, step_regisfusion_2, step_regisfusion_3}.
+% , forming the "registering then fusing" framework~\cite{step_regisfusion_1, step_regisfusion_2, step_regisfusion_3}.
+% To accelerate pipeline process, researchers aim to achieve registration and fusion in a unified manner \cite{joint_regisfusion_1, joint_regisfusion_2, joint_regisfusion_3}, which suffers from cumbersome procedures.
+Given the inherent differences among modalities, achieving perfect registration is challenging and time-consuming.
+% \rr{Although \cite{unalginedfusion_1} explores dealing with non-strictly aligned source image pairs, it does not fundamentally alleviate the cost of data collection.}
+% s while achieving this slight degree of misalignment with intricate techniques.
+
+Notwithstanding the issues raised by collecting paired image data, the fusion performance is also fragile due to discrepancies in data distributions.
+In particular, within a certain dataset, the observed relationships, which are somewhat limited in paired image datasets due to the dataset size, impose an upper bound on the fusion capability that a model can absorb. 
+This is a consequence of the well-known result in machine learning that increasing the amount of training data always helps to improve the generalisation performance. 
+In conclusion, the conventional strictly-paired training paradigm (SPTP) suffers from critical issues in both cost-effectiveness and model generalisation. 
+
+On the contrary, given the availability of unimodal datasets, it is very easy to create arbitrarily paired infrared and visible pairs.
+% , including urban traffic monitoring, military reconnaissance, and medical diagnostics.
+This convenience motivates us to explore a novel arbitrarily-paired training paradigm (APTP).
+% , which can even be limited to an unpaired training paradigm(UPTP) .
+% ing readily available unpaired infrared and visible images.
+In fact, the idea of APTP is quite common in the field of image-to-image generation \cite{cyclegan, unpaired_1, unpaired_2, unpaired_3, unpaired_4, theorm_unpaired}. 
+In this particular task, the indispensable conducive factor is the existence of the desired image output. 
+% as well as consistent content before and after the transformation. 
+% These works have shown that task-related ground truth data can be obtained for these tasks.  
+Unfortunately, the absence of the ground truth fusion output precludes the application of methods like \cite{cyclegan} to the IVIF task.
+
+
+% use of arbitrarily paired data is completely absent in the IVIF field.
+% Besides, there is no supporting evidence to prove the feasibility of unsupervised unpaired infrared and visible image fusion. 
+% Furthermore, how can we use unpaired training data to obtain a comparable fusion model that perform not worse than the model trained with conventional paired paradigm. 
+To remedy this situation, we pioneer the APTP of IVIF from a brand-new perspective. 
+The pixel-level self-supervised nature of image fusion tasks allows us to relax the learning objective of traditional SPTP, 
+which is premised on strictly consistent content across modalities. 
+% \rr{Specifically, we focus solely on exploiting the supervisory signals derived from two arbitrarily combined source inputs, in which the strictly consistent content is not indispensable.} 
+Specifically, we explore supervision signals to facilitate arbitrary pixel-level combinations of cross-modal source images, thereby avoiding reliance on strictly consistent content and enabling arbitrary training.
+This novel working mechanism motivates the expanded independent relationship between the multi-modal inputs.  
+% The proposal of the SPTP motivates us to further explore its relationship with traditional APTP. 
+According to its independence, we expand the maximum log-likelihood estimation optimisation objective of fusion system parameters trained from SPTP to APTP. 
+Both the independent condition and the improved optimisation formulation of APTP deliver a key message: APTP is the union of the two complementary sets, UPTP (Unpaired Training Paradigm) and SPTP, which inherently poses a broader range of applications. 
+Among them, UPTP is the most challenging subtask. 
+
+% \rr{The adjustable pairing order between source-image pairs enables APTP's formulation of a ground-breaking squared optimisation objective. denser distribution, diversity}
+The unrestricted pairing among source images significantly enhances the trainable cross-modal diversity within a volume-limited base dataset, leading to a more robust optimisation formulation.
+% It guides us to expand the original data volume to a quadratic scale by altering cross-modal pairing relationships within a given dataset. 
+This not only fundamentally alleviates the difficulties of data collection and reduces costs, but also enriches the diversity of training data, thereby enhancing model robustness.
+To systematically investigate the merits of the proposed APTP and UPTP, we build three concise fusion baselines, including CNN, Transformer, and GAN. 
+% with strictly control the latent variable factors.
+In particular, CNN aims at extracting context features by focusing on local patterns.
+% in the vision field, while its sparse connection constrain the capture of global dependency \cite{cnnconstrain}.
+In contrast, the Transformer architecture is expert in long-distance modelling, while ignoring the local details to some extent~\cite{transformerconstrain}.
+The generative adversarial network (GAN) baseline follows the generation-and-verification mode to perform network training.
+Our experimental comparison of the traditional SPTP, novel UPTP, and APTP, provides convincing support for the proposed innovation. 
+Our contributions are as follows:
+\begin{itemize}
+\item  Two new training paradigms for the IVIF task, which are not constrained to rely exclusively on strictly paired inputs, are presented.
+\item A detailed analysis of the data relationships and training requirements across the three paradigms.  
+\item  A thorough investigation of the merits of the new training paradigms, which reveals their ability to reduce data-collection cost, to expand the effective training set, and to enhance model robustness. 
+% \item The paradigm addresses the fundamental difficulty of collecting strictly paired data, and is instrumental in improving the  fusion performance.
+\item The experimental results providing supporting evidence for the validity of the proposed APTP and UPTP, and the superiority of their performance compared to SOTA, with high efficiency and robust generalisation. 
+% \item Demonstration of the generalisation of the proposed APTP and UPTP methodology in terms of their consistent performance across three baseline architectures.
+% respectively, as well as a set of supervision strategy that incorporates the characteristics of each modalities.
+
+% Extensive experiments on several benchmarking datasets validate the analyses we proposed related to the unpaired training paradigm, demonstrating that the proposed three lightweight baseline all achieve promising performance against SOTA methods with high efficiency and robustness.
+\end{itemize}

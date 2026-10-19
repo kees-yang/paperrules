@@ -1,0 +1,40 @@
+\section{Related Work}
+\label{sec:related}
+\subsection{Strictly Paired IVIF}
+Most IVIF approaches are trained using strictly paired datasets. 
+Depending on the deep learning framework employed, these methods can broadly be categorised into three types: CNN framework \cite{densefuse, rfn-nest, mufusion, mmdrfuse, lrrnet}, CNN-Transformer framework \cite{swinfusion, cddfuse, emma, AFTfusion}, and generative framework \cite{fusiongan, tardal, tgfuse, ddfm}.
+To facilitate end-to-end training, \cite{densefuse}, \cite{rfn-nest} introduce dense blocks and residual blocks to explore multi-scale features and avoid the design of hand-crafted fusion rules. 
+\cite{mmdrfuse} continues this end-to-end manner of training with a mini-model involving only two CNN blocks, demonstrating that complex network architectures are not necessary for pursuing high performance.
+To emphasise the global long-range context, \cite{swinfusion} conducts fusion based on a cross-attention mechanism.
+% introduces intra-domain and inter-domain fusion based on a cross-attention mechanism.
+\cite{cddfuse} and \cite{emma} adopt an improved transformer block\cite{restormer} to achieve a trade-off between efficiency and performance.
+% \rr{To better discriminate the modality-specific features, \cite{tardal, tgfuse} introduce a generative adversarial game with the generator producing a fused image and two discriminators gauging its quality from the perspective of each modality, helping the training of the generator.}    
+To discriminate the modality-specific features, \cite{tardal, tgfuse} introduce two discriminators that help to enhance the modality-related clues.
+However, GAN-based approaches confront issues such as mode collapse and training instability.
+Although \cite{ddfm} applies a likelihood rectification that achieves stable training without a mode collapse, it is computationally heavy.  
+
+In this work, to cover a wide scope in terms of IVIF methodologies, we construct three lightweight baseline models to verify the feasibility, degree of unpairedness, and the merits of APTP and UPTP. 
+% To validate the universality of this mode of training, we build and evaluate stand-alone  CNN and Transformer frameworks.
+\subsection{Unpaired Training Mode}
+% \rr{Unpaired training mode is first introduced in the image-to-image translation task to address the prohibitive expense of collecting large-scale paired training datasets \cite{pix2pix}. 
+% In particular, \cite{cyclegan} breaks this limitation by introducing adversarial and cycle-consistent supervisions, achieving style transfer with consistent content.  
+% This innovative paradigm enables training with unpaired data, which greatly broadens task applications. 
+% Such challenging problems also exist in the field of image restoration and IVIF. 
+% Following \cite{cyclegan}, \cite{unpaire_restoration1}, \cite{unpaire_restoration2} frame restoration as an unpaired style-transfer task from degraded to clean images. 
+% Unlike translation or restoration, IVIF demands consistency between two complementary images rather than within a single one, and lacks a well-defined target domain, rendering unpaired training like \cite{cyclegan} infeasible. 
+% Yet it is precisely the absence of a well-defined target domain, coupled with the pixel-level nature of the IVIF task, that makes unpaired training still feasible. }
+% % Motivated by the independent analysis in \cite{unpaire_restoration3}, 
+Unpaired training is first introduced in the image generation field to address the prohibitive expense of collecting large-scale paired datasets \cite{pix2pix}. 
+\cite{cyclegan} breaks this limitation by introducing adversarial and cycle-consistent supervisions, achieving style transfer with consistent content.  
+This innovative paradigm enables training with unpaired data, which greatly broadens task applications. 
+Following \cite{cyclegan}, \cite{unpaire_restoration1}, \cite{unpaire_restoration2} frame restoration as an unpaired generation task from degraded to clean images. 
+Such challenging problems also exist in the field of IVIF.
+Unlike image generation, IVIF demands content consistency between two complementary images rather than within a single one, and lacks a well-defined fused image domain, rendering unpaired training like \cite{cyclegan} infeasible. 
+Yet it is precisely the absence of a desired fused image, coupled with the pixel-level nature of the IVIF task, that makes unpaired training still feasible.
+
+
+Due to the absence of ground-truth, fusion networks are not required to learn from an ideal fused image. 
+Instead, supervision is usually drawn from the source images.
+Therefore, we argue that the model can still extract the corresponding supervisory signals, even if the input is unpaired. 
+% Furthermore, since the IVIF task is performed at the pixel level, the model can still learn to fuse multi-modal images by integrating cross-modal pixels, even when the source-modal pixels do not correspond to the same object. 
+Starting from these points, we pioneer in exploring the possibility of training with unpaired source images. 

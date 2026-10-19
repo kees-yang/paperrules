@@ -1,0 +1,412 @@
+paperrules 2026-10-19 15:31:43 · paper/main.tex · 199 sentences, 7 figures, 4 tables, 57 citations
+rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 3 off
+
+1. Sources: references and glossary  [warn]
+  [pass  ] B1  Every cited key exists in the bibliography.
+  [warn  ] B8  Every bibliography entry is cited.  (13 open)
+        joint_regisfusion_2 main.bib:166             entry “joint_regisfusion_2” is never cited
+        joint_regisfusion_3 main.bib:180             entry “joint_regisfusion_3” is never cited
+        unalginedfusion_1 main.bib:191             entry “unalginedfusion_1” is never cited
+        cnnconstrain main.bib:205             entry “cnnconstrain” is never cited
+        unpair_restoration1 main.bib:232             entry “unpair_restoration1” is never cited
+        coconet  main.bib:371             entry “coconet” is never cited
+        DATFuse  main.bib:408             entry “DATFuse” is never cited
+        DDBFfusion main.bib:450             entry “DDBFfusion” is never cited
+        ship     main.bib:504             entry “ship” is never cited
+        seafusion main.bib:541             entry “seafusion” is never cited
+        mrfs     main.bib:553             entry “mrfs” is never cited
+        roadscene main.bib:652             entry “roadscene” is never cited
+        unpaire_restoration3 main.bib:742             entry “unpaire_restoration3” is never cited
+  [pass  ] B9  No duplicate keys in the bibliography.
+  [pass  ] B7  Bibliography entries are complete: required fields present, full author lists;…
+  [warn  ] A3  The text uses the glossary term, not the old name or alias (glossary field avo…  (3 open, 1 accepted)
+        S117     sec/3_method.tex:289     “fusion results” — the glossary term is “fused image”
+        S152     sec/4_experiment.tex:127 “fusion results” — the glossary term is “fused image”
+        S188     sec/3_method.tex:139     “fusion results” — the glossary term is “fused image”
+
+2. Thread: abstract and claims  [warn]
+  [manual] W1  The abstract states, in order: the state of the field, the gap, the motivation…
+  [manual] W4  The conclusion echoes the abstract and adds no new claim.
+  [warn  ] W6  A comparative or superiority claim is traced to a table, a figure or a citatio…  (10 open)
+        S007     sec/0_abstract.tex:1     claim to support: “significantly”
+        S124     sec/3_method.tex:301     claim to support: “surpasses”
+        S131     sec/3_method.tex:326     claim to support: “significantly”
+        S157     sec/4_experiment.tex:135 claim to support: “significantly”
+        S169     sec/4_experiment.tex:153 claim to support: “significantly”
+        S171     sec/4_experiment.tex:164 claim to support: “state-of-the-art”
+        S173     sec/4_experiment.tex:168 claim to support: “superior”
+        S176     sec/4_experiment.tex:168 claim to support: “significantly”
+        S181     sec/5_conclusion.tex:2   claim to support: “significantly”
+        S183     sec/5_conclusion.tex:2   claim to support: “substantially”
+
+3. Paragraphs  [manual]
+  [manual] W2  In the introduction the problem and the motivation each have their own paragra…
+  [pass  ] F2  No sentence is printed twice.
+  [manual] O2  The discussion answers the research question and does not list limitations ite…
+
+4. Sentences: structure, voice, tone, wording  [warn]
+  [warn  ] W14 One main action per sentence: at most two finite clauses (a main clause plus o…  (22 open)
+        S012     sec/1_intro.tex:18       3 finite clauses
+        S034     sec/1_intro.tex:62       3 finite clauses; nested: premised in relax
+        S038     sec/1_intro.tex:69       3 finite clauses
+        S060     sec/2_related_work.tex:12 3 finite clauses; nested: achieves in applies
+        S068     sec/2_related_work.tex:27 2 finite clauses; nested: feasible in makes
+        S071     sec/2_related_work.tex:36 3 finite clauses; nested: is in extract
+        S079     sec/3_method.tex:6       3 finite clauses
+        S082     sec/3_method.tex:56      4 finite clauses; nested: detailed in trained
+        S084     sec/3_method.tex:75      7 finite clauses; nested: retain in measure
+        S089     sec/3_method.tex:118     3 finite clauses
+        S092     sec/3_method.tex:118     3 finite clauses; nested: requires in is
+        S099     sec/3_method.tex:177     3 finite clauses; nested: follows in arrange
+        S102     sec/3_method.tex:177     4 finite clauses; nested: suits in suits; which refers to a clause: means
+        S107     sec/3_method.tex:269     4 finite clauses; nested: use in is
+        S111     sec/3_method.tex:280     3 finite clauses; nested: implies in is
+        S126     sec/3_method.tex:307     3 finite clauses; nested: contained in retain
+        S127     sec/3_method.tex:307     3 finite clauses
+        S129     sec/3_method.tex:315     4 finite clauses; nested: follows in reformulated
+        S130     sec/3_method.tex:315     4 finite clauses
+        S146     sec/4_experiment.tex:116 2 finite clauses; nested: maintaining in preserve
+        S147     sec/4_experiment.tex:122 4 finite clauses; nested: are in paired
+        S151     sec/4_experiment.tex:127 3 finite clauses; nested: continue in decreases
+  [warn  ] W15 Complete clauses: no participle phrase set off by a comma (“…, thereby joining…  (28 open)
+        S004     sec/0_abstract.tex:1     participle or verbless clause after a comma: , limiting
+        S006     sec/0_abstract.tex:1     participle or verbless clause after a comma: , reflecting
+        S009     sec/0_abstract.tex:1     participle or verbless clause after a comma: , achieving
+        S010     sec/0_abstract.tex:1     participle or verbless clause after a comma: , delivering
+        S021     sec/1_intro.tex:30       participle or verbless clause after a comma: , managing
+        S035     sec/1_intro.tex:66       participle or verbless clause after a comma: , avoiding
+        S040     sec/1_intro.tex:74       participle or verbless clause after a comma: , leading
+        S041     sec/1_intro.tex:76       participle or verbless clause after a comma: , enhancing
+        S063     sec/2_related_work.tex:27 participle or verbless clause after a comma: , achieving
+        S067     sec/2_related_work.tex:27 participle or verbless clause after a comma: , rendering
+        S068     sec/2_related_work.tex:27 participle or verbless clause after a comma: , coupled
+        S080     sec/3_method.tex:6       participle or verbless clause after a comma: , stabilising
+        S105     sec/3_method.tex:266     participle or verbless clause after a comma: , enabling
+        S117     sec/3_method.tex:289     participle or verbless clause after a comma: , leading
+        S123     sec/3_method.tex:301     participle or verbless clause after a comma: , yielding
+        S124     sec/3_method.tex:301     participle or verbless clause after a comma: , displaying
+        S127     sec/3_method.tex:307     participle or verbless clause after a comma: , walking
+        S129     sec/3_method.tex:315     participle or verbless clause after a comma: , yielding
+        S130     sec/3_method.tex:315     participle or verbless clause after a comma: , improving
+        S136     sec/3_method.tex:339     participle or verbless clause after a comma: , enhancing
+        S142     sec/4_experiment.tex:116 participle or verbless clause after a comma: , making
+        S149     sec/4_experiment.tex:127 participle or verbless clause after a comma: , enhancing
+        S152     sec/4_experiment.tex:127 participle or verbless clause after a comma: , producing
+        S154     sec/4_experiment.tex:135 participle or verbless clause after a comma: , corresponding
+        S159     sec/4_experiment.tex:141 participle or verbless clause after a comma: , admitting
+        S161     sec/4_experiment.tex:145 participle or verbless clause after a comma: , showing
+        S162     sec/4_experiment.tex:145 participle or verbless clause after a comma: , indicating
+        S182     sec/5_conclusion.tex:2   participle or verbless clause after a comma: , achieving
+  [warn  ] W16 Qualifiers first: no prepositional qualifier appended after the last comma of …  (2 open)
+        S051     sec/1_intro.tex:90       qualifier appended after a comma: with high efficiency and robust generalisation
+        S165     sec/4_experiment.tex:153 qualifier appended after a comma: to explore the potential gain of APTP
+  [warn  ] W11 A real condition or time clause (if, unless, only when, when, before, after, u…  (3 open)
+        S071     sec/2_related_work.tex:36 condition after the action
+        S106     sec/3_method.tex:269     condition after the action
+        S108     sec/3_method.tex:269     condition after the action
+  [warn  ] W10 Active voice: body sentences have no passive (captions excepted); an adjectiva…  (48 open)
+        S008     sec/0_abstract.tex:1     passive: are designed
+        S017     sec/1_intro.tex:18       passive: been studied
+        S018     sec/1_intro.tex:30       passive: is trained
+        S019     sec/1_intro.tex:30       passive: is determined
+        S034     sec/1_intro.tex:62       passive: is premised
+        S048     sec/1_intro.tex:86       passive: are not constrained
+        S052     sec/2_related_work.tex:4 passive: are trained
+        S053     sec/2_related_work.tex:4 passive: be categorised
+        S062     sec/2_related_work.tex:27 passive: is introduced
+        S069     sec/2_related_work.tex:36 passive: are not required
+        S070     sec/2_related_work.tex:36 passive: is usually drawn
+        S071     sec/2_related_work.tex:36 passive: is unpaired
+        S073     sec/3_method.tex:2       passive: are systematically analysed
+        S074     sec/3_method.tex:2       passive: are based
+        S075     sec/3_method.tex:2       passive: are displayed
+        S078     sec/3_method.tex:6       passive: be measured
+        S082     sec/3_method.tex:56      passive: is used
+        S083     sec/3_method.tex:72      passive: is expected
+        S084     sec/3_method.tex:75      passive: be transformed
+        S087     sec/3_method.tex:109     passive: be synchronously captured
+        S088     sec/3_method.tex:109     passive: is required
+        S091     sec/3_method.tex:118     passive: be achieved
+        S092     sec/3_method.tex:118     passive: being paired
+        S093     sec/3_method.tex:155     passive: be collected
+        S095     sec/3_method.tex:155     passive: be decoupled
+        S101     sec/3_method.tex:177     passive: are not tailored
+        S103     sec/3_method.tex:264     passive: are continuously updated
+        S104     sec/3_method.tex:266     passive: is derived
+        S106     sec/3_method.tex:269     passive: are explicitly tailored
+        S108     sec/3_method.tex:269     passive: are captured
+        S110     sec/3_method.tex:280     passive: be observed
+        S114     sec/3_method.tex:289     passive: is expected
+        S119     sec/3_method.tex:289     passive: be learned
+        S129     sec/3_method.tex:315     passive: be reformulated
+        S130     sec/3_method.tex:315     passive: are limited
+        S131     sec/3_method.tex:326     passive: are significantly reduced
+        S132     sec/3_method.tex:339     passive: is constrained
+        S140     sec/4_experiment.tex:105 passive: are conducted
+        S146     sec/4_experiment.tex:116 passive: is visually supported
+        S150     sec/4_experiment.tex:127 passive: is corroborated
+        S151     sec/4_experiment.tex:127 passive: is noted
+        S153     sec/4_experiment.tex:127 passive: is provided
+        S155     sec/4_experiment.tex:135 passive: are constructed
+        S171     sec/4_experiment.tex:164 passive: are compared
+        S172     sec/4_experiment.tex:168 passive: are provided
+        S177     sec/4_experiment.tex:168 passive: are provided
+        S180     sec/5_conclusion.tex:2   passive: are shown
+        S184     sec/5_conclusion.tex:5   passive: was supported
+  [warn  ] W12 “We” only where the authors are the actor (proposing the method, stating contr…  (41 open)
+        S006     sec/0_abstract.tex:1     "we" with an item available as subject
+        S007     sec/0_abstract.tex:1     "we" with an item available as subject
+        S008     sec/0_abstract.tex:1     "we" with an item available as subject
+        S029     sec/1_intro.tex:49       "we" with an item available as subject
+        S033     sec/1_intro.tex:62       "we" with an item available as subject
+        S034     sec/1_intro.tex:62       "we" with an item available as subject
+        S035     sec/1_intro.tex:66       "we" with an item available as subject
+        S037     sec/1_intro.tex:69       "we" with an item available as subject
+        S042     sec/1_intro.tex:76       "we" with an item available as subject
+        S046     sec/1_intro.tex:81       "we" with an item available as subject
+        S047     sec/1_intro.tex:81       "we" with an item available as subject
+        S061     sec/2_related_work.tex:16 "we" with an item available as subject
+        S071     sec/2_related_work.tex:36 "we" with an item available as subject
+        S072     sec/2_related_work.tex:40 "we" with an item available as subject
+        S074     sec/3_method.tex:2       "we" with an item available as subject
+        S076     sec/3_method.tex:6       "we" with an item available as subject
+        S078     sec/3_method.tex:6       "we" with an item available as subject
+        S081     sec/3_method.tex:6       "we" with an item available as subject
+        S084     sec/3_method.tex:75      "we" with an item available as subject
+        S090     sec/3_method.tex:118     "we" with an item available as subject
+        S099     sec/3_method.tex:177     "we" with an item available as subject
+        S107     sec/3_method.tex:269     "we" with an item available as subject
+        S111     sec/3_method.tex:280     "we" with an item available as subject
+        S115     sec/3_method.tex:289     "we" with an item available as subject
+        S119     sec/3_method.tex:289     "we" with an item available as subject
+        S138     sec/4_experiment.tex:102 "we" with an item available as subject
+        S140     sec/4_experiment.tex:105 "we" with an item available as subject
+        S143     sec/4_experiment.tex:116 "we" with an item available as subject
+        S148     sec/4_experiment.tex:127 "we" with an item available as subject
+        S149     sec/4_experiment.tex:127 "we" with an item available as subject
+        S154     sec/4_experiment.tex:135 "we" with an item available as subject
+        S157     sec/4_experiment.tex:135 "we" with an item available as subject
+        S158     sec/4_experiment.tex:141 "we" with an item available as subject
+        S159     sec/4_experiment.tex:141 "we" with an item available as subject
+        S164     sec/4_experiment.tex:153 "we" with an item available as subject
+        S165     sec/4_experiment.tex:153 "we" with an item available as subject
+        S169     sec/4_experiment.tex:153 "we" with an item available as subject
+        S170     sec/4_experiment.tex:164 "we" with an item available as subject
+        S173     sec/4_experiment.tex:168 "we" with an item available as subject
+        S175     sec/4_experiment.tex:168 "we" with an item available as subject
+        S178     sec/4_experiment.tex:175 "we" with an item available as subject
+  [pass  ] W7  No filler: no sentence without information (signposts, restatements, display o…
+  [warn  ] W8  No self-criticism outside the discussion or limitation sections (project setti…  (6 open)
+        S020     sec/1_intro.tex:30       ^(although|though|despite)\b
+        S060     sec/2_related_work.tex:12 ^(although|though|despite)\b
+        S063     sec/2_related_work.tex:27 \b(insufficient|inferior|weakness(es)?|drawbacks?|shortcomings?|limitations?)\b
+        S159     sec/4_experiment.tex:141 ^(although|though|despite)\b
+        S162     sec/4_experiment.tex:145 \bat the (cost|expense) of\b
+        S175     sec/4_experiment.tex:168 ^(although|though|despite)\b
+  [pass  ] W9  No sentence implies that an experiment that could have been run is missing.
+  [warn  ] W13 Consequence connectives (therefore, thus, so, thereby) mark only a real conseq…  (1 open)
+        S095     sec/3_method.tex:155     more than one consequence connective in a sentence: therefore, accordingly
+  [warn  ] U2  Do not open a sentence with “Besides,” — use “In addition,” or restructure.  (2 open)
+        S004     sec/0_abstract.tex:1     sentence opens with: “Besides,”
+        S022     sec/1_intro.tex:35       sentence opens with: “Besides,”
+  [warn  ] A6  The head noun of every subject and object comes from the glossary or from the …  (162 open)
+        S005     sec/0_abstract.tex:1     head noun “end” (pobj) is not a glossary noun: “this end”
+        S005     sec/0_abstract.tex:1     head noun “necessity” (dobj) is not a glossary noun: “the necessity of Strictly Paired Training Para
+        S008     sec/0_abstract.tex:1     head noun “propositions” (dobj) is not a glossary noun: “our propositions, three end-to-end lightwei
+        S008     sec/0_abstract.tex:1     head noun “end” (pobj) is not a glossary noun: “end”
+        S010     sec/0_abstract.tex:1     head noun “finding” (nsubj) is not a glossary noun: “This finding”
+        S013     sec/1_intro.tex:18       head noun “perception” (pobj) is not a glossary noun: “human perception”
+        S015     sec/1_intro.tex:18       head noun “variations” (pobj) is not a glossary noun: “illumination variations and environmental cha
+        S017     sec/1_intro.tex:18       head noun “complementarity” (pobj) is not a glossary noun: “the complementarity of the two”
+        S017     sec/1_intro.tex:18       head noun “decades” (pobj) is not a glossary noun: “recent decades”
+        S017     sec/1_intro.tex:18       head noun “demands” (pobj) is not a glossary noun: “practical applications demands, such as semantic
+        S017     sec/1_intro.tex:18       head noun “segmentation” (pobj) is not a glossary noun: “semantic segmentation”
+        S019     sec/1_intro.tex:30       head noun “principle” (pobj) is not a glossary noun: “principle”
+        S019     sec/1_intro.tex:30       head noun “factors” (pobj) is not a glossary noun: “four factors,”
+        S020     sec/1_intro.tex:30       head noun “quantity” (dobj) is not a glossary noun: “a large quantity of strictly aligned infrared a
+        S020     sec/1_intro.tex:30       head noun “challenges” (dobj) is not a glossary noun: “significant challenges for data collection”
+        S021     sec/1_intro.tex:30       head noun “instance” (pobj) is not a glossary noun: “instance”
+        S021     sec/1_intro.tex:30       head noun “weather” (pobj) is not a glossary noun: “diverse weather”
+        S021     sec/1_intro.tex:30       head noun “synchronisation” (dobj) is not a glossary noun: “spatial and temporal synchronisation and
+        S022     sec/1_intro.tex:35       head noun “errors” (dobj) is not a glossary noun: “sensor calibration errors, target motion, and the
+        S022     sec/1_intro.tex:35       head noun “effort” (dobj) is not a glossary noun: “additional effort”
+        S024     sec/1_intro.tex:42       head noun “issues” (pobj) is not a glossary noun: “the issues raised by collecting paired image data
+        S024     sec/1_intro.tex:42       head noun “discrepancies” (pobj) is not a glossary noun: “discrepancies in data distributions”
+        S025     sec/1_intro.tex:42       head noun “bound” (dobj) is not a glossary noun: “an upper bound on the fusion capability that a mod
+        S026     sec/1_intro.tex:42       head noun “consequence” (attr) is not a glossary noun: “a consequence of the well-known result in ma
+        S027     sec/1_intro.tex:42       head noun “issues” (pobj) is not a glossary noun: “critical issues in both cost-effectiveness and mo
+        S027     sec/1_intro.tex:42       head noun “generalisation” (pobj) is not a glossary noun: “both cost-effectiveness and model general
+        S028     sec/1_intro.tex:47       head noun “contrary” (pobj) is not a glossary noun: “the contrary”
+        S028     sec/1_intro.tex:47       head noun “availability” (pobj) is not a glossary noun: “the availability of unimodal datasets”
+        S029     sec/1_intro.tex:49       head noun “convenience” (nsubj) is not a glossary noun: “This convenience”
+        S030     sec/1_intro.tex:52       head noun “idea” (nsubj) is not a glossary noun: “the idea of APTP”
+        S030     sec/1_intro.tex:52       head noun “field” (pobj) is not a glossary noun: “the field of image-to-image generation”
+        S031     sec/1_intro.tex:52       head noun “factor” (nsubj) is not a glossary noun: “the indispensable conducive factor”
+        S031     sec/1_intro.tex:52       head noun “existence” (attr) is not a glossary noun: “the existence of the desired image output”
+        S032     sec/1_intro.tex:56       head noun “application” (dobj) is not a glossary noun: “the application of methods like [26] to the 
+        S033     sec/1_intro.tex:62       head noun “situation” (dobj) is not a glossary noun: “this situation”
+        S035     sec/1_intro.tex:66       head noun “reliance” (dobj) is not a glossary noun: “reliance”
+        S037     sec/1_intro.tex:69       head noun “independence” (pobj) is not a glossary noun: “its independence”
+        S038     sec/1_intro.tex:69       head noun “message” (dobj) is not a glossary noun: “a key message”
+        S038     sec/1_intro.tex:69       head noun “union” (attr) is not a glossary noun: “the union of the two complementary sets”
+        S038     sec/1_intro.tex:69       head noun “applications” (pobj) is not a glossary noun: “applications”
+        S039     sec/1_intro.tex:69       head noun “subtask” (attr) is not a glossary noun: “the most challenging subtask”
+        S040     sec/1_intro.tex:74       head noun “formulation” (pobj) is not a glossary noun: “a more robust optimisation formulation”
+        S041     sec/1_intro.tex:76       head noun “difficulties” (dobj) is not a glossary noun: “the difficulties of data collection”
+        S044     sec/1_intro.tex:81       head noun “expert” (attr) is not a glossary noun: “expert in long-distance modelling”
+        S044     sec/1_intro.tex:81       head noun “modelling” (pobj) is not a glossary noun: “long-distance modelling”
+        S044     sec/1_intro.tex:81       head noun “extent” (pobj) is not a glossary noun: “some extent”
+        S045     sec/1_intro.tex:81       head noun “mode” (dobj) is not a glossary noun: “the generation-and-verification mode”
+        S046     sec/1_intro.tex:81       head noun “support” (dobj) is not a glossary noun: “convincing support for the proposed innovation”
+        S046     sec/1_intro.tex:81       head noun “innovation” (pobj) is not a glossary noun: “the proposed innovation”
+        S047     sec/1_intro.tex:81       head noun “contributions” (nsubj) is not a glossary noun: “Our contributions”
+        S051     sec/1_intro.tex:90       head noun “validity” (pobj) is not a glossary noun: “the validity of the proposed APTP and UPTP”
+        S053     sec/2_related_work.tex:4 head noun “types” (pobj) is not a glossary noun: “three types”
+        S054     sec/2_related_work.tex:4 head noun “end” (pobj) is not a glossary noun: “end”
+        S055     sec/2_related_work.tex:4 head noun “end” (pobj) is not a glossary noun: “end”
+        S055     sec/2_related_work.tex:4 head noun “manner” (dobj) is not a glossary noun: “this end-to-end manner of training with a mini-mo
+        S055     sec/2_related_work.tex:4 head noun “mini” (pobj) is not a glossary noun: “a mini”
+        S057     sec/2_related_work.tex:10 head noun “block[41” (dobj) is not a glossary noun: “an improved transformer block[41”
+        S057     sec/2_related_work.tex:10 head noun “off” (dobj) is not a glossary noun: “a trade-off between efficiency and performance”
+        S058     sec/2_related_work.tex:12 head noun “discriminators” (dobj) is not a glossary noun: “two discriminators that help to enhance t
+        S059     sec/2_related_work.tex:12 head noun “collapse” (pobj) is not a glossary noun: “mode collapse and training instability”
+        S060     sec/2_related_work.tex:12 head noun “rectification” (dobj) is not a glossary noun: “a likelihood rectification that achieves s
+        S060     sec/2_related_work.tex:12 head noun “collapse” (pobj) is not a glossary noun: “a mode collapse”
+        S061     sec/2_related_work.tex:16 head noun “methodologies” (pobj) is not a glossary noun: “IVIF methodologies”
+        S061     sec/2_related_work.tex:16 head noun “unpairedness” (pobj) is not a glossary noun: “unpairedness”
+        S062     sec/2_related_work.tex:27 head noun “field” (pobj) is not a glossary noun: “the image generation field”
+        S062     sec/2_related_work.tex:27 head noun “expense” (dobj) is not a glossary noun: “the prohibitive expense of collecting large-scal
+        S063     sec/2_related_work.tex:27 head noun “limitation” (dobj) is not a glossary noun: “this limitation”
+        S063     sec/2_related_work.tex:27 head noun “transfer” (dobj) is not a glossary noun: “style transfer with consistent content”
+        S064     sec/2_related_work.tex:27 head noun “applications” (dobj) is not a glossary noun: “task applications”
+        S066     sec/2_related_work.tex:27 head noun “field” (pobj) is not a glossary noun: “the field of IVIF”
+        S067     sec/2_related_work.tex:27 head noun “one” (pobj) is not a glossary noun: “a single one”
+        S067     sec/2_related_work.tex:27 head noun “domain” (dobj) is not a glossary noun: “a well-defined fused image domain”
+        S069     sec/2_related_work.tex:36 head noun “truth” (pobj) is not a glossary noun: “ground-truth”
+        S072     sec/2_related_work.tex:40 head noun “points” (pobj) is not a glossary noun: “these points”
+        S072     sec/2_related_work.tex:40 head noun “possibility” (dobj) is not a glossary noun: “the possibility of training with unpaired so
+        S073     sec/3_method.tex:2       head noun “definitions” (pobj) is not a glossary noun: “theoretical definitions, working mechanisms,
+        S074     sec/3_method.tex:2       head noun “research” (pobj) is not a glossary noun: “prior research”
+        S074     sec/3_method.tex:2       head noun “verification” (pobj) is not a glossary noun: “comparative verification, which are based o
+        S075     sec/3_method.tex:2       head noun “structures” (nsubjpass) is not a glossary noun: “The detailed network structures”
+        S075     sec/3_method.tex:2       head noun “material” (pobj) is not a glossary noun: “the supplementary material”
+        S076     sec/3_method.tex:6       head noun “complementarity” (dobj) is not a glossary noun: “the pixel-level complementarity of sourc
+        S076     sec/3_method.tex:6       head noun “fidelity” (dobj) is not a glossary noun: “pixel fidelity, gradient texture, and structura
+        S079     sec/3_method.tex:6       head noun “attention” (dobj) is not a glossary noun: “more attention”
+        S080     sec/3_method.tex:6       head noun “magnitudes” (dobj) is not a glossary noun: “the relative magnitudes of source pixels for 
+        S080     sec/3_method.tex:6       head noun “explosion” (dobj) is not a glossary noun: “gradient explosion and vanishing”
+        S082     sec/3_method.tex:56      head noun “generator” (nsubjpass) is not a glossary noun: “a generator”
+        S082     sec/3_method.tex:56      head noun “material” (pobj) is not a glossary noun: “the supplementary material”
+        S083     sec/3_method.tex:72      head noun “height” (dobj) is not a glossary noun: “the height, width”
+        S083     sec/3_method.tex:72      head noun “channels” (pobj) is not a glossary noun: “channels”
+        S084     sec/3_method.tex:75      head noun “theorem” (dobj) is not a glossary noun: “the Bayes' theorem, the optimisation objective i
+        S084     sec/3_method.tex:75      head noun “likelihood” (nsubj) is not a glossary noun: “the likelihood”
+        S084     sec/3_method.tex:75      head noun “naturalness” (dobj) is not a glossary noun: “the image naturalness”
+        S085     sec/3_method.tex:75      head noun “form” (nsubj) is not a glossary noun: “Its element-wise form”
+        S087     sec/3_method.tex:109     head noun “device” (nsubj) is not a glossary noun: “the same device”
+        S088     sec/3_method.tex:109     head noun “misalignment” (attr) is not a glossary noun: “any misalignment, spatially or temporally”
+        S089     sec/3_method.tex:118     head noun “labour” (pobj) is not a glossary noun: “labour and time”
+        S093     sec/3_method.tex:155     head noun “locations” (pobj) is not a glossary noun: “different locations”
+        S095     sec/3_method.tex:155     head noun “product” (pobj) is not a glossary noun: “the product of two individual probability distri
+        S099     sec/3_method.tex:177     head noun “proposal” (nsubj) is not a glossary noun: “the proposal of arbitrarily paired training”
+        S102     sec/3_method.tex:177     head noun “procedure” (nsubj) is not a glossary noun: “any procedure that suits APTP”
+        S102     sec/3_method.tex:177     head noun “converse” (nsubj) is not a glossary noun: “the converse”
+        S103     sec/3_method.tex:264     head noun “field” (pobj) is not a glossary noun: “the image fusion field”
+        S104     sec/3_method.tex:266     head noun “accordance” (pobj) is not a glossary noun: “accordance with the conventional SPTP framewo
+        S104     sec/3_method.tex:266     head noun “intensities” (pobj) is not a glossary noun: “the pixel intensities of images acquired und
+        S105     sec/3_method.tex:266     head noun “need” (dobj) is not a glossary noun: “the need for consistent spatio-temporal imaging set
+        S107     sec/3_method.tex:269     head noun “forms” (pobj) is not a glossary noun: “different forms of loss functions”
+        S109     sec/3_method.tex:276     head noun “bases” (dobj) is not a glossary noun: “distinct computational bases for each loss functio
+        S110     sec/3_method.tex:280     head noun “curves” (pobj) is not a glossary noun: “the loss convergence curves and the progressive c
+        S113     sec/3_method.tex:284     head noun “behaviour” (dobj) is not a glossary noun: “similar convergence behaviour”
+        S113     sec/3_method.tex:284     head noun “speed” (pobj) is not a glossary noun: “both speed and final value”
+        S115     sec/3_method.tex:289     head noun “integration” (dobj) is not a glossary noun: “the integration of luminance, contrast, and 
+        S115     sec/3_method.tex:289     head noun “luminance” (pobj) is not a glossary noun: “luminance, contrast, and structural informatio
+        S115     sec/3_method.tex:289     head noun “index” (dobj) is not a glossary noun: “the Structural Similarity (SSIM) index”
+        S116     sec/3_method.tex:289     head noun “trend” (dobj) is not a glossary noun: “a consistent upward trend on the test set before e
+        S117     sec/3_method.tex:289     head noun “representations” (dobj) is not a glossary noun: “meaningful fusion representations”
+        S118     sec/3_method.tex:289     head noun “scores” (dobj) is not a glossary noun: “SSIM scores comparable to those under standard tr
+        S119     sec/3_method.tex:289     head noun “claim” (dobj) is not a glossary noun: “our claim that effective fusion models can be lear
+        S120     sec/3_method.tex:301     head noun “visualisation” (dobj) is not a glossary noun: “the visualisation of thermal and texture i
+        S121     sec/3_method.tex:301     head noun “phase” (pobj) is not a glossary noun: “the initial training phase”
+        S123     sec/3_method.tex:301     head noun “proceeds” (pobj) is not a glossary noun: “training proceeds with effective supervision”
+        S123     sec/3_method.tex:301     head noun “markings” (pobj) is not a glossary noun: “road markings and overpass structures”
+        S124     sec/3_method.tex:301     head noun “signatures” (dobj) is not a glossary noun: “more recognisable thermal signatures of objec
+        S127     sec/3_method.tex:307     head noun “bike” (dobj) is not a glossary noun: “a bike”
+        S128     sec/3_method.tex:315     head noun “randomness” (nsubj) is not a glossary noun: “The inherent randomness of APTP”
+        S128     sec/3_method.tex:315     head noun “potential” (dobj) is not a glossary noun: “the potential for reconfiguring cross-modal pa
+        S129     sec/3_method.tex:315     head noun “base” (nsubj) is not a glossary noun: “the base”
+        S129     sec/3_method.tex:315     head noun “form” (pobj) is not a glossary noun: “its squared form”
+        S130     sec/3_method.tex:315     head noun “principle” (pobj) is not a glossary noun: “principle”
+        S130     sec/3_method.tex:315     head noun “scaling” (dobj) is not a glossary noun: “effective scaling of base datasets”
+        S132     sec/3_method.tex:339     head noun “capacity” (nsubjpass) is not a glossary noun: “the representational capacity of a model”
+        S135     sec/3_method.tex:339     head noun “structure” (pobj) is not a glossary noun: “their fixed pairing structure”
+        S140     sec/4_experiment.tex:105 head noun “server” (pobj) is not a glossary noun: “a Linux server with an NVIDIA GeForce RTX 3090 GP
+        S146     sec/4_experiment.tex:116 head noun “clarity” (dobj) is not a glossary noun: “comparable clarity in others (”
+        S146     sec/4_experiment.tex:116 head noun “others” (pobj) is not a glossary noun: “others (”
+        S147     sec/4_experiment.tex:122 head noun “strategy” (pobj) is not a glossary noun: “the proposed UPTP strategy”
+        S148     sec/4_experiment.tex:127 head noun “benefit” (dobj) is not a glossary noun: “the data scalability benefit formalised in Eqn. 
+        S151     sec/4_experiment.tex:127 head noun “increases” (pobj) is not a glossary noun: “trainable data increases”
+        S152     sec/4_experiment.tex:127 head noun “noise” (dobj) is not a glossary noun: “noise”
+        S152     sec/4_experiment.tex:127 head noun “density” (pobj) is not a glossary noun: “higher information density, better visual qualit
+        S153     sec/4_experiment.tex:127 head noun “regions” (nsubj) is not a glossary noun: “regions”
+        S154     sec/4_experiment.tex:135 head noun “enhancement” (dobj) is not a glossary noun: “the robustness enhancement enabled by UPTP a
+        S157     sec/4_experiment.tex:135 head noun “utilisation” (dobj) is not a glossary noun: “data utilisation and training flexibility”
+        S159     sec/4_experiment.tex:141 head noun “applicability” (pobj) is not a glossary noun: “the applicability of our proposed training
+        S161     sec/4_experiment.tex:145 head noun “configurations” (pobj) is not a glossary noun: “the configurations”
+        S161     sec/4_experiment.tex:145 head noun “fluctuations” (pobj) is not a glossary noun: “only minor EN fluctuations”
+        S162     sec/4_experiment.tex:145 head noun “off” (dobj) is not a glossary noun: “a trade-off that enhances salient targets and edges 
+        S164     sec/4_experiment.tex:153 head noun “constraints” (pobj) is not a glossary noun: “capacity constraints”
+        S165     sec/4_experiment.tex:153 head noun “orders” (pobj) is not a glossary noun: “varying pairing orders”
+        S169     sec/4_experiment.tex:153 head noun “scenarios” (pobj) is not a glossary noun: “real-world scenarios”
+        S171     sec/4_experiment.tex:164 head noun “art” (pobj) is not a glossary noun: “the-art”
+        S171     sec/4_experiment.tex:164 head noun “superiority” (dobj) is not a glossary noun: “the superiority of the proposed training par
+        S172     sec/4_experiment.tex:168 head noun “fairness” (dobj) is not a glossary noun: “fairness”
+        S172     sec/4_experiment.tex:168 head noun “material” (pobj) is not a glossary noun: “the supplementary material”
+        S174     sec/4_experiment.tex:168 head noun “excellence” (nsubj) is not a glossary noun: “its excellence on three unseen datasets”
+        S175     sec/4_experiment.tex:168 head noun “strategies” (pobj) is not a glossary noun: “varying pairing strategies”
+        S176     sec/4_experiment.tex:168 head noun “dependence” (dobj) is not a glossary noun: “the model's dependence on large data volumes”
+        S177     sec/4_experiment.tex:168 head noun “material” (pobj) is not a glossary noun: “the supplementary material”
+        S178     sec/4_experiment.tex:175 head noun “addition” (pobj) is not a glossary noun: “addition to the experimental investigations pre
+        S178     sec/4_experiment.tex:175 head noun “investigations” (pobj) is not a glossary noun: “the experimental investigations presented
+        S178     sec/4_experiment.tex:175 head noun “material” (pobj) is not a glossary noun: “the supplementary material”
+        S179     sec/5_conclusion.tex:2   head noun “necessity” (dobj) is not a glossary noun: “the necessity of the Strictly Paired Training 
+        S183     sec/5_conclusion.tex:2   head noun “finding” (nsubj) is not a glossary noun: “This finding”
+  [pass  ] A7  One thing keeps one head noun: concept rules list phrases that name a glossary…
+  [manual] M1  Plain words and direct verbs; no decoration with elevated words; necessary ter…
+  [manual] M2  While, whereas, instead, unlike mark a real parallel, contrast or replacement,…
+  [warn  ] U1  Write “vs.” (not “v.s.”).  (2 open)
+        S188     sec/3_method.tex:139     write vs.: “v.s.”
+        S194     sec/3_method.tex:329     write vs.: “v.s.”
+
+5. Format: abstract limits, floats, cross-references  [warn]
+  [pass  ] J1  The abstract length is within the venue limit (document.json: J1.min, J1.max).
+  [pass  ] J2  The abstract contains no citation.
+  [warn  ] T5  Running text refers to figures as “Fig. N” (not “Figure N” inside a sentence).  (4 open)
+        S146     sec/4_experiment.tex:116 write “Fig.”: “Figure 6”
+        S153     sec/4_experiment.tex:127 write “Fig.”: “Figure 6”
+        S156     sec/4_experiment.tex:135 write “Fig.”: “Figure 6”
+        S163     sec/4_experiment.tex:150 write “Fig.”: “Figure 7”
+  [warn  ] T1  Figures and tables are numbered in the order of their first citation (checked …  (3 open)
+        fig:loss sec/3_method.tex:131     figure 2 is first cited after figure 5; number floats in the order of first citation
+        fig:visual_change sec/3_method.tex:139     figure 3 is first cited after figure 5; number floats in the order of first citation
+        fig:visual_example sec/3_method.tex:147     figure 4 is first cited after figure 5; number floats in the order of first citation
+  [warn  ] T2  A text citation comes before the figure or table it cites, and every figure an…  (11 open)
+        fig:motivation sec/1_intro.tex:5        figure 1 is never cited in the text
+        fig:loss sec/3_method.tex:131     figure 2 appears before its first citation (line 284 of sec/3_method.tex)
+        fig:visual_change sec/3_method.tex:139     figure 3 appears before its first citation (line 301 of sec/3_method.tex)
+        fig:visual_example sec/3_method.tex:147     figure 4 appears before its first citation (line 307 of sec/3_method.tex)
+        fig:relation sec/3_method.tex:195     figure 5 appears before its first citation (line 276 of sec/3_method.tex)
+        fig:visual1 sec/3_method.tex:203     figure 6 appears before its first citation (line 120 of sec/4_experiment.tex)
+        tab:feasibility sec/3_method.tex:211     table 1 appears before its first citation (line 118 of sec/4_experiment.tex)
+        fig:cross sec/3_method.tex:329     figure 7 appears before its first citation (line 150 of sec/4_experiment.tex)
+        tab:cross_data sec/4_experiment.tex:2   table 2 appears before its first citation (line 145 of sec/4_experiment.tex)
+        tab:change sec/4_experiment.tex:36  table 3 appears before its first citation (line 157 of sec/4_experiment.tex)
+        tab:compare sec/4_experiment.tex:67  table 4 appears before its first citation (line 169 of sec/4_experiment.tex)
+  [pass  ] B2  Every \ref, \eqref, \autoref and \cref points to an existing \label.
+  [manual] T9  Captions are short: only what is needed to read the figure; the mechanism belo…
+  [manual] M5  Text inside figures is readable at the final column width (about 8 pt or more …
+
+6. The rule system itself  [pass]
+  [pass  ] R0  Every rule is in the register exactly once and sits in the rule tree.
+  [pass  ] R1  Every testable rule flags its “flag” sentences and passes its “pass” sentences…

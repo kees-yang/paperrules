@@ -1,0 +1,87 @@
+% CVPR 2026 Paper Template; see https://github.com/cvpr-org/author-kit
+
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+\usepackage{cvpr}              % To produce the CAMERA-READY version
+% \usepackage[review]{cvpr}      % To produce the REVIEW version
+% \usepackage[pagenumbers]{cvpr} % To force page numbers, e.g. for an arXiv version
+
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{arydshln}
+\usepackage[table]{xcolor}
+\usepackage{amssymb}
+\usepackage{graphicx}
+% \usepackage[accsupp]{axessibility} %Improves PDF readability for those with disabilities. 
+\newcommand{\ir}[1]{\textcolor{black}{{}#1}}
+\newcommand{\bb}[1]{\textcolor{blue}{{}#1}}
+\newcommand{\br}[1]{\textcolor{black}{\textbf{#1}}} % 定义 \br 命令
+% 定义红色上箭头和百分比
+\newcommand{\upr}[1]{%
+  \textcolor{red}{$\uparrow$} %
+}
+\newcommand{\downr}[1]{%
+  \textcolor{red}{$\downarrow$} %
+}
+\newcommand{\mline}[1]{%
+  \textcolor{red}{$-$} %
+}
+% Import additional packages in the preamble file, before hyperref
+\input{preamble}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, 
+% e.g. with the file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete *.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you should be clear).
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+% \def\paperID{} % *** Enter the Paper ID here
+\def\confName{CVPR}
+\def\confYear{2026}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{Beyond Strict Pairing: Arbitrarily Paired Training for\\ High-Performance Infrared and Visible Image Fusion}
+
+%%%%%%%%% AUTHORS - PLEASE UPDATE
+\author{
+    Yanglin Deng$^{1}$, 
+    Tianyang Xu$^{1}$\thanks{Corresponding author},
+    Chunyang Cheng$^{1}$, 
+    Hui Li$^{1}$,
+    Xiao-jun Wu$^{1}$,
+    Josef Kittler$^{2}$ \\
+    \noalign{\vspace{3pt}}
+    \small $^{1}$ School of Artificial Intelligence and Computer Science, Jiangnan University\\
+    \small $^{2}$ Centre for Vision, Speech and Signal Processing (CVSSP), University of Surrey \\
+    {\tt\small yanglin\_deng@stu.jiangnan.edu.cn, j.kittler@surrey.ac.uk}\\
+    {\tt\small\{tianyang.xu,chunyang\_cheng,lihui.cv, wu\_xiaojun\}@jiangnan.edu.cn} \\
+    % {\tt\small }
+}
+
+\begin{document}
+
+\maketitle
+\input{sec/0_abstract}    
+\input{sec/1_intro}
+\input{sec/2_related_work}
+\input{sec/3_method}
+\input{sec/4_experiment}
+\input{sec/5_conclusion}
+
+{
+    \small
+    \bibliographystyle{ieeenat_fullname}
+    \bibliography{main}
+}
+\clearpage
+% WARNING: do not forget to delete the supplementary pages from your submission 
+% \input{sec/X_suppl}
+
+\end{document}

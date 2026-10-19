@@ -1,0 +1,59 @@
+{
+ "note": "Patterns are case-insensitive regular expressions run over every printed English sentence. Edit, extend or remove them in rules.local.json with the _add / _remove convention (docs/customizing-rules.md).",
+ "W7": {
+  "meta_subject": "^(this|these|the|such)(\\s+[\\w–-]+){0,2}\\s+(figure|figures|example|examples|comparison|comparisons|distinction|results|metrics|scores|statistics|differences|ablations|outcomes|study|analysis|section)\\b",
+  "meta_verb": "\\b(describes?|illustrates?|complements?|characteri[sz]es?|examines?|evaluates?|separates?|matters?|concerns?|summari[sz]es?)\\b",
+  "meta_max_words": 20,
+  "patterns": [
+   "\\bwithout (any )?(additional|extra|further) (contrast |brightness |colou?r )?(enhancement|adjustment|post-?processing)\\b",
+   "\\b(no|without) (contrast|brightness) (enhancement|adjustment)\\b",
+   "\\b(examples?|figures?|results?|tables?) below (illustrate|show|summari[sz]e)\\b",
+   "^(in this section|in the following), we (will )?(describe|present|introduce|discuss)\\b"
+  ]
+ },
+ "W8": {
+  "patterns": [
+   "\\b(do|does|did) not (lead|outperform|achieve|improve|surpass|match|reach)\\b",
+   "\\bat the (cost|expense) of\\b",
+   "\\b(insufficient|inferior|weakness(es)?|drawbacks?|shortcomings?|limitations?)\\b",
+   "^(although|though|despite)\\b",
+   "^while [\\w-]+ (has|have|achieves?|gives?|reaches?) the (highest|best|largest|lowest)\\b",
+   "\\bmatters? when\\b",
+   "\\b(cannot|fails? to)\\b"
+  ]
+ },
+ "W9": {
+  "patterns": [
+   "\\b(not yet|has not been|have not been|was not|were not|is not|are not) (measured|evaluated|tested|compared|verified|validated|run|trained)\\b",
+   "\\b(future work|left (for|to) future|beyond the scope|outside the scope|remains? to be)\\b",
+   "\\bwould require\\b"
+  ]
+ },
+ "W10": {
+  "skip_kinds": [
+   "figure",
+   "table"
+  ],
+  "pattern": "\\b(is|are|was|were|be|been|being)\\s+((?:not|instead|also|still|then|only|thus|therefore|now|\\w+ly)\\s+)*(\\w+ed|built|chosen|done|drawn|given|held|kept|known|made|run|seen|shown|taken|written|cropped|split|set|put)\\b",
+  "adjectives": []
+ },
+ "W11": {
+  "patterns": [
+   "\\w,?\\s+(only if|if|unless|provided that|only when)\\s",
+   "\\w\\s+under the [\\w\\s-]*protocol\\b"
+  ]
+ },
+ "W12": {
+  "pattern": "\\b(we|our|us)\\b",
+  "allowed_starts": [
+   "We propose",
+   "We present",
+   "We introduce",
+   "• We "
+  ]
+ },
+ "W13": {
+  "en": "\\b(therefore|thus|hence|consequently|accordingly|thereby|as a result)\\b|[,;]\\s+(so)\\b(?!\\s+(?:that|far|on)\\b)",
+  "propose_en": "\\bwe (propose|present|introduce)\\b"
+ }
+}

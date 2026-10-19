@@ -1,0 +1,202 @@
+
+\begin{table}
+  \caption{Qualitative results on MSRS of CNN baseline trained on different training sets. Bold indicates that the model performs better than the one trained on its original paired data.}
+  \centering
+  \label{tab:cross_data}
+  \setlength{\tabcolsep}{2pt} % Slightly increased for better spacing
+  \footnotesize
+  \begin{tabular}{c|ccc|c|c|ccccc}
+    \hline
+    \multirow{2}{*}{Mode}&\multicolumn{3}{c|}{Quantity} & \multirow{2}{*}{Infrared} & \multirow{2}{*}{Visible} &  \multirow{2}{*}{EN} &  \multirow{2}{*}{MI} &  \multirow{2}{*}{VIF} &  \multirow{2}{*}{Qabf} &  \multirow{2}{*}{SSIM} \\
+    \cline{2-4} % Draw lines from col1-3 and col6-10
+     &PB & w/o E & T & & &  &  &  &  &  \\
+    \hline
+    \multirow{3}{*}{SPTP}&150 & $\times$ & 150 & MSRS & MSRS & 6.54 & 2.57 & 0.88 & 0.60 & 0.96 \\
+    
+    &150 & $\times$ & 150 & M3FD & M3FD & 6.52 & 2.37 & 0.84 & 0.58 & 0.90 \\
+  
+    &150 & $\times$ & 150 & LLVIP & LLVIP & 6.63 & 2.43 & 0.90 & 0.61 & 0.99 \\
+    \hline
+    \multirow{6}{*}{UPTP}
+    &150 & $\checkmark$ & 7500 & M3FD & MSRS & \br{6.57}& \br{2.66}& \br{0.93}& \br{0.66}& \br{1.01}\\
+   
+    &150 & $\checkmark$ & 7500 & M3FD & LLVIP & \br{6.59}& \br{2.63}& \br{0.93}& \br{0.65}& \br{1.01}\\
+
+    &150 & $\checkmark$ & 7500 & LLVIP & MSRS & 6.54 & \br{2.74}& \br{0.92}& \br{0.65}& \br{1.00}\\
+
+    &150 & $\checkmark$ & 7500 & LLVIP & M3FD & 6.51 & \br{2.63}& \br{0.91}& \br{0.62}& \br{0.95}\\
+    &150 & $\checkmark$ & 7500 & MSRS & LLVIP & 6.54& \br{2.64}& \br{0.91}& \br{0.63}& 
+    \br{0.97}\\
+ &150 & $\checkmark$ & 7500 & MSRS & M3FD & 6.49 & \br{2.59}& \br{0.89}& \br{0.61}& 0.84 \\
+    \hline
+  \end{tabular}
+  \vspace{-4mm}
+\end{table}
+
+\begin{table}[t]
+\centering
+\captionsetup{skip=2pt}
+\caption{Quantitative results on MSRS of comparing the improvement of APTP on different basic strictly-paired images.} 
+\label{tab:change}
+\setlength{\tabcolsep}{2pt}
+ \footnotesize
+\begin{tabular}{c|ccc|ccccc|c}
+
+\hline
+\multirow{2}{*}{ Mode}&\multicolumn{3}{c|}{Quantity} & \multirow{2}{*}{EN}& \multirow{2}{*}{MI}& \multirow{2}{*}{VIF}  &\multirow{2}{*}{Qabf}&\multirow{2}{*}{SSIM}&\multirow{2}{*}{Avg. Imp.} \\
+\cline{2-4}
+& PB & w/o E & T& &&&&& \\
+\hline
+
+ SPTP& 15&$\times$&15& 6.29&  2.25& 0.74&0.52&0.65&$-$\\
+   APTP&15&$\checkmark$&225&6.45& 2.56& 0.80&0.56&0.73&\br{8.89\%}\\
+\hline
+SPTP& 30&$\times$&30& 6.48&  2.48& 0.80 &0.59&0.93&$-$\\
+APTP&30&$\checkmark$&900& 6.55& 2.62& 0.90&0.61&0.96&\br{5.17\%}\\
+\hline
+SPTP& 60&$\times$&60& 6.54& 2.57& 0.88&0.60&0.96&$-$\\
+ APTP&60&$\checkmark$&3600&6.56&2.68&0.93&0.65&0.99&\br{4.35\%}\\
+\hline
+SPTP& 150&$\times$&150& 6.61& 2.60& 0.91&0.63&0.98&$-$\\
+ APTP&150&$\checkmark$&22500&6.58&2.70&0.95&0.68&1.01&\br{3.94\%}\\
+\hline
+\end{tabular}
+\vspace{-5mm}
+\end{table}
+
+\begin{table*}
+  \caption{Qualitative results of three baseline models and several SOTA methods. Bold shows the best value.}
+  \centering
+  \label{tab:compare}
+  \setlength{\tabcolsep}{2pt} % Set the table column separation
+  \footnotesize
+  \begin{tabular}{c|c|c|ccccc|ccccc|ccccc|ccccc} \hline
+       
+&\multirow{2}{*}{Venue}&\multirow{2}{*}{MB}& \multicolumn{5}{c}{LLVIP}& \multicolumn{5}{c}{MSRS}& \multicolumn{5}{c}{RoadScene} &\multicolumn{5}{c}{TNO}\\ \cline{4-23}
+  & &&EN& MI&VIF&Qabf&SSIM& EN& MI& VIF&Qabf&SSIM& EN& MI& VIF&Qabf&SSIM & EN& MI& VIF&Qabf&SSIM\\ \hline 
+  
+ DeF \cite{defusion}& 22' ECCV& 30.04&7.25&  2.33& 0.74& 0.43& 0.83& 3.34&  2.15& 0.75& 0.51& 0.93& 6.80& 2.08& 0.50& 0.38&0.86 & 6.94&1.81 &0.53 &0.34 &0.91\\  
+ LRR \cite{lrrnet}& 23' TPAMI& 0.19&6.67&  1.65& 0.56& 0.47& 0.66& 6.19&  2.03& 0.54& 0.45& 0.71& 7.12& 2.09& 0.51& 0.38&0.71 & 6.90&1.74 &0.56 &0.37 &0.83\\ 
+ Meta \cite{metafusion}& 23' CVPR& 3.10&7.14&  1.16& 0.61& 0.29& 0.60& 6.37&  1.16& 0.71& 0.48& 0.78& 7.17& 1.60& 0.51& 0.36&0.75 &\br{7.09} &1.12 &0.57 &0.35 &0.80\\ 
+ DDF \cite{ddfm}& 23' ICCV& 2108&7.17&  1.78& 0.58& 0.23& 0.58& 6.17& 1.89 &0.74 &0.47 &0.91 & 7.42& 2.13& 0.57& 0.42&\br{0.88} &6.83 &1.46 &0.56 &0.36 &0.90\\ 
+ Cross \cite{crossfuse}& 24' Inf.& 79.40&6.47&  1.79& 0.69& 0.44& 0.71& 6.49&  2.17& 0.84& 0.56& 0.88& 7.25& 2.13& 0.58& 0.39&067 &6.83 &2.10 &0.74 &0.45 &0.88\\ 
+ CTHI \cite{cthie}& 24' IJCV& 53.89&6.83&  1.44& 0.33& 0.22& 0.40& 5.64& 1.45& 0.43& 0.35& 0.47& 7.23& 1.65& 0.36& 0.30&0.46 &6.97 &1.29 &0.41 &0.31 &0.56\\ 
+ DCINN \cite{dcinn}& 24' IJCV& 9.77&7.04&  2.00& 0.75& 0.52& 0.77& 6.00& 2.30& 0.82& 0.57& 0.73& 6.90& 1.77& 0.23& 0.23&0.33 &6.67 &1.58 &0.42 &0.33 &0.59\\ 
+ Free \cite{freefusion}& 25' TPAMI& 65.19&7.09&  1.77& 0.76& 0.54& 0.68& 5.16&  1.38& 0.51& 0.42& 0.43& 6.70& 1.73& 0.51& 0.37&0.73 & 7.07&1.35 &0.55 &0.35 &0.80\\
+ SAGE \cite{sage}& 25' CVPR& 0.55&6.96&  1.81& 0.73& 0.57& 0.81& 6.00& 2.23& 0.71& 0.54& 0.88& 6.76& 2.17& 0.53& 0.39&0.86 &6.91 &1.78 &0.63 &0.46 &0.97\\ 
+ GIFNet \cite{gifnet}& 25' CVPR& 3.25& 7.01&1.56& 0.64& 0.47& 0.74& 5.94&1.36& 0.58& 0.42& 0.85& 7.14& 1.86& 0.48& 0.37&0.84 &6.83 &1.34 &0.49 &0.36 &0.88\\ \hline
+ CNN&Ours&0.81& \br{7.34}&\br{2.54}& \br{0.88}& \br{0.63}& \br{0.91}& \br{6.58}&\br{2.69}& \br{0.93}& \br{0.65}& \br{1.00}& \br{7.45}&\br{2.42}& \br{0.66}& \br{0.47}&0.87 &6.93 &\br{2.23}&\br{0.77}&\br{0.53}&\br{0.98}\\ 
+ Transf& Ours& 0.81&\br{7.35}& \br{2.56}& \br{0.87}& \br{0.64}& \br{0.92}& \br{6.57}& \br{2.64}& \br{0.92}& \br{0.65}& \br{0.99}& \br{7.44}& \br{2.38}& \br{0.65}& \br{0.47}&0.86 &6.94&\br{2.18}&\br{0.76}&\br{0.52}&\br{0.99}\\ 
+  GAN&Ours& 0.71& \br{7.35}& \br{2.51}& \br{0.87}& \br{0.65}& \br{0.92}& \br{6.58}& \br{2.56}& \br{0.92}& \br{0.63}& \br{1.01}& \br{7.46}&  \br{2.36}& \br{0.65}& \br{0.46}&\br{0.88} &6.96&\br{2.13}&\br{0.76}&\br{0.52}&\br{0.99}\\ \hline
+\end{tabular}
+\vspace{-4mm}
+\end{table*}
+
+\section{Experiments}
+
+\subsection{Setup}
+% \paragraph{Datasets and Metrics}
+The evaluation datasets include MSRS \cite{msrs}, M$^3$FD \cite{tardal}, LLVIP \cite{llvip}, RoadScene \cite{road}, and TNO \cite{tno}. 
+% We conduct generalisation experiments across three testing datasets, which are TNO (30 pairs) \cite{tno}, RoadScene (50 pairs) \cite{roadscene}, and LLVIP (250 pairs). 
+% To better explore the generalisation ability of models, we directly apply the trained models to the above testing datasets without any fine-tuning. 
+In terms of qualitative evaluation metrics, we adopt one non-reference metric: entropy (EN), as well as four full-reference metrics: mutual information (MI), visual information fidelity (VIFF),  $\mathrm{Q^{AB/F}}$ and structural similarity index measure (SSIM). 
+These metrics can comprehensively assess the image quality both from the fused image itself and from the differences between the fused image and the source images, as described in \cite{metrics}. 
+% \paragraph{Implement Details}
+Our evaluations are conducted on a Linux server with an NVIDIA GeForce RTX 3090 GPU.
+% The training images are cut into patches of size 128×128 pixels.
+% For the validation experiments, we use 1600 basic image patches from the MSRS dataset termed as $P1.6k$, and its randomly shuffled order as $U1.6k$. 
+% Through changing pairing relationships between modalities, $P1.6k$ can be expanded to 3200 and 4800 image patches, which are denoted as $U3.2k$ and $U4.8k$, respectively. 
+% For the final comparative experiments with State-Of-The-Art methods, we train three baseline models on 10 image patches from the MSRS dataset, which are finally expanded to 6400 image patches by shuffling the pairing relationship.
+% The training epochs are 100, 100, and 300 for the CNN, transformer, and GAN baselines, respectively.
+The hyperparameter settings for all experiments are the same, including $\alpha$=1, $\beta$=0.2, and $\lambda$=0.01. 
+
+
+\subsection{Validation Experiments}
+\subsubsection{Feasibility of UPTP and APTP}
+With the relaxed optimisation objective, the model learns pixel-to-pixel relationships across modalities, making both strictly-paired training (SPTP) and unpaired training (UPTP) feasible. 
+To validate this, we train three baseline fusion models using 150 paired and 150 unpaired images from the MSRS dataset, and evaluate their fusion performance qualitatively and quantitatively on the M$^3$FD, MSRS, and LLVIP benchmarks.
+As reported in Table~\ref{tab:feasibility} (rows 1–2 in each group), the fusion results under SPTP and UPTP are nearly identical across five evaluation metrics on all three datasets. 
+In the Transformer-based baseline, UPTP even achieves marginally better performance. 
+This observation is visually supported in Figure~\ref{fig:visual1}, where results in the fourth column preserve richer modality-specific details in certain elements (\textit{e.g.}, clouds, roadside branches, and road surfaces) while maintaining comparable clarity in others (\textit{e.g.}, the light bulb), relative to the third column.
+
+These outcomes indicate that, through the proposed UPTP strategy, models can leverage randomly paired cross-modality samples to capture data relationships that are comparable to, or even richer than, those learned from an equivalent volume of strictly-paired data.
+
+
+
+\subsubsection{Advantages of APTP}
+\noindent\textbf{Enriching Data Relationship within Single Datasets}
+Leveraging the data scalability benefit formalised in Eqn.~\eqref{eq:data_scale} (\textbf{Advantage 1}), we construct unpaired training sets by expanding the original 150 image pairs from the MSRS dataset to 50$\times$ and 100$\times$ of its initial size. 
+By recombining source images, we enrich the diversity of cross-modal relationships available during training, thereby enhancing the generalisation capability of the fusion models.
+This is corroborated by the consistent improvement in evaluation metrics across all three datasets and baseline models in Table~\ref{tab:feasibility} (rows 1$\sim$4 in each group). 
+It is noted that in some cases, the EN value decreases as the amount of trainable data increases, while other metrics continue to improve. 
+This suggests that the model is filtering out noise, producing fusion results with higher information density, better visual quality, and more structurally coherent outputs. 
+Further visual evidence is provided in Figure~\ref{fig:visual1}, where regions highlighted in the third to sixth columns show progressively clearer and more detailed outputs.
+
+To examine the robustness enhancement enabled by UPTP and APTP, corresponding to \textbf{Advantage 2} in Eqn.~\eqref{eq:data_scale}, we design a comparative study using three training sets, each containing 15,000 image pairs expanded from the same base set of 150 paired images. 
+These sets are constructed under strictly-paired (SPTP), completely unpaired (UPTP), and arbitrarily-paired (APTP) protocols. 
+As shown in Figure~\ref{fig:visual1} and Table~\ref{tab:feasibility} (rows 4$\sim$6 in each group), all three baselines achieve nearly identical qualitative performance across paradigms. 
+This result underscores a key advantage of the proposed approach, \textit{i.e.}, by strategically re-pairing existing data, we can match the fusion performance of models trained with 100$\times$ more strictly-paired data, significantly improving data utilisation and training flexibility.
+
+
+\noindent\textbf{Enriching Data Relationship within Cross Datasets}
+In terms of the \textbf{Advantage 3} of Eqn.~\eqref{eq:data_scale}, we exploit three datasets to conduct unpaired training across them. 
+Despite the large differences in scene content across datasets, they still fall within the applicability of our proposed training paradigms, admitting the fact that a fusion model learns content-independent pixel-to-pixel relationships. 
+
+As shown in the Table~\ref{tab:cross_data}, different pixel combinations across data pairs present distinct learnable information. 
+Among the configurations, the first five provide sufficient effective training relationships, showing consistent improvements in MI, VIF, Qabf, and SSIM, along with only minor EN fluctuations, demonstrating enhanced fusion efficiency, structural fidelity, visual quality, and noise suppression. 
+In contrast, the last group shows gains in MI, VIF, and Qabf but drops in EN and SSIM, indicating a trade-off that enhances salient targets and edges at the cost of natural appearance and texture detail, making it a suboptimal choice. 
+% However, the rich diversity of data relationships leads to comprehensive improvements in MI, VIF, and Qabf metrics, along with simultaneous increases in five sets of SSIM values and two sets of EN values, despite being accompanied by four instances of unchanged or slightly decreased EN values. 
+% This unequivocally demonstrates that the models achieve significant enhancement in information fusion efficiency, structural fidelity, visual perception quality, and information screening capability. 
+The overall improvement in visual quality and clearer branch details in the Figure~\ref{fig:cross} provide compelling evidence for this conclusion. 
+
+
+\noindent\textbf{Enriching Data Relationships from Datasets of Varying Pairing Quantities}
+Based on the constructed baseline under capacity constraints, we design different amounts of basic strictly-paired data, \textit{i.e.}, 15, 30, 60 and 150 image patches.
+Using the proposed APTP with varying pairing orders, we expanded the maximum trainable data volume to 225, 900, 3600, and 22500, respectively, to explore the potential gain of APTP. 
+Since the built baseline model size is only 0.88MB, excessively increasing the trainable data volume adversely affects model performance.
+As shown in the Table~\ref{tab:change}, APTP can consistently enhance model robustness by enriching trainable data relationships. 
+Notably, the relative improvement achieved by the proposed APTP is more pronounced when the basic data volume is smaller.
+Therefore, in real-world scenarios, we can pursue satisfactory model performance with only a small amount of collected data, significantly enhancing task efficiency.
+
+
+
+\subsection{Comparison with State-of-the-Art Methods}
+Motivated by the outstanding cross-dataset performance of MSRS and M$^3$FD in Table~\ref{tab:cross_data}, we use 150 paired images from MSRS and M$^3$FD as visible and infrared source images, respectively, and expand the training set to 15,000 pairs to train three baseline models. 
+The resulting models are compared with state-of-the-art (SOTA) methods to demonstrate the superiority of the proposed training paradigms and loss functions. 
+% Ten methods are adopted to compare with our methods. 
+% which are DeFusion \cite{defusion}, LRRnet \cite{lrrnet}, MetaFusion \cite{metafusion}, DDFM \cite{ddfm}, CrossFuse \cite{crossfuse}, CTHIE \cite{cthie}, DCINN \cite{dcinn}, FreeFusion \cite{freefusion}, SAGE \cite{sage}, GIFNet \cite{gifnet}.
+To ensure fairness, the details of the training data used for all methods are provided in the supplementary material. 
+As clearly shown in the Table~\ref{tab:compare}, our methods achieve superior performance on all four datasets. 
+Notably, its excellence on three unseen datasets strongly demonstrates a powerful generalisation capability and the effectiveness of the proposed loss functions. 
+Despite using only 150 image pairs, our approach of varying pairing strategies creates rich, trainable pixel relationships for all models. 
+This not only enhances robustness but also fundamentally reduces the model's dependence on large data volumes, thereby significantly cutting data collection costs. 
+Additional visual results and corresponding analyses are provided in the supplementary material. 
+
+In addition to the experimental investigations presented above, we provide further analysis of the proposed training paradigms in the supplementary material. 
+
+
+% \begin{table}
+%   \caption{Qualitative results on RoadScene of CNN baseline trained on different training sets. The boldface shows the best value.}
+%   \centering
+%   \label{tab:ablation}
+%   \setlength{\tabcolsep}{3pt} % Set the table column separation
+%   \footnotesize
+%   \begin{tabular}{c|c|cccccc} \hline 
+       
+%   \multicolumn{2}{c|}{Settings} & EN & SD & MI & VIF & Qabf & SSIM \\ \hline 
+%   \multirow{2}{*}{$\alpha=10^2,\beta=10^2$}& P1.6k & 7.46& 60.86& 2.91& 0.75& 0.45& 0.81\\
+%   & U3.2k & \textbf{7.46}& \textbf{62.82}& \textbf{2.99}& \textbf{0.76}& \textbf{0.45}& 0.80\\ \hline
+%      \multirow{2}{*}{$\alpha=10^2,\beta=10^3$}& P1.6k & \textbf{7.44}& 61.74& 2.74& 0.75& 0.45& 0.81\\
+%   & U3.2k & 7.42& \textbf{61.85}& \textbf{3.07}& \textbf{0.79}& \textbf{0.48}& \textbf{0.84}\\ \hline
+%   \multirow{2}{*}{$\alpha=10^2,\beta=10^4$}& P1.6k & 6.97& 38.81& 1.74& 0.43& 0.35& 0.76\\
+%   & U3.2k & \textbf{7.46}& \textbf{61.16}& \textbf{3.57}& \textbf{0.85}& \textbf{0.48}& \textbf{0.80}\\ \hline
+%   \multirow{2}{*}{$\alpha=10^3,\beta=10^3$}& P1.6k & 7.42& \textbf{63.84}& 2.77& 0.68& 0.43& 0.78\\
+%   & U3.2k & \textbf{7.42}& 63.72& \textbf{3.12}& \textbf{0.77}& \textbf{0.45}& \textbf{0.82}\\ \hline
+%   \multirow{2}{*}{$\alpha=10,\beta=10^3$}& P1.6k & 7.07& 41.78& 1.88& 0.52& 0.40& 0.78\\
+%   & U3.2k & \textbf{7.45}& \textbf{63.37}& \textbf{3.19}& \textbf{0.79}& \textbf{0.46}& \textbf{0.80}\\ \hline
+ 
+% \end{tabular}
+% \vspace{-4mm}
+% \end{table}
+
+
