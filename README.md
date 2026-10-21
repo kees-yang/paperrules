@@ -11,7 +11,7 @@ Rule-based writing checks for LaTeX papers. You write down what good writing mea
 * **Findings are questions, not verdicts.** A flagged sentence can stay, with a written reason (`exceptions.json`); the report keeps accepted exceptions visible.
 * **Offline, bilingual report.** One HTML file (no server, CDN or font download), English / 中文 switch, readable on a phone; plus JSON and plain text.
 
-> **Status: v0.1.** The default pack encodes one author's English writing preferences (active voice, one main action per sentence, strengths first, no filler, …). They are opinions. Switch off what you disagree with, and see [what the checker does not do](#what-the-checker-does-not-do).
+> **Status: v0.3.** Agents (Claude Code, Codex, …) helping with a paper: start with [`AGENTS.md`](AGENTS.md). The default pack encodes one author's English writing preferences (active voice, one main action per sentence, strengths first, no filler, …). They are opinions. Switch off what you disagree with, and see [what the checker does not do](#what-the-checker-does-not-do).
 
 ## Quick start
 
@@ -91,7 +91,7 @@ Then run `python -m paperrules test my-paper` (R1 runs every test sentence of ev
 ## What the checker does not do
 
 * **It does not judge the science or the argument.** It reads sentences and structure. A clean report is not a good paper, and the findings on a good paper are not criticism of it.
-* **It reads the LaTeX source, not the PDF.** Float order is the order in the source; page layout, overfull boxes, fonts and figure readability are not checked (rules about them are `manual`).
+* **It reads the LaTeX source, not the compiled PDF.** Float order is the order in the source; page layout and overfull boxes are not checked. Figure files are the exception: `G1`–`G4` open them and measure fonts, text sizes and line weights at the printed size.
 * **English only.** The sentence rules and the spaCy model are English. The report is bilingual; the paper is not.
 * **Parser mistakes happen.** `W14`–`W16` and `A6` use a small spaCy model and sometimes misread a sentence. Accept the finding with a reason.
 * **Not included in this release:** a number-to-source evidence registry (every number in the text traced to a result file), a storyline/flow checker across sections, Chinese–English sentence alignment, and PDF layout checks. They exist in the research workspace this project grew out of and are candidates for later releases.
@@ -101,9 +101,14 @@ Then run `python -m paperrules test my-paper` (R1 runs every test sentence of ev
 ```
 paperrules/             package (reader, rules, runner, report, CLI) and packs/default/*.json (the rules)
 examples/aptp-cvpr2026/ a CC BY 4.0 paper, a glossary, local rules, exceptions, expected/ output
+AGENTS.md               guide for agents: setup, revision loop, author feedback → rules, figures
 docs/                   customizing-rules (EN, 中文), rules.md, screenshots
-tests/                  python -m unittest discover -s tests   (29 tests)
+tests/                  python -m unittest discover -s tests   (36 tests)
 ```
+
+## Credits
+
+The sentence rules adapt ASD-STE100 Simplified Technical English, following A. Karpathy's “80% of the way to ASD-STE100” suggestion. The interface design draws inspiration from Obsidian. Parsing uses spaCy, and the figure rules use PyMuPDF. Sources, licenses and citations are in [`CREDITS.md`](CREDITS.md).
 
 ## License
 
