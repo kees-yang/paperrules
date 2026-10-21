@@ -18,6 +18,7 @@ Rule-based writing checks for LaTeX papers. You write down what good writing mea
 ```bash
 git clone <this repository> && cd paperrules
 pip install -e .                                  # installs spaCy
+pip install -e ".[figures]"                       # optional: PyMuPDF for the figure-file rules G1–G4
 python -m spacy download en_core_web_sm           # the parser model used by the structure rules
 
 python -m paperrules test examples/aptp-cvpr2026  # the rules pass their own tests (R0, R1)
@@ -58,10 +59,10 @@ Read the report top-down. For each finding you can:
 | **S2 Thread** | abstract, claims | superiority claims need support (`W6`); abstract and conclusion (manual `W1`, `W4`) |
 | **S3 Paragraphs** | paragraph content | no repeated sentence (`F2`); manual checks (`W2`, `O2`) |
 | **S4 Sentences** | structure, voice, tone, wording | one main action (`W14`), active voice (`W10`), "we" (`W12`), filler (`W7`), consequence connectives (`W13`), head nouns (`A6`) |
-| **S5 Format** | venue limits, floats, references | abstract limits (`J1`), figure/table/algorithm order (`T1`, `T2`), proposed method last in tables (`T10`, opt-in), unknown labels (`B2`) |
+| **S5 Format** | venue limits, floats, references | abstract limits (`J1`), figure/table/algorithm order (`T1`, `T2`), proposed method last in tables (`T10`, opt-in), unknown labels (`B2`); figure files measured at their printed size — embedded fonts, body font family, text ≥ 8 pt, line weights (`G1`–`G4`), and a figure-design checklist (`G5`–`G9`: one visual language and colour roles, line grammar, no formulas or small grey text in diagrams, boxes sized to content, real or schematic images from registered files) |
 | **S6 Rule system** | the register itself | every rule is in the tree (`R0`); every rule passes its own tests (`R1`) |
 
-All 40 rules, bilingual: [`docs/rules.md`](docs/rules.md) (`python -m paperrules rules tree` prints the tree, `rules show W14` one rule). Rules have a **method**: `auto` (the checker decides), `partial` (the checker flags, you decide) and `manual` (a person checks; these appear as a checklist at the end of the report).
+All 49 rules, bilingual: [`docs/rules.md`](docs/rules.md) (`python -m paperrules rules tree` prints the tree, `rules show W14` one rule). Rules have a **method**: `auto` (the checker decides), `partial` (the checker flags, you decide) and `manual` (a person checks; these appear as a checklist at the end of the report).
 
 ## Customize the rules
 

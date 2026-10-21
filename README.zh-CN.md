@@ -18,6 +18,7 @@
 ```bash
 git clone <本仓库> && cd paperrules
 pip install -e .                                  # 会安装 spaCy
+pip install -e ".[figures]"                       # 可选：PyMuPDF，用于图件文件规则 G1–G4
 python -m spacy download en_core_web_sm           # 结构类规则使用的句法模型
 
 python -m paperrules test examples/aptp-cvpr2026  # 规则通过自身的测试（R0、R1）
@@ -58,10 +59,10 @@ python -m paperrules check my-paper --strict      # 有提示也以状态码1退
 | **S2 主线** | 摘要、主张 | 优势性表述须有依据（`W6`）；摘要与结论（人工 `W1`、`W4`） |
 | **S3 段落** | 段落内容 | 同一句不出现两次（`F2`）；人工检查（`W2`、`O2`） |
 | **S4 句子** | 结构、语态、语气、用词 | 一句一个主要动作（`W14`）、主动语态（`W10`）、“we”（`W12`）、空话（`W7`）、结果连接词（`W13`）、中心名词（`A6`） |
-| **S5 格式** | 期刊限制、图表、引用 | 摘要字数（`J1`）、图表与算法顺序（`T1`、`T2`）、本文方法排在表格最后（`T10`，需打开）、未知标签（`B2`） |
+| **S5 格式** | 期刊限制、图表、引用 | 摘要字数（`J1`）、图表与算法顺序（`T1`、`T2`）、本文方法排在表格最后（`T10`，需打开）、未知标签（`B2`）；按印刷尺寸测量图件文件——嵌入字体、正文字族、字号≥8 pt、线宽（`G1`–`G4`），以及图件设计核对清单（`G5`–`G9`：统一视觉语言与颜色角色、线型语法、框图内不写公式与灰色小字、方框按内容定尺寸、真实或示意图像取自登记文件） |
 | **S6 规则系统** | 规则登记本身 | 每条规则都在树中（`R0`）；每条规则通过自身测试（`R1`） |
 
-40 条规则的中英文对照见 [`docs/rules.md`](docs/rules.md)（`python -m paperrules rules tree --lang zh` 打印规则树，`rules show W14` 看单条规则）。规则按**方法**分为：`auto`（检查器判定）、`partial`（检查器标出、由你判断）、`manual`（人工检查；这类规则出现在报告末尾的核对清单里）。
+49 条规则的中英文对照见 [`docs/rules.md`](docs/rules.md)（`python -m paperrules rules tree --lang zh` 打印规则树，`rules show W14` 看单条规则）。规则按**方法**分为：`auto`（检查器判定）、`partial`（检查器标出、由你判断）、`manual`（人工检查；这类规则出现在报告末尾的核对清单里）。
 
 ## 自定义规则
 

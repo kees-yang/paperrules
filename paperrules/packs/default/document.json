@@ -62,5 +62,18 @@
  },
  "T10": {
   "method": ""
+ },
+ "figures": {
+  "note": "G1–G4. Widths in TeX pt of your template (IEEEtran and elsarticle 5p: about 252/516; set yours). body_font: auto (from the preamble), times, cm, helvetica, libertine or a regex of font names. Sizes are printed sizes in pt.",
+  "column_width_pt": 252.0,
+  "text_width_pt": 516.0,
+  "body_font": "auto",
+  "min_pt": 6.0,
+  "main_pt": [
+   8.0,
+   10.0
+  ],
+  "min_line_pt": 0.4,
+  "min_dpi": 300
  }
 }

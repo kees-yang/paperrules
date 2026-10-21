@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import unittest
 
 from paperrules import runner
@@ -224,3 +225,47 @@ class ExtraPacks(unittest.TestCase):
         res = runner.run(proj)
         self.assertEqual([f['rule'] for f in res['findings'] if f['rule'] == 'P1'], ['P1'])
         self.assertEqual(res['tests']['problems'], [])
+
+
+SERIF = Path('/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf')
+
+
+@unittest.skipUnless(__import__('paperrules.rules_figure', fromlist=['x']).available(), 'PyMuPDF not installed')
+class FigureRules(unittest.TestCase):
+    """G1–G4 measure the included figure files at their printed size (0.3.0)."""
+
+    DOC = ('\\documentclass[times]{elsarticle}\n\\begin{document}\nFig.~\\ref{fig:a} shows it.\n'
+           '\\begin{figure}\\includegraphics[width=\\columnwidth]{%s}\\caption{A.}\\label{fig:a}\\end{figure}\n\\end{document}')
+
+    def make_fig(self, d, name, width_bp, size, line, fontfile=None):
+        import fitz
+        doc = fitz.open()
+        pg = doc.new_page(width=width_bp, height=width_bp / 2)
+        kw = dict(fontname='F0', fontfile=str(fontfile)) if fontfile else dict(fontname='helv')
+        pg.insert_text((10, 30), 'Label text', fontsize=size, **kw)
+        pg.draw_line((10, 50), (100, 50), width=line)
+        doc.save(str(d / name))
+
+    def run_fig(self, width_bp, size, line, fontfile=None):
+        d = make_project({'main.tex': self.DOC % 'fig.pdf'})
+        self.make_fig(d, 'fig.pdf', width_bp, size, line, fontfile)
+        res = runner.run(load_project(d))
+        return {f['rule'] for f in res['findings'] if f['rule'].startswith('G')}, res
+
+    def test_bad_figure(self):
+        ids, _ = self.run_fig(252, 5, 0.2)                      # Helvetica, 5 pt, 0.2 pt line, not embedded
+        self.assertTrue({'G1', 'G2', 'G3', 'G4'} <= ids, ids)
+
+    def test_shrunk_figure_text(self):
+        ids, _ = self.run_fig(504, 9, 1.0)                      # 9 pt text in a 504 bp drawing printed 252 pt wide
+        self.assertIn('G3', ids)
+
+    @unittest.skipUnless(SERIF.exists(), 'Liberation Serif not installed')
+    def test_good_figure(self):
+        ids, _ = self.run_fig(252, 9, 1.0, SERIF)
+        self.assertEqual(ids, set())
+
+    def test_missing_file(self):
+        d = make_project({'main.tex': self.DOC % 'nofile'})
+        res = runner.run(load_project(d))
+        self.assertEqual([f['rule'] for f in res['findings'] if f['rule'].startswith('G')], ['G1'])

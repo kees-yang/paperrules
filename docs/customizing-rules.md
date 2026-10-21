@@ -87,6 +87,7 @@ An entry of the register (`rules_add`, or `register.json` of a pack):
 | `keywords` | `J3` |
 | `floats` | `B2` `T1` `T2` (figures, tables and `algorithm` floats) |
 | `table_order` | `T10` |
+| `figures` | `G1` `G2` `G3` `G4` (needs PyMuPDF; skipped without it) |
 | `register` | `R0` `R1` |
 
 ### Workflow for a new rule
@@ -110,7 +111,7 @@ An entry of the register (`rules_add`, or `register.json` of a pack):
 * **`tone.json`**: `W7` (`meta_subject`, `meta_verb`, `meta_max_words`, `patterns`), `W8` and `W9` (`patterns`), `W10` (`pattern`, `skip_kinds`, `adjectives`: participles allowed as adjectives), `W11` (`patterns`), `W12` (`pattern`, `allowed_starts`: sentences that may use "we"), `W13` (`en`: the connectives; `propose_en`: sentences that propose the method).
 * **`syntax.json`**: `skip_kinds` for the parser rules (`W14`–`W16`).
 * **`heads.json`** (rules `A6`, `A7`): `general_nouns` (noun → its one meaning; matched on the lemma), `scene_nouns`, `names` (lower case: datasets, metrics, methods), `symbol_pattern`, `concepts` (`A7`: `{"concept", "canonical", "forbidden": [regex], "note"}`).
-* **`document.json`**: `J1` (`min`, `max` words), `J3` (`min`, `max`), `E6` (`max_numbers`), `W20` (`propose`, `ordinals`, `function`: patterns of the proposal sentence, the mechanism ordinals and the function sentence), `T10` (`method`: the name of your method in the first table column; empty = inactive), `B7` (`required`: fields per entry type, `a|b` means either, `complete_authors`, `initials`).
+* **`document.json`**: `J1` (`min`, `max` words), `J3` (`min`, `max`), `E6` (`max_numbers`), `W20` (`propose`, `ordinals`, `function`: patterns of the proposal sentence, the mechanism ordinals and the function sentence), `T10` (`method`: the name of your method in the first table column; empty = inactive), `figures` (`column_width_pt`, `text_width_pt`: your template's widths in TeX pt; `body_font`: `auto`, `times`, `cm`, `helvetica`, `libertine` or a regex of font names; `min_pt`, `main_pt`: smallest and main printed text size; `min_line_pt`; `min_dpi`), `B7` (`required`: fields per entry type, `a|b` means either, `complete_authors`, `initials`).
 
 ## 6. Glossary, `glossary.json`
 

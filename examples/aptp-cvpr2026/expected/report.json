@@ -1,7 +1,7 @@
 {
  "schema": "paperrules-result/1",
- "checked_at": "2026-10-21 11:13:55",
- "seconds": 3.3,
+ "checked_at": "2026-10-21 11:24:35",
+ "seconds": 3.5,
  "project": {
   "main_tex": "paper/main.tex",
   "bib": "main.bib",
@@ -26,9 +26,9 @@
   "pass": 12,
   "warn": 17,
   "fail": 0,
-  "manual": 8,
+  "manual": 13,
   "skip": 0,
-  "off": 5
+  "off": 9
  },
  "first_failing": null,
  "first_warning": {
@@ -235,8 +235,8 @@
    "id": "S5",
    "number": 5,
    "name": {
-    "en": "Format: abstract limits, floats, cross-references",
-    "zh": "格式：摘要限制、图表、交叉引用"
+    "en": "Format: abstract limits, floats, figures, cross-references",
+    "zh": "格式：摘要限制、图表、图件、交叉引用"
    },
    "role": {
     "en": "delivery",
@@ -274,8 +274,26 @@
       "T2",
       "T10",
       "B2",
-      "T9",
-      "M5"
+      "T9"
+     ]
+    },
+    {
+     "id": "figures",
+     "name": {
+      "en": "Figure files and figure design",
+      "zh": "图件文件与图件设计"
+     },
+     "rules": [
+      "M5",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7",
+      "G8",
+      "G9"
      ]
     }
    ]
@@ -1057,17 +1075,197 @@
   {
    "id": "M5",
    "stage": "S5",
-   "node": "floats",
+   "node": "figures",
    "scope": "document",
    "method": "manual",
    "severity": "warn",
    "statement": {
-    "en": "Text inside figures is readable at the final column width (about 8 pt or more in print).",
-    "zh": "图内文字在最终栏宽下可读（印刷字号约8 pt以上）。"
+    "en": "Text inside raster images and screenshots is readable at the final column width (G3 measures vector text only).",
+    "zh": "位图与截图中的文字在最终栏宽下可读（G3只测量矢量文字）。"
    },
    "why": {
     "en": "Unreadable figure text is lost information.",
     "zh": "读不清的图内文字等于丢失信息。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "manual"
+  },
+  {
+   "id": "G1",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "auto",
+   "severity": "error",
+   "statement": {
+    "en": "Figure files are print-ready: every file exists, PDF figures embed their fonts and use no Type 3 fonts, raster images have at least 300 dpi at the printed width (document.json: figures.min_dpi).",
+    "zh": "图件文件可直接印刷：文件都存在，PDF图件嵌入字体、不含Type 3字体，位图在印刷宽度下至少300 dpi（document.json：figures.min_dpi）。"
+   },
+   "why": {
+    "en": "Journals reject Type 3 and unembedded fonts; low-resolution images blur in print. Bold math and missing glyphs (⋯, ↑) are the usual source of Type 3 fonts — draw such symbols as shapes.",
+    "zh": "期刊拒收Type 3与未嵌入字体；低分辨率图像印刷会模糊。粗体数学符号和缺字形符号（⋯、↑）最常产生Type 3字体，应改为绘制图形。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "off"
+  },
+  {
+   "id": "G2",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Figure text uses the body font family; math may use math fonts (document.json: figures.body_font).",
+    "zh": "图内文字用正文字族；数学符号可用数学字体（document.json：figures.body_font）。"
+   },
+   "why": {
+    "en": "One font family across text and figures makes the paper read as one piece.",
+    "zh": "正文与图件同一字族，全文读起来是一个整体。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "off"
+  },
+  {
+   "id": "G3",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "Figure text is readable at the printed size: the main text prints within figures.main_pt (default 8–10 pt) and nothing prints below figures.min_pt (default 6 pt, subscripts included).",
+    "zh": "图内文字在印刷尺寸下可读：主字号印刷后在figures.main_pt之内（默认8–10 pt），任何文字不小于figures.min_pt（默认6 pt，含下标）。"
+   },
+   "why": {
+    "en": "Size figures by scaling the canvas, not the text: a label that is 9 pt in the drawing tool is 4 pt after the figure is shrunk to a column.",
+    "zh": "缩放画布而不是缩字：绘图软件里9 pt的标签，图缩到一栏宽后可能只剩4 pt。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "off"
+  },
+  {
+   "id": "G4",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "partial",
+   "severity": "warn",
+   "statement": {
+    "en": "Lines survive printing: no stroke prints thinner than figures.min_line_pt (default 0.4 pt); connectors about 1 pt, frames one step heavier, only grid lines thinner.",
+    "zh": "线条印刷后仍清楚：线宽不低于figures.min_line_pt（默认0.4 pt）；连接线约1 pt，模块与面板框重一级，只有网格线更细。"
+   },
+   "why": {
+    "en": "Hairlines vanish in print and render unevenly on screen; equal weights look unequal when some lines are thinner than a pixel.",
+    "zh": "发丝线印刷后会消失，屏幕上也粗细不匀；线宽低于一个像素时，同宽的线看起来也不一样。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "off"
+  },
+  {
+   "id": "G5",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "All figures share one visual language: the same font family and label style, the same line weights, and fixed colour roles (each modality, state or signal keeps one colour in every figure); the proposed method keeps one highlight colour everywhere, named in the captions.",
+    "zh": "全部图件用同一种视觉语言：同一字族与标签样式、同样的线宽、固定的颜色角色（每个模态、状态或信号在各图中颜色不变）；本文方法在所有图中用同一强调色，并在图注中写明颜色。"
+   },
+   "why": {
+    "en": "Readers learn the code of the first figure and reuse it; a colour that changes meaning between figures misleads.",
+    "zh": "读者记住第一张图的配色后会沿用；颜色在不同图中换了含义就会误导读者。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "manual"
+  },
+  {
+   "id": "G6",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Lines carry meaning: data flow as solid arrows, parameters as dashed lines, zoom or expansion links as thin dashed lines without arrowheads; arrowheads are visible, scale with the line and land on box edges; no line crosses a label or panel title.",
+    "zh": "线条有含义：数据流用实线箭头，参数用虚线，放大或展开的关联用无箭头的细虚线；箭头清楚、与线宽成比例并落在框的边缘；线条不穿过标签与面板标题。"
+   },
+   "why": {
+    "en": "Line style is the grammar of a diagram; mixed styles make the reader guess what flows where.",
+    "zh": "线型是框图的语法；线型混用会让读者猜测什么流向哪里。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "manual"
+  },
+  {
+   "id": "G7",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Framework figures show modules, symbols and data labels only: no explanatory small grey text and no formulas inside the figure; explanations go to the caption, exact operations to the equations in the text, and icons stand for actions.",
+    "zh": "框架图只放模块、符号与数据标签：图内不写灰色解释小字、不写公式；解释写进图注，精确运算写在正文公式里，用图标表示动作。"
+   },
+   "why": {
+    "en": "Small explanatory text is unreadable in print and duplicates the caption; formulas inside a diagram compete with the equations they repeat.",
+    "zh": "解释性小字印刷后读不清，且与图注重复；图内公式与正文公式重复并互相干扰。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "manual"
+  },
+  {
+   "id": "G8",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Boxes are sized to their content and every label sits inside its box without overlap; repeated modules use the same shape and icon, and an expanded view uses the same name and icon as its compact form.",
+    "zh": "方框按内容定尺寸，每个标签都在框内且互不重叠；重复的模块用同一形状与图标，展开图与其缩略形式用同一名称与图标。"
+   },
+   "why": {
+    "en": "Empty boxes and clipped labels look unfinished; a module drawn two ways reads as two modules.",
+    "zh": "空框与被裁掉的标签显得未完成；同一模块画成两种样子会被读成两个模块。"
+   },
+   "open": 0,
+   "accepted": 0,
+   "note": "",
+   "status": "manual"
+  },
+  {
+   "id": "G9",
+   "stage": "S5",
+   "node": "figures",
+   "scope": "figure",
+   "method": "manual",
+   "severity": "warn",
+   "statement": {
+    "en": "Images within one panel group are all real or all schematic; real images come from registered result files (never generated pixels shown as results); plots are drawn from frozen data files, and marker areas encode the plotted values.",
+    "zh": "同一面板组内的图像要么全是真实图像、要么全是示意；真实图像取自登记的结果文件（不得把生成的像素当作结果）；数据图由冻结的数据文件绘制，标记面积按所绘数值编码。"
+   },
+   "why": {
+    "en": "A figure is evidence; a mixed or generated panel cannot be checked against the results.",
+    "zh": "图件是证据；混用或生成的面板无法与结果核对。"
    },
    "open": 0,
    "accepted": 0,

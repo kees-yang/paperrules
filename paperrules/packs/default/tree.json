@@ -149,8 +149,8 @@
   {
    "id": "S5",
    "name": {
-    "en": "Format: abstract limits, floats, cross-references",
-    "zh": "格式：摘要限制、图表、交叉引用"
+    "en": "Format: abstract limits, floats, figures, cross-references",
+    "zh": "格式：摘要限制、图表、图件、交叉引用"
    },
    "role": {
     "en": "delivery",
@@ -173,6 +173,13 @@
      "name": {
       "en": "Figures, tables and references",
       "zh": "图表与交叉引用"
+     }
+    },
+    {
+     "id": "figures",
+     "name": {
+      "en": "Figure files and figure design",
+      "zh": "图件文件与图件设计"
      }
     }
    ]

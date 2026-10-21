@@ -1,8 +1,8 @@
 {
- "note": "Local rules of this example. Everything here is merged onto the default pack; the keys ending in _add extend a list or dict of the pack.",
+ "note": "Local rules of this example. Everything here is merged onto the default pack; the keys ending in _add extend a list or dict of the pack. The figure-file rules G1–G4 are off because the figure files of this example are not redistributed.",
 
  "enable": ["J1", "T5", "A6"],
- "disable": [],
+ "disable": ["G1", "G2", "G3", "G4"],
  "severity": {"W6": "warn", "T2": "warn"},
 
  "document": {"J1": {"min": 150, "max": 250}},

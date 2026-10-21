@@ -87,6 +87,7 @@
 | `keywords` | `J3` |
 | `floats` | `B2` `T1` `T2`（图、表与 `algorithm` 浮动体） |
 | `table_order` | `T10` |
+| `figures` | `G1` `G2` `G3` `G4`（需要PyMuPDF；未安装时跳过） |
 | `register` | `R0` `R1` |
 
 ### 新增一条规则的流程
@@ -110,7 +111,7 @@
 * **`tone.json`**：`W7`（`meta_subject`、`meta_verb`、`meta_max_words`、`patterns`），`W8` 与 `W9`（`patterns`），`W10`（`pattern`、`skip_kinds`、`adjectives`：允许作形容词的分词），`W11`（`patterns`），`W12`（`pattern`、`allowed_starts`：可以用 “we” 的句子），`W13`（`en`：连接词；`propose_en`：提出方法的句子）。
 * **`syntax.json`**：解析类规则（`W14`–`W16`）的 `skip_kinds`。
 * **`heads.json`**（规则 `A6`、`A7`）：`general_nouns`（名词 → 其唯一含义；按词形还原后匹配）、`scene_nouns`、`names`（小写：数据集、指标、方法）、`symbol_pattern`、`concepts`（`A7`：`{"concept", "canonical", "forbidden": [正则], "note"}`）。
-* **`document.json`**：`J1`（`min`、`max` 词数）、`J3`（`min`、`max`）、`E6`（`max_numbers`）、`W20`（`propose`、`ordinals`、`function`：提出句、机制序数词与作用句的模式）、`T10`（`method`：表格第一列中本文方法的名称；为空则不检查）、`B7`（`required`：各条目类型的必备字段，`a|b` 表示任一，`complete_authors`、`initials`）。
+* **`document.json`**：`J1`（`min`、`max` 词数）、`J3`（`min`、`max`）、`E6`（`max_numbers`）、`W20`（`propose`、`ordinals`、`function`：提出句、机制序数词与作用句的模式）、`T10`（`method`：表格第一列中本文方法的名称；为空则不检查）、`figures`（`column_width_pt`、`text_width_pt`：模板的栏宽与版心宽度，单位TeX pt；`body_font`：`auto`、`times`、`cm`、`helvetica`、`libertine`或字体名的正则；`min_pt`、`main_pt`：印刷后的最小字号与主字号；`min_line_pt`；`min_dpi`）、`B7`（`required`：各条目类型的必备字段，`a|b` 表示任一，`complete_authors`、`initials`）。
 
 ## 6. 术语表，`glossary.json`
 

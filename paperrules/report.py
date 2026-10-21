@@ -20,7 +20,7 @@ UI = {
                'skip': ('skipped', '跳过'), 'off': ('off', '关闭'), 'pending': ('pending', '待定')},
     'note': ('Findings are style-rule matches, not a judgement of the paper; open them as questions to the author.',
              '结果是风格规则的匹配，不是对论文的评价；请当作给作者的问题来读。'),
-    'scope': {'sentence': ('sentence', '句'), 'paragraph': ('paragraph', '段'), 'document': ('document', '全文')},
+    'scope': {'sentence': ('sentence', '句'), 'paragraph': ('paragraph', '段'), 'document': ('document', '全文'), 'figure': ('figure', '图件')},
 }
 
 

@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 from . import rules_document as RD
+from . import rules_figure as RF
 from . import rules_sentence as RS
 from . import texread
 from .config import Project
@@ -55,6 +56,8 @@ def run_group(name, c, force=False):
         return _doc_findings(RD.keyword_rules(p, proj.rules['document']))
     if name == 'floats':
         return _doc_findings(RD.float_rules(p))
+    if name == 'figures':
+        return RF.figure_rules(p, proj, proj.rules['document']) if RF.available() else None
     if name == 'abstract_structure':
         return _doc_findings(RD.abstract_structure(p, proj.rules['document']))
     if name == 'table_order':
@@ -146,7 +149,8 @@ def run(project: Project, only=None):
         res = run_group(g, ctx)
         if res is None:
             skipped[g] = {'heads': 'no glossary in the project (set "glossary" in paperrules.json)', 'glossary_terms': 'no glossary in the project',
-                          'bib_citations': 'no .bib file found', 'bib_entries': 'no .bib file found'}[g]
+                          'bib_citations': 'no .bib file found', 'bib_entries': 'no .bib file found',
+                          'figures': 'PyMuPDF is not installed (pip install pymupdf)'}[g]
             continue
         ran[g] = True
         findings += res

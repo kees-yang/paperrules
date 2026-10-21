@@ -1,5 +1,5 @@
-paperrules 2026-10-21 11:13:55 · paper/main.tex · 199 sentences, 7 figures, 4 tables, 57 citations
-rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 5 off
+paperrules 2026-10-21 11:24:35 · paper/main.tex · 199 sentences, 7 figures, 4 tables, 57 citations
+rules: 12 pass, 17 warn, 0 fail, 13 manual, 0 skipped, 9 off
 
 1. Sources: references and glossary  [warn]
   [pass  ] B1  Every cited key exists in the bibliography.
@@ -379,7 +379,7 @@ rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 5 off
         S188     sec/3_method.tex:139     write vs.: “v.s.”
         S194     sec/3_method.tex:329     write vs.: “v.s.”
 
-5. Format: abstract limits, floats, cross-references  [warn]
+5. Format: abstract limits, floats, figures, cross-references  [warn]
   [pass  ] J1  The abstract length is within the venue limit (document.json: J1.min, J1.max).
   [pass  ] J2  The abstract contains no citation.
   [warn  ] T5  Running text refers to figures as “Fig. N” (not “Figure N” inside a sentence).  (4 open)
@@ -405,7 +405,12 @@ rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 5 off
         tab:compare sec/4_experiment.tex:67  table 4 appears before its first citation (line 169 of sec/4_experiment.tex)
   [pass  ] B2  Every \ref, \eqref, \autoref and \cref points to an existing \label.
   [manual] T9  Captions are short: only what is needed to read the figure; the mechanism belo…
-  [manual] M5  Text inside figures is readable at the final column width (about 8 pt or more …
+  [manual] M5  Text inside raster images and screenshots is readable at the final column widt…
+  [manual] G5  All figures share one visual language: the same font family and label style, t…
+  [manual] G6  Lines carry meaning: data flow as solid arrows, parameters as dashed lines, zo…
+  [manual] G7  Framework figures show modules, symbols and data labels only: no explanatory s…
+  [manual] G8  Boxes are sized to their content and every label sits inside its box without o…
+  [manual] G9  Images within one panel group are all real or all schematic; real images come …
 
 6. The rule system itself  [pass]
   [pass  ] R0  Every rule is in the register exactly once and sits in the rule tree.
