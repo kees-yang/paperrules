@@ -55,6 +55,10 @@ def run_group(name, c, force=False):
         return _doc_findings(RD.keyword_rules(p, proj.rules['document']))
     if name == 'floats':
         return _doc_findings(RD.float_rules(p))
+    if name == 'abstract_structure':
+        return _doc_findings(RD.abstract_structure(p, proj.rules['document']))
+    if name == 'table_order':
+        return _doc_findings(RD.table_order(p, proj.rules['document']))
     if name == 'register':
         return []                      # R0 and R1 are computed in run()
     raise KeyError(name)
@@ -202,6 +206,7 @@ def run(project: Project, only=None):
                 project=dict(main_tex=str(project.main_tex.relative_to(project.root)), bib=str(Path(project.bib).name) if project.bib else None,
                              packs=project.settings.get('packs', ['default']), glossary_terms=len(project.glossary), exceptions=len(project.exceptions)),
                 paper=dict(sentences=len(paper.rows), paragraphs=len(paras), figures=sum(f['env'] == 'figure' for f in paper.floats),
+                           algorithms=sum(f['env'] == 'algorithm' for f in paper.floats),
                            tables=sum(f['env'] == 'table' for f in paper.floats), citations=len(paper.cites), bib_entries=len(bib) if bib else 0,
                            abstract_words=len(paper.abstract.split()), keywords=len(paper.keywords)),
                 summary=summary, first_failing=first_failing, first_warning=first_warn, stages=stages, rules=results,

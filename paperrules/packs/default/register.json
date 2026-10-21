@@ -170,6 +170,27 @@
    "enabled": false
   },
   {
+   "id": "W20",
+   "stage": "S2",
+   "node": "abstract",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The abstract states what the paper does in one sentence (“We propose …”), lists the mechanisms as First/Second/Third, and states what the method provides in one sentence (document.json: W20).",
+    "zh": "摘要用一句说明本文做什么（“We propose …”），机制按First/Second/Third分层列出，再用一句说明方法的作用（document.json：W20）。"
+   },
+   "why": {
+    "en": "One proposal sentence, ordered mechanisms and one function sentence give the abstract a structure a reader can follow at a glance.",
+    "zh": "一句提出、有序的机制、一句作用，让读者一眼看清摘要的层次。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "abstract_structure"
+   },
+   "enabled": false
+  },
+  {
    "id": "W4",
    "stage": "S2",
    "node": "claims",
@@ -781,8 +802,8 @@
    "method": "auto",
    "severity": "warn",
    "statement": {
-    "en": "Figures and tables are numbered in the order of their first citation (checked on the source).",
-    "zh": "图、表各自按首次引用的顺序编号（按源文件核查）。"
+    "en": "Figures, tables and algorithms are numbered in the order of their first citation (checked on the source).",
+    "zh": "图、表与算法各自按首次引用的顺序编号（按源文件核查）。"
    },
    "why": {
     "en": "The reader meets Fig. 3 after Fig. 2.",
@@ -801,8 +822,8 @@
    "method": "auto",
    "severity": "warn",
    "statement": {
-    "en": "A text citation comes before the figure or table it cites, and every figure and table is cited.",
-    "zh": "正文引用先于对应的图表出现，且每个图表都被引用。"
+    "en": "A text citation comes before the figure or table it cites, and every figure and table is cited. A float placed above its citation on purpose is accepted in exceptions.json by its label.",
+    "zh": "正文引用先于对应的图表出现，且每个图表都被引用。有意排在引用之上的图表在exceptions.json中按标签登记为例外。"
    },
    "why": {
     "en": "A float that appears before it is cited asks the reader a question the text has not yet raised.",
@@ -812,6 +833,27 @@
     "type": "builtin",
     "group": "floats"
    }
+  },
+  {
+   "id": "T10",
+   "stage": "S5",
+   "node": "floats",
+   "scope": "document",
+   "method": "auto",
+   "severity": "warn",
+   "statement": {
+    "en": "The proposed method is not the first row of a table; comparison tables list it last (document.json: T10.method).",
+    "zh": "本文方法不放在表格第一行；对比表把它列在最后（document.json：T10.method）。"
+   },
+   "why": {
+    "en": "Conventional papers list the compared methods first and the proposed method last, below a rule.",
+    "zh": "常规论文先列对比方法，本文方法列在最后、以横线分开。"
+   },
+   "check": {
+    "type": "builtin",
+    "group": "table_order"
+   },
+   "enabled": false
   },
   {
    "id": "B2",

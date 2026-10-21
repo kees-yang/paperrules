@@ -29,7 +29,7 @@ The effective rules of a project are merged, in this order:
 
 | key | effect |
 |---|---|
-| `disable`, `enable` | lists of rule ids to switch off / on (venue rules such as `J1`, `J3`, `T5`, `B4`, `E6` and the strict `A6` are off in the pack) |
+| `disable`, `enable` | lists of rule ids to switch off / on (venue rules such as `J1`, `J3`, `T5`, `B4`, `E6`, the strict `A6` and the style rules `W20` and `T10` are off in the pack) |
 | `severity` | `{"W6": "error"}`: `error` fails the check (exit status 1), `warn` does not |
 | `rules_add` | new rules (§3). An id that exists is refused. |
 | `rules_edit` | `{"W14": {"severity": "error"}}`: change fields of an existing rule |
@@ -83,8 +83,10 @@ An entry of the register (`rules_add`, or `register.json` of a pack):
 | `bib_citations` | `B1` `B8` |
 | `bib_entries` | `B4` `B7` `B9` |
 | `abstract` | `E6` `J1` `J2` |
+| `abstract_structure` | `W20` |
 | `keywords` | `J3` |
-| `floats` | `B2` `T1` `T2` |
+| `floats` | `B2` `T1` `T2` (figures, tables and `algorithm` floats) |
+| `table_order` | `T10` |
 | `register` | `R0` `R1` |
 
 ### Workflow for a new rule
@@ -108,7 +110,7 @@ An entry of the register (`rules_add`, or `register.json` of a pack):
 * **`tone.json`**: `W7` (`meta_subject`, `meta_verb`, `meta_max_words`, `patterns`), `W8` and `W9` (`patterns`), `W10` (`pattern`, `skip_kinds`, `adjectives`: participles allowed as adjectives), `W11` (`patterns`), `W12` (`pattern`, `allowed_starts`: sentences that may use "we"), `W13` (`en`: the connectives; `propose_en`: sentences that propose the method).
 * **`syntax.json`**: `skip_kinds` for the parser rules (`W14`–`W16`).
 * **`heads.json`** (rules `A6`, `A7`): `general_nouns` (noun → its one meaning; matched on the lemma), `scene_nouns`, `names` (lower case: datasets, metrics, methods), `symbol_pattern`, `concepts` (`A7`: `{"concept", "canonical", "forbidden": [regex], "note"}`).
-* **`document.json`**: `J1` (`min`, `max` words), `J3` (`min`, `max`), `E6` (`max_numbers`), `B7` (`required`: fields per entry type, `a|b` means either, `complete_authors`, `initials`).
+* **`document.json`**: `J1` (`min`, `max` words), `J3` (`min`, `max`), `E6` (`max_numbers`), `W20` (`propose`, `ordinals`, `function`: patterns of the proposal sentence, the mechanism ordinals and the function sentence), `T10` (`method`: the name of your method in the first table column; empty = inactive), `B7` (`required`: fields per entry type, `a|b` means either, `complete_authors`, `initials`).
 
 ## 6. Glossary, `glossary.json`
 

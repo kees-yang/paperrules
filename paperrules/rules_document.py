@@ -114,6 +114,52 @@ def abstract_rules(paper, cfg):
     return out
 
 
+def abstract_structure(paper, cfg):
+    """W20 (opt-in): one sentence states what the paper does ("We propose ..."), the mechanisms follow as First/Second/Third...,
+    and one sentence states what the method provides. Patterns in document.json W20."""
+    c = cfg.get('W20', {})
+    sents = [r for r in paper.rows if r['kind'] == 'abstract']
+    if not sents:
+        return []
+    f, ln = paper.abstract_loc
+    prop = [i for i, r in enumerate(sents) if re.search(c.get('propose', r'^We (?:therefore |thus )?propose\b'), r['en'])]
+    ords = c.get('ordinals', ['First', 'Second', 'Third', 'Fourth', 'Fifth'])
+    k_ord = [i for i, r in enumerate(sents) if re.match(r'(%s),' % '|'.join(ords), r['en'])]
+    seq = [sents[i]['en'].split(',')[0] for i in k_ord]
+    func = [i for i, r in enumerate(sents) if i not in prop and re.search(c.get('function', r'\b(?:provides|offers|establishes|yields)\b'), r['en'])]
+    issues = []
+    if len(prop) != 1:
+        issues.append(f'{len(prop)} sentences state what the paper does (want one “We propose …” sentence)')
+    if seq != ords[:len(seq)]:
+        issues.append('the mechanisms are not numbered in order: ' + ', '.join(seq))
+    if len(func) != 1:
+        issues.append(f'{len(func)} sentences state what the method provides (want one)')
+    elif prop and func[0] < prop[0] or k_ord and func and func[0] < k_ord[-1]:
+        issues.append('the function sentence comes before the proposal or the mechanisms')
+    return [dict(rule='W20', key='abstract', file=f, line=ln, matched=m) for m in issues]
+
+
+def table_order(paper, cfg):
+    """T10 (opt-in): the proposed method (document.json T10.method) is not the first row of a table; conventional papers list
+    it last."""
+    name = cfg.get('T10', {}).get('method', '').strip()
+    if not name:
+        return []
+    out = []
+    for fl in paper.floats:
+        if fl['env'] != 'table':
+            continue
+        m = re.search(r'\\midrule|\\hline', fl['tex'])
+        if not m:
+            continue
+        first = next((ln for ln in re.split(r'\\\\', fl['tex'][m.end():]) if '&' in ln), '')
+        cell = re.sub(r'\\[a-zA-Z]+\*?|[{}]', ' ', first.split('&')[0])
+        if re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(name), cell):
+            out.append(dict(rule='T10', key=fl['label'] or f'table {fl["number"]}', file=fl.get('file', ''), line=fl.get('line', 0),
+                            matched=f'table {fl["number"]} opens with {name}; list the proposed method last'))
+    return out
+
+
 def keyword_rules(paper, cfg):
     if not paper.keywords:
         return []
@@ -124,13 +170,15 @@ def keyword_rules(paper, cfg):
 
 # ---------------------------------------------------------------------------------------------------- floats and references
 def float_rules(paper):
-    """T1 numbering follows the order of first citation; T2 a float is cited before it appears; B2 every reference has a label."""
+    """T1 numbering follows the order of first citation (figures, tables and algorithms counted separately); T2 a float is cited
+    before it appears (a float placed above its citation on purpose is accepted in exceptions.json by its label); B2 every
+    reference has a label."""
     out = []
     first = {}
     for r in paper.refs:
         first.setdefault(r['label'], r)
     labelled = {f['label']: f for f in paper.floats if f['label']}
-    for env in ('figure', 'table'):
+    for env in ('figure', 'table', 'algorithm'):
         cited = sorted((first[l]['offset'], f) for l, f in labelled.items() if f['env'] == env and l in first)
         top = 0
         for _, f in cited:

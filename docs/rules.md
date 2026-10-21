@@ -17,6 +17,7 @@ Stages S1–S6 are the stages of the rule tree (read top-down). **Scope** is the
 | A3 | S1 | sentence | auto | on | The text uses the glossary term, not the old name or alias (glossary field avoid_en). | 全文使用术语表中的主术语，不用旧名与别名（术语表字段avoid_en）。 |
 | W1 | S2 | document | manual | on | The abstract states, in order: the state of the field, the gap, the motivation, the method, the results. | 摘要按顺序写：研究现状、不足、动机、方法、结果。 |
 | E6 | S2 | document | auto | off | The abstract carries at most a few numbers (document.json: E6.max_numbers). | 摘要只写少数几个数字（document.json：E6.max_numbers）。 |
+| W20 | S2 | document | auto | off | The abstract states what the paper does in one sentence (“We propose …”), lists the mechanisms as First/Second/Third, and states what the method provides in one sentence (document.json: W20). | 摘要用一句说明本文做什么（“We propose …”），机制按First/Second/Third分层列出，再用一句说明方法的作用（document.json：W20）。 |
 | W4 | S2 | document | manual | on | The conclusion echoes the abstract and adds no new claim. | 结论回扣摘要，不引入新的主张。 |
 | W6 | S2 | sentence | partial | on | A comparative or superiority claim is traced to a table, a figure or a citation (the checker flags; the author decides). | 比较性或优势性表述须有依据：表、图或引用（自动标出，作者判断）。 |
 | W2 | S3 | document | manual | on | In the introduction the problem and the motivation each have their own paragraph, both before the method. | 引言中“问题”与“动机”各成一段，均在“方法”段之前。 |
@@ -40,8 +41,9 @@ Stages S1–S6 are the stages of the rule tree (read top-down). **Scope** is the
 | J2 | S5 | document | auto | on | The abstract contains no citation. | 摘要不含引用。 |
 | J3 | S5 | document | auto | off | The number of keywords is within the venue limit (document.json: J3). | 关键词数量在期刊限制内（document.json：J3）。 |
 | T5 | S5 | sentence | auto | off | Running text refers to figures as “Fig. N” (not “Figure N” inside a sentence). | 正文用“Fig. N”引用图（句中不写“Figure N”）。 |
-| T1 | S5 | document | auto | on | Figures and tables are numbered in the order of their first citation (checked on the source). | 图、表各自按首次引用的顺序编号（按源文件核查）。 |
-| T2 | S5 | document | auto | on | A text citation comes before the figure or table it cites, and every figure and table is cited. | 正文引用先于对应的图表出现，且每个图表都被引用。 |
+| T1 | S5 | document | auto | on | Figures, tables and algorithms are numbered in the order of their first citation (checked on the source). | 图、表与算法各自按首次引用的顺序编号（按源文件核查）。 |
+| T2 | S5 | document | auto | on | A text citation comes before the figure or table it cites, and every figure and table is cited. A float placed above its citation on purpose is accepted in exceptions.json by its label. | 正文引用先于对应的图表出现，且每个图表都被引用。有意排在引用之上的图表在exceptions.json中按标签登记为例外。 |
+| T10 | S5 | document | auto | off | The proposed method is not the first row of a table; comparison tables list it last (document.json: T10.method). | 本文方法不放在表格第一行；对比表把它列在最后（document.json：T10.method）。 |
 | B2 | S5 | document | auto | on | Every \ref, \eqref, \autoref and \cref points to an existing \label. | 每个\ref、\eqref、\autoref、\cref都指向存在的\label。 |
 | T9 | S5 | document | manual | on | Captions are short: only what is needed to read the figure; the mechanism belongs in the text. | 图注、表题简短：只写看图所需，机制放正文。 |
 | M5 | S5 | document | manual | on | Text inside figures is readable at the final column width (about 8 pt or more in print). | 图内文字在最终栏宽下可读（印刷字号约8 pt以上）。 |

@@ -212,7 +212,7 @@ def head_nouns(rows, rules, terms):
         if not en or en in seen:
             continue
         seen.add(en)
-        if r['kind'] in ('figure', 'table'):
+        if r['kind'] in ('figure', 'table', 'algorithm'):
             for c, pats in concepts:
                 out += [dict(rule='A7', row=r, matched=f'“{m.group(0)}” names {c["concept"]}; use “{c["canonical"]}”') for p in pats for m in [p.search(en)] if m]
             continue

@@ -99,6 +99,61 @@ class DocumentRules(unittest.TestCase):
         self.assertEqual(res['first_failing']['en'], stages['S1']['name']['en'])
 
 
+class NewDocumentRules(unittest.TestCase):
+    """Algorithm floats (T1/T2), W20 abstract structure and T10 table order (0.2.0)."""
+
+    def run_doc(self, doc, local=None):
+        return runner.run(load_project(make_project({'main.tex': doc}, local=local)))
+
+    def finds(self, res, rid):
+        return [f for f in res['findings'] if f['rule'] == rid]
+
+    ALG = (r"""\begin{document}
+Algorithm~\ref{alg:main} gives the steps.
+\begin{algorithm}
+\caption{Inference.}\label{alg:main}
+\begin{algorithmic}[1]
+\REQUIRE Two images.
+\ENSURE The fused image.
+\STATE Fuse.
+\end{algorithmic}
+\end{algorithm}
+\end{document}""")
+
+    def test_algorithm_float_is_numbered_and_cited(self):
+        from paperrules import texread
+        d = make_project({'main.tex': self.ALG})
+        p = texread.read(d / 'main.tex')
+        self.assertEqual([(f['env'], f['number'], f['label']) for f in p.floats], [('algorithm', 1, 'alg:main')])
+        self.assertEqual(self.finds(self.run_doc(self.ALG), 'T2'), [])
+        early = self.ALG.replace('Algorithm~\\ref{alg:main} gives the steps.\n', '').replace('\\end{algorithm}\n', '\\end{algorithm}\nAlgorithm~\\ref{alg:main} gives the steps.\n')
+        self.assertEqual([f['key'] for f in self.finds(self.run_doc(early), 'T2')], ['alg:main'])
+
+    def test_abstract_structure(self):
+        good = ('\\begin{document}\\begin{abstract}Scan models miss scale. We propose StateNet, which evolves one state. '
+                'First, an injector maps the inputs. Second, a controller writes the state. StateNet provides a compact formulation. '
+                'Results improve.\\end{abstract}Text.\\end{document}')
+        on = {'enable': ['W20']}
+        self.assertEqual(self.finds(self.run_doc(good, on), 'W20'), [])
+        bad = good.replace('Second, a controller', 'Third, a controller').replace('StateNet provides a compact formulation. ', '')
+        self.assertEqual(len(self.finds(self.run_doc(bad, on), 'W20')), 2)
+        self.assertEqual(self.finds(self.run_doc(bad), 'W20'), [])          # opt-in: off by default
+
+    def test_table_order(self):
+        doc = (r"""\begin{document}
+Table~\ref{tab:q} compares the methods.
+\begin{table}\caption{Quality.}\label{tab:q}
+\begin{tabular}{lr}\toprule Method & SCD\\ \midrule
+\textbf{Ours} & 1.8\\
+Base & 1.6\\ \bottomrule\end{tabular}
+\end{table}
+\end{document}""")
+        on = {'enable': ['T10'], 'document': {'T10': {'method': 'Ours'}}}
+        self.assertEqual([f['key'] for f in self.finds(self.run_doc(doc, on), 'T10')], ['tab:q'])
+        last = doc.replace('\\textbf{Ours} & 1.8\\\\\nBase & 1.6\\\\', 'Base & 1.6\\\\\n\\midrule \\textbf{Ours} & 1.8\\\\')
+        self.assertEqual(self.finds(self.run_doc(last, on), 'T10'), [])
+
+
 class LocalOverrides(unittest.TestCase):
     def test_merge_add_remove(self):
         base = {'a': [1, 2], 'b': {'x': 1}, 'c': 5}

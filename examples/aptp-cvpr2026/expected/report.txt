@@ -1,5 +1,5 @@
-paperrules 2026-10-19 15:31:43 · paper/main.tex · 199 sentences, 7 figures, 4 tables, 57 citations
-rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 3 off
+paperrules 2026-10-21 11:13:55 · paper/main.tex · 199 sentences, 7 figures, 4 tables, 57 citations
+rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 5 off
 
 1. Sources: references and glossary  [warn]
   [pass  ] B1  Every cited key exists in the bibliography.
@@ -387,7 +387,7 @@ rules: 12 pass, 17 warn, 0 fail, 8 manual, 0 skipped, 3 off
         S153     sec/4_experiment.tex:127 write “Fig.”: “Figure 6”
         S156     sec/4_experiment.tex:135 write “Fig.”: “Figure 6”
         S163     sec/4_experiment.tex:150 write “Fig.”: “Figure 7”
-  [warn  ] T1  Figures and tables are numbered in the order of their first citation (checked …  (3 open)
+  [warn  ] T1  Figures, tables and algorithms are numbered in the order of their first citati…  (3 open)
         fig:loss sec/3_method.tex:131     figure 2 is first cited after figure 5; number floats in the order of first citation
         fig:visual_change sec/3_method.tex:139     figure 3 is first cited after figure 5; number floats in the order of first citation
         fig:visual_example sec/3_method.tex:147     figure 4 is first cited after figure 5; number floats in the order of first citation

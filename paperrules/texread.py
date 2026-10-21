@@ -2,9 +2,9 @@
 
 ``read(main_tex)`` returns a ``Paper``:
 
-    rows       one dict per printed sentence: id, para, section, kind (abstract | paragraph | item | figure | table),
+    rows       one dict per printed sentence: id, para, section, kind (abstract | paragraph | item | figure | table | algorithm),
                en (plain text), file, line
-    floats     figures and tables in source order: env, number, label, caption, file, line
+    floats     figures, tables and algorithms in source order: env, number, label, caption, tex, file, line
     labels     {label: number} for every \\label that can be numbered
     refs       every \\ref-like use: label, file, line, offset
     cites      citation keys in order of first use
@@ -20,7 +20,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-FLOAT_RE = re.compile(r'\\begin\{(figure\*?|table\*?)\}.*?\\end\{\1\}', re.S)
+FLOAT_RE = re.compile(r'\\begin\{(figure\*?|table\*?|algorithm\*?)\}.*?\\end\{\1\}', re.S)
 DISPLAY_ENVS = ('equation', 'align', 'gather', 'multline', 'eqnarray', 'displaymath', 'flalign')
 CITE_RE = re.compile(r'\\(?:cite[a-zA-Z]*|nocite)\*?(?:\[[^\]]*\]){0,2}\{([^}]*)\}')
 REF_RE = re.compile(r'\\(?:eqref|ref|autoref|cref|Cref)\{([^}]*)\}')
@@ -189,7 +189,7 @@ def plain(tex, cite_no, ref_no):
 
 
 def number_floats(body):
-    floats, counts = [], {'figure': 0, 'table': 0}
+    floats, counts = [], {'figure': 0, 'table': 0, 'algorithm': 0}
     for m in FLOAT_RE.finditer(body):
         env = m.group(1).rstrip('*')
         counts[env] += 1
@@ -201,7 +201,7 @@ def number_floats(body):
             except ValueError:
                 pass
         label = re.search(r'\\label\{([^}]*)\}', tex)
-        floats.append(dict(env=env, number=counts[env], label=label.group(1) if label else None, caption=cap,
+        floats.append(dict(env=env, number=counts[env], label=label.group(1) if label else None, caption=cap, tex=tex,
                            offset=m.start(), end=m.end()))
     return floats
 

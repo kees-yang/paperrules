@@ -29,7 +29,7 @@
 
 | 键 | 作用 |
 |---|---|
-| `disable`、`enable` | 要关闭/打开的规则编号列表（期刊类规则 `J1`、`J3`、`T5`、`B4`、`E6` 以及严格的 `A6` 在规则包中默认关闭） |
+| `disable`、`enable` | 要关闭/打开的规则编号列表（期刊类规则 `J1`、`J3`、`T5`、`B4`、`E6`、严格的 `A6` 以及写法规则 `W20`、`T10` 在规则包中默认关闭） |
 | `severity` | `{"W6": "error"}`：`error` 使检查未通过（退出状态 1），`warn` 不会 |
 | `rules_add` | 新规则（见第 3 节）。编号已存在会被拒绝。 |
 | `rules_edit` | `{"W14": {"severity": "error"}}`：修改已有规则的字段 |
@@ -83,8 +83,10 @@
 | `bib_citations` | `B1` `B8` |
 | `bib_entries` | `B4` `B7` `B9` |
 | `abstract` | `E6` `J1` `J2` |
+| `abstract_structure` | `W20` |
 | `keywords` | `J3` |
-| `floats` | `B2` `T1` `T2` |
+| `floats` | `B2` `T1` `T2`（图、表与 `algorithm` 浮动体） |
+| `table_order` | `T10` |
 | `register` | `R0` `R1` |
 
 ### 新增一条规则的流程
@@ -108,7 +110,7 @@
 * **`tone.json`**：`W7`（`meta_subject`、`meta_verb`、`meta_max_words`、`patterns`），`W8` 与 `W9`（`patterns`），`W10`（`pattern`、`skip_kinds`、`adjectives`：允许作形容词的分词），`W11`（`patterns`），`W12`（`pattern`、`allowed_starts`：可以用 “we” 的句子），`W13`（`en`：连接词；`propose_en`：提出方法的句子）。
 * **`syntax.json`**：解析类规则（`W14`–`W16`）的 `skip_kinds`。
 * **`heads.json`**（规则 `A6`、`A7`）：`general_nouns`（名词 → 其唯一含义；按词形还原后匹配）、`scene_nouns`、`names`（小写：数据集、指标、方法）、`symbol_pattern`、`concepts`（`A7`：`{"concept", "canonical", "forbidden": [正则], "note"}`）。
-* **`document.json`**：`J1`（`min`、`max` 词数）、`J3`（`min`、`max`）、`E6`（`max_numbers`）、`B7`（`required`：各条目类型的必备字段，`a|b` 表示任一，`complete_authors`、`initials`）。
+* **`document.json`**：`J1`（`min`、`max` 词数）、`J3`（`min`、`max`）、`E6`（`max_numbers`）、`W20`（`propose`、`ordinals`、`function`：提出句、机制序数词与作用句的模式）、`T10`（`method`：表格第一列中本文方法的名称；为空则不检查）、`B7`（`required`：各条目类型的必备字段，`a|b` 表示任一，`complete_authors`、`initials`）。
 
 ## 6. 术语表，`glossary.json`
 

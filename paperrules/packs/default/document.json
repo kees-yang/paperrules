@@ -1,5 +1,5 @@
 {
- "note": "Settings of the document rules. Venue-dependent rules (J1, J3, E6, B4, T5) are switched off in the register; enable them with \"enable\" and set the numbers here or in rules.local.json.",
+ "note": "Settings of the document rules. Venue-dependent rules (J1, J3, E6, B4, T5) and the opt-in style rules W20 (abstract structure) and T10 (set T10.method to your method name) are switched off in the register; enable them with \"enable\" and set the numbers here or in rules.local.json.",
  "J1": {
   "min": 150,
   "max": 250
@@ -48,5 +48,19 @@
   },
   "complete_authors": true,
   "initials": false
+ },
+ "W20": {
+  "propose": "^We (?:therefore |thus )?propose\\b",
+  "ordinals": [
+   "First",
+   "Second",
+   "Third",
+   "Fourth",
+   "Fifth"
+  ],
+  "function": "\\b(?:provides|offers|establishes|yields)\\b"
+ },
+ "T10": {
+  "method": ""
  }
 }
